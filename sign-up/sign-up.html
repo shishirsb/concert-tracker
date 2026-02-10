@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
   </head>
   <body>
     <!-- Article for Seting new credentials -->
     <article id="set-new-credentials">
-      <form method="post">
+      <form method="post" id="register-user-form">
         <!-- text box for new username -->
         <input
           type="text"
@@ -34,7 +35,7 @@
           placeholder="Confirm New password"
         />
         <!-- Button for Submit & Login -->
-        <button>Submit & Login</button>
+        <button id="submit-and-login">Register</button>
       </form>
     </article>
   </body>
