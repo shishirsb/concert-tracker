@@ -1,6 +1,12 @@
 try {
   // Backend operations
 
+  // ------------------------------------------------------------------------------
+  // Setup hash passwords
+  // Import required modules and set configurations
+  const bcrypt = require("bcrypt");
+  const saltRounds = 10;
+  // ------------------------------------------------------------------------------
   //Set up database
 
   // Import the built-in sqlite module
@@ -8,6 +14,9 @@ try {
 
   // Create a new database object.
   const db = new Database("db.db", { verbose: console.log });
+
+  //Set Pragma values
+  db.pragma("journal_mode = WAL");
 
   //Prepare Create Table SQL script
   const create_users_table = db.prepare(`create table if not exists users 
@@ -42,13 +51,18 @@ check (password != '')
   // });
 
   // Query users table
-  const select_users = db.prepare("select * from users");
-  console.log(select_users.all());
+  // const select_users = db.prepare("select * from users");
+  // console.log(select_users.all());
   // --------------------------------------------------------------------------
-
-  // Import http module
+  // Create a node server and define API endpoints.
+  // Import http, process modules
   const http = require("node:http");
+  const process = require("node:process");
+  // --------------------------------------------------------------------------
+  // Getting the PORT number if it is defined.
+  const PORT = process.env.PORT || 8000;
 
+  // --------------------------------------------------------------------------
   // Create a server
   const server = http
     .createServer((request, response) => {
@@ -62,12 +76,15 @@ check (password != '')
         response.end();
         return;
       }
-      //Proceed only if the request is POST method and if the url is /signup
+      // ------------------------------------------------------------
+      // Create endpoint: Proceed only if the request is POST method and if the url is /signup
       if (request.method === "POST" && request.url === "/signup") {
         try {
           // Get the headers, method and url from the request.
           const { method, url, headers } = request;
+          // --------------------------------------------
           let body = [];
+          // --------------------------------------------
           // Catching error on the request
           request
             .on("error", (err) => {
@@ -78,19 +95,24 @@ check (password != '')
               response.end();
               console.error(err.stack);
             })
+            // --------------------------------------------
             // Reading data and push to body list.
             .on("data", (chunk) => {
               body.push(chunk);
             })
-
+            // --------------------------------------------
             // Finish reading data
-            .on("end", () => {
+            .on("end", async () => {
+              // --------------------------------------------
+              // Define what happens after reading the body from request.
               try {
                 // Combine all the elements of the body list.
                 body = Buffer.concat(body).toString();
+                // --------------------------------------------
 
                 //Convert body from string to JSON value.
                 body_json = JSON.parse(body);
+                // --------------------------------------------
                 // Catch error while sending response.
                 response.on("error", (err) => {
                   response.write("FAIL");
@@ -98,10 +120,12 @@ check (password != '')
                   response.end();
                   console.error(err);
                 });
+                // --------------------------------------------
 
                 console.log(body);
+                // --------------------------------------------
 
-                // Set status code for response
+                // Set status code and headers for response
                 response.writeHead(200, {
                   "Content-Type": "text/plain",
                   "Access-Control-Allow-Origin": "*",
@@ -109,24 +133,37 @@ check (password != '')
                   "Access-Control-Allow-Headers": "Content-Type",
                 });
 
-                // Execute the prepared statement with bound values.
+                // -----------------------------------------------
+                // Hash password before inserting to db.
+                const newPassword_hashed = await bcrypt.hash(
+                  body_json.newPassword,
+                  saltRounds,
+                );
+                // --------------------------------------------
+
+                // Execute the prepared INSERT statement with values sent through the request.
                 const insertUser = db.transaction((user) => {
                   insert_user.run(user);
                 });
                 insertUser({
                   username: body_json.newUsername,
-                  password: body_json.newPassword,
+                  password: newPassword_hashed,
                 });
+                // --------------------------------------------
 
                 // Create responseBody
                 // const responseBody = { headers, method, url, body };
 
                 //'SQLITE_CONSTRAINT_PRIMARYKEY'
+                // --------------------------------------------
 
                 // Send response
                 response.write("SUCCESS_FROM_NEW_SERVER");
+                // --------------------------------------------
                 // Finish sending response body
                 response.end();
+                // --------------------------------------------
+                // Catch any errors during back-end operations and preparing response
               } catch (error) {
                 // Set status code to 404
                 response.statusCode = 404;
@@ -144,7 +181,9 @@ check (password != '')
                   console.error(error);
                 }
               }
+              // --------------------------------------------
             });
+          // Catching any errors while reading the request from the client
         } catch (error) {
           // Set status code to 404
           response.statusCode = 404;
@@ -154,6 +193,7 @@ check (password != '')
           response.end();
           console.error(error);
         }
+        // --------------------------------------------
       } else {
         // Set status code to 404
         response.statusCode = 404;
@@ -163,7 +203,8 @@ check (password != '')
         response.end();
       }
     })
-    .listen(8000);
+    .listen(PORT);
+  // Catching any errors from the beginning of the file.
 } catch (error) {
   console.error(error);
 }
