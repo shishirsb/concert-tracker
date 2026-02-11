@@ -1,5 +1,5 @@
 .vscode/
 node_modules/
-db.db/
-db.db-wal/
-db.db-shm/
+db.db
+db.db-wal
+db.db-shm
