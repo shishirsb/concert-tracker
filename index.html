@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign-in</title>
+    <link rel="stylesheet" href="/sign-in/sign-in.css" />
+  </head>
+  <body>
+    <!-- Title  -->
+    <h1>Welcome!</h1>
+    <!-- ----------------------------------------------------------------- -->
+    <!-- Sign in with Gmail -->
+    <article id="login-with-gmail-button">
+      <img src="/sign-in/images/google-icon.png" alt="Google icon" />
+      <p>Sign in with Gmail</p>
+    </article>
+    <!-- ----------------------------------------------------------------- -->
+    <!-- Enter Email box -->
+    <article id="enter-email">
+      <form method="post">
+        <input type="email" name="email" id="email" placeholder="email" />
+      </form>
+    </article>
+    <!-- ----------------------------------------------------------------- -->
+    <!-- Enter Password box -->
+    <article id="password">
+      <form method="post">
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Password"
+        />
+      </form>
+    </article>
+    <!-- ----------------------------------------------------------------- -->
+    <!-- Buttons section -->
+    <article id="button-section">
+      <!-- Sign-in button -->
+      <form>
+        <button>Sign in</button>
+      </form>
+      <!-- Register New user button with re-route to sign-up page-->
+      <form action="/sign-up/sign-up.html">
+        <button id="register-new-user">Register New User</button>
+      </form>
+    </article>
+    <!-- ----------------------------------------------------------------- -->
+  </body>
+</html>
