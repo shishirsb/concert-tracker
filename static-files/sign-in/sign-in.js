@@ -18,7 +18,7 @@ function decodeJWT(token) {
 
 // JavaScript callback function handler named handleCredentialResponse to receive user sign-in credential from Google.
 // The below code snippets were directly taken from Google's official documentation.
-function handleCredentialResponse(response) {
+window.handleCredentialResponse = function (response) {
   console.log("Encoded JWT ID token: " + response.credential);
 
   const responsePayload = decodeJWT(response.credential);
@@ -33,7 +33,7 @@ function handleCredentialResponse(response) {
   // console.log("  Unique ID: " + responsePayload.sub);
   // console.log("  Profile image URL: " + responsePayload.picture);
   // console.log("  Email: " + responsePayload.email);
-}
+};
 
 // Sign-in Logic
 
