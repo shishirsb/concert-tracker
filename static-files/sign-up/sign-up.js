@@ -55,9 +55,6 @@ registerForm.addEventListener("submit", async (e) => {
     body: JSON.stringify(body),
   })
     .then(async (response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`);
-      }
       const textResponse = await response.text();
       return textResponse;
       // if (response.text() === "success") {
@@ -76,6 +73,8 @@ registerForm.addEventListener("submit", async (e) => {
       console.log(`Could not fetch: ${error}`);
     });
 });
+
+// --------------------------------------------------------------------
 
 // Development flow:
 // -----------------

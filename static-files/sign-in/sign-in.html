@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign-in</title>
     <link rel="stylesheet" href="/static-files/sign-in/sign-in.css" />
+    <script src="/static-files/sign-in/sign-in.js" defer></script>
   </head>
   <body>
     <!-- Title  -->
@@ -22,7 +23,12 @@
     <!-- Enter Email box -->
     <article id="enter-email">
       <form method="post">
-        <input type="email" name="email" id="email" placeholder="email" />
+        <input
+          type="text"
+          name="username"
+          id="username"
+          placeholder="Username"
+        />
       </form>
     </article>
     <!-- ----------------------------------------------------------------- -->
@@ -41,9 +47,7 @@
     <!-- Buttons section -->
     <article id="button-section">
       <!-- Sign-in button -->
-      <form>
-        <button>Sign in</button>
-      </form>
+      <button id="sign-in-button">Sign in</button>
       <!-- Register New user button with re-route to sign-up page-->
       <form action="/static-files/sign-up/sign-up.html">
         <button id="register-new-user">Register New User</button>
