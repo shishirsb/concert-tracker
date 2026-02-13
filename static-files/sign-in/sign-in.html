@@ -4,21 +4,49 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign-in</title>
+    <!-- Import CSS -->
     <link rel="stylesheet" href="/static-files/sign-in/sign-in.css" />
+
+    <!-- Import JS script -->
     <script src="/static-files/sign-in/sign-in.js" defer></script>
+
+    <!-- // load the Google Identity Services client library -->
+    <script src="https://accounts.google.com/gsi/client" async></script>
   </head>
   <body>
     <!-- Title  -->
     <h1>Welcome!</h1>
     <!-- ----------------------------------------------------------------- -->
     <!-- Sign in with Gmail -->
-    <article id="login-with-gmail-button">
+    <!-- <article id="login-with-gmail-button">
       <img
         src="static-files\sign-in\images\google-icon.png"
         alt="Google icon"
       />
       <p>Sign in with Gmail</p>
-    </article>
+    </article> -->
+
+    <!-- Below code was directly taken from Google official documentation for implementing the button for sign-in with Google -->
+    <!-- configures the Google Identity Services library using g_id_onload, -->
+    <!-- displays a Sign in with Google button using g_id_signin, -->
+    <div
+      id="g_id_onload"
+      data-client_id="1053269966750-942laa9pgboo27i8n6ogm51c3052mh0t.apps.googleusercontent.com"
+      data-context="signin"
+      data-ux_mode="popup"
+      data-callback="handleCredentialResponse"
+      data-itp_support="true"
+    ></div>
+
+    <div
+      class="g_id_signin"
+      data-type="standard"
+      data-shape="pill"
+      data-theme="outline"
+      data-text="signin_with"
+      data-size="medium"
+      data-logo_alignment="left"
+    ></div>
     <!-- ----------------------------------------------------------------- -->
     <!-- Enter Email box -->
     <article id="enter-email">
