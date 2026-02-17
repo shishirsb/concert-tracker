@@ -12,6 +12,9 @@ try {
   // Import required modules and set configurations
   const bcrypt = require("bcrypt");
   const saltRounds = 10;
+
+  // Import modules
+  const jwt = require("jsonwebtoken");
   // ------------------------------------------------------------------------------
   //Set up database
 
@@ -91,6 +94,29 @@ check (password != '')
           // Add a try...catch block
           try {
             // Back-end operations start when the request is completed.
+
+            // --------------------------------------------------
+            console.log(request.headers.cookie);
+            // Get cookies from request.
+            const cookie = request.headers.cookie;
+            // Get the index of first occurrence of the word 'token'.
+            const indexOfToken = cookie.indexOf("token");
+            // Get the remaining substring.
+            const subString = cookie.slice(indexOfToken);
+            // print subString to console.
+            console.log(subString);
+
+            // Split subString by '=' sign
+            const splitList = subString.split("=");
+            // Extract token by splitting the substring by '='
+            const token = splitList[1];
+            // Print token to console
+            console.log(token);
+
+            // verify a token symmetric - synchronous
+            const decoded = jwt.verify(token, "super-secret");
+            // Log the decoded value
+            console.log(decoded.username); // bar
 
             // --------------------------------------------------
 
@@ -254,8 +280,15 @@ check (password != '')
                 body_json = JSON.parse(body);
 
                 // --------------------------------------------
+                // Create a token for authentication
+                const token = jwt.sign(
+                  { username: body_json.newUsername },
+                  "super-secret",
+                );
 
-                console.log(body);
+                console.log(`User data: ${body}`);
+                // Log generated token
+                console.log(`Token generated: ${token}`);
                 // --------------------------------------------
 
                 // -----------------------------------------------
@@ -288,6 +321,7 @@ check (password != '')
                   "Access-Control-Allow-Origin": "*",
                   "Access-Control-Allow-Methods": "POST, OPTIONS",
                   "Access-Control-Allow-Headers": "Content-Type",
+                  "Set-Cookie": `token=${token}; HttpOnly; Path=/`,
                 });
 
                 // Send response
