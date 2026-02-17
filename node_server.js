@@ -493,7 +493,10 @@ check (password != '')
         response.end("ERROR");
       }
     })
-    .listen(PORT);
+    .listen({
+      host: "0.0.0.0",
+      port: PORT,
+    });
   // Catching any errors from the beginning of the file.
 } catch (error) {
   console.error(error);
