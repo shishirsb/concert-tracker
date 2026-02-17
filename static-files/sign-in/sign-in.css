@@ -4,103 +4,299 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: start;
-  border: solid;
   padding-bottom: 30px;
+  margin: 0px;
 }
 
 /* ================================================================ */
-/* Page Title */
-h1 {
-  /* text-align: center; */
-  /* border: solid; */
-  line-height: 100px;
-}
 
 /* ---------------------------------------------------------------- */
-/* Sign in with Gmail */
-/* container */
-article#login-with-gmail-button {
-  margin: 0;
-  border: solid;
+
+/* <!-- Site header --> */
+header.site {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
+  width: 35%;
   display: flex;
+  flex-direction: row;
   align-items: center;
-  /* justify-items: end; */
-  align-content: space-around;
-  width: 320px;
+  justify-content: center;
+}
+/* <!-- Logo --> */
+header.site span.logo {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
 }
 
-/* Google icon */
-article#login-with-gmail-button img {
-  width: 30px;
-  height: 30px;
-  margin-left: 10px;
-  margin-right: 10px;
+/* <!-- Tagline --> */
+header.site span.tag-line {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
 }
 
-/* text label */
-article#login-with-gmail-button p {
-  /* border: solid; */
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-/* ---------------------------------------------------------------- */
-/* <!-- Enter Email box --> */
-/* Form */
-article#enter-email form {
+/* -------------------------------------------------------- */
+/* <!-- Main content --> */
+main {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
+  width: 35%;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
-
-/* Text box */
-article#enter-email form input {
-  height: 30px;
-}
-/* Container */
-article#enter-email {
-  border: solid;
-  width: 300px;
-  height: 50px;
-  margin-top: 15px;
+/* -------------------------------------------------------- */
+/* <!-- Page Header --> */
+header.page {
+  border: 1px solid #cccccc;
   padding: 10px;
+  margin: 5px;
+  width: 95%;
 }
 
-/* ---------------------------------------------------------------- */
-/* <!-- Enter Password box --> */
-/* Form */
-article#password form {
+/* <!-- Headline --> */
+header.page article.headline {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
+}
+
+/* <!-- Sub-headline --> */
+header.page article.sub-headline {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
+}
+/* -------------------------------------------------------- */
+/* <!-- Brand section  --> */
+section.brand {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
-/* Text box */
-article#password form input {
+/* <!-- CTA Sign-up form article --> */
+section.brand form.sign-up {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* <!-- text box for new username --> */
+section.brand form.sign-up input#new-username {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
+}
+
+/* <!-- text box for new password  --> */
+section.brand form.sign-up input#new-password {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
+}
+
+/* <!-- text box for confirm new password  --> */
+section.brand form.sign-up input#confirm-password {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
+}
+
+/* <!-- Button for Submit & Login --> */
+section.brand form.sign-up button#submit-and-login {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
+}
+/* -------------------------------------------------------- */
+/* <!-- Label + select city drop-down--> */
+section#select-city {
+  border: 1px solid #cccccc;
+  padding: 5px;
+  margin: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+/* <!-- Label --> */
+section#select-city span.label {
+  /* padding: 10px; */
+  margin: 5px;
+}
+
+/* <!-- Select city dropdown --> */
+section#select-city select#city-selector {
+  padding: 3px;
+  /* margin: 2px; */
+}
+/* --------------------- */
+/* <!-- Social proof banner --> */
+section.social-proof-banner {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100px;
+}
+
+/* <!-- short sentences --> */
+section.social-proof-banner span {
+  padding: 10px;
+  margin: 5px;
+}
+/* -------------------------------------------------------- */
+/* <!-- Trending Preview --> */
+section.trending-preview {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 95%;
+}
+
+/* <!-- Title for event listings --> */
+h2 {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
+  width: 90%;
+  text-align: center;
+}
+
+/* <!-- Event card 1 --> */
+article.event-card {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
+  width: 90%;
+  text-align: center;
+}
+/* -------------------------------------------------------- */
+/* <!-- View All CTA --> */
+button#view-all-button {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
+}
+/* -------------------------------------------------------- */
+/* <!-- AI demo -->
+<!-- Input text box --> */
+input#ask-ai {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
+  display: block;
+  width: 95%;
+}
+/* -------------------------------------------------------- */
+/* <!-- Sign in with Gmail --> */
+div#g_id_onload {
+  /* border: 1px solid #cccccc; */
+  padding: 10px;
+  margin: 5px;
+  width: 95%;
+  display: none;
+}
+
+div#g_id_signin {
+  /* border: 1px solid #22235d; */
+  padding: 10px;
+  margin: 5px;
+  width: 80%;
+}
+
+article.sign-in-google {
+  /* border: 1px solid #cccccc; */
+  padding: 10px;
+  margin: 5px;
+  width: 40%;
+}
+/* -------------------------------------------------------- */
+/* <!-- ----------------------------------------------------------------- --> */
+/* <!-- Form for capturing User input --> */
+form#user-inputs {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
+  width: 95%;
+}
+
+form#user-inputs input {
   height: 30px;
 }
 
-/* Container */
-article#password {
-  border: solid;
-  width: 300px;
-  height: 50px;
-  margin-top: 15px;
+/* <!-- Sign-in button --> */
+form#user-inputs button#sign-in-button {
+  border: 1px solid #cccccc;
   padding: 10px;
+  margin: 5px;
 }
 
-/* ---------------------------------------------------------------- */
+/* ------------------------------------------------------------ */
 /* <!-- Buttons section --> */
-/* Container */
-article#button-section {
-  margin-top: 20px;
-  display: flex;
-  border: solid;
-}
-
-/* buttons */
-article#button-section button {
+section#button-section {
+  border: 1px solid #cccccc;
   padding: 10px;
-  margin: 2px;
+  margin: 5px;
 }
 
-/* ---------------------------------------------------------------- */
+/* <!-- Register New user button with re-route to sign-up page--> */
+section#button-section form button#register-new-user {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
+}
+
+/* --------------------------------------------------------------- */
+/* <!-- Sign-up benefits --> */
+section.signup-benefits {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* <!-- Header --> */
+section.signup-benefits header {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
+  width: 95%;
+}
+
+/* <!-- Benefit Card --> */
+section.signup-benefits article.benefit-card {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
+  width: 95%;
+}
+
+/* ------------------------------------- */
+
+/* <!-- CTA for sign-up --> */
+/* <!-- Sign-up button --> */
+button.cta-sign-up {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
+}
+/* --------------------------------------------------------------- */
