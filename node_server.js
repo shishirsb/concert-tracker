@@ -95,28 +95,28 @@ check (password != '')
           try {
             // Back-end operations start when the request is completed.
 
-            // --------------------------------------------------
-            console.log(request.headers.cookie);
-            // Get cookies from request.
-            const cookie = request.headers.cookie;
-            // Get the index of first occurrence of the word 'token'.
-            const indexOfToken = cookie.indexOf("token");
-            // Get the remaining substring.
-            const subString = cookie.slice(indexOfToken);
-            // print subString to console.
-            console.log(subString);
+            // // --------------------------------------------------
+            // console.log(request.headers.cookie);
+            // // Get cookies from request.
+            // const cookie = request.headers.cookie;
+            // // Get the index of first occurrence of the word 'token'.
+            // const indexOfToken = cookie.indexOf("token");
+            // // Get the remaining substring.
+            // const subString = cookie.slice(indexOfToken);
+            // // print subString to console.
+            // console.log(subString);
 
-            // Split subString by '=' sign
-            const splitList = subString.split("=");
-            // Extract token by splitting the substring by '='
-            const token = splitList[1];
-            // Print token to console
-            console.log(token);
+            // // Split subString by '=' sign
+            // const splitList = subString.split("=");
+            // // Extract token by splitting the substring by '='
+            // const token = splitList[1];
+            // // Print token to console
+            // console.log(token);
 
-            // verify a token symmetric - synchronous
-            const decoded = jwt.verify(token, "super-secret");
-            // Log the decoded value
-            console.log(decoded.username); // bar
+            // // verify a token symmetric - synchronous
+            // const decoded = jwt.verify(token, "super-secret");
+            // // Log the decoded value
+            // console.log(decoded.username); // bar
 
             // --------------------------------------------------
 
