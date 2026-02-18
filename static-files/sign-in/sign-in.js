@@ -157,4 +157,140 @@ registerForm.addEventListener("submit", async (e) => {
 });
 
 // --------------------------------------------------------
-// Auto-login feature
+// <!-- Second CTA Sign-up form article -->
+
+// Register button functionality
+
+//Listen for click event on the Register button
+
+//Get the register form
+const registerForm_2 = document.querySelector("form#register-user-form-2");
+
+// Add a listner for Submit action on the register form
+registerForm_2.addEventListener("submit", async (e) => {
+  //Prevent default action
+  e.preventDefault();
+
+  // Get the form input fields
+  const newUsername_field = document.querySelector(
+    "form#register-user-form-2 input#new-username",
+  );
+  const newPassword_field = document.querySelector(
+    "form#register-user-form-2 input#new-password",
+  );
+  const confirmPassword_field = document.querySelector(
+    "form#register-user-form-2 input#confirm-password",
+  );
+
+  // validate input fields
+  if (newUsername_field.value === "") {
+    window.alert("Please enter a new Username");
+    return;
+  }
+
+  if (newPassword_field.value === "") {
+    window.alert("Please enter a new Password");
+    return;
+  }
+
+  if (confirmPassword_field.value !== newPassword_field.value) {
+    window.alert("The passwords are not matching.");
+    return;
+  }
+
+  //Get form data from the form fields.
+  const newUsername_value = newUsername_field.value;
+  const newPassword_value = newPassword_field.value;
+  const confirmPassword_value = confirmPassword_field.value;
+
+  const body = {
+    newUsername: newUsername_value,
+    newPassword: newPassword_value,
+    confirmPassword: confirmPassword_value,
+  };
+
+  //127.0.0.1:8000/signup
+  // https://concert-tracker-nw6r.onrender.com/api/signup
+  //send a POST request to register user.
+  fetch("/api/signup", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  })
+    .then(async (response) => {
+      const textResponse = await response.text();
+      return textResponse;
+      // if (response.text() === "success") {
+      //   window.location.href = "/home/home.html";
+      // }
+    })
+    .then((text) => {
+      console.log(`Server response: ${text}`);
+      if (text === "SUCCESS_FROM_NEW_SERVER") {
+        window.location.href = "/static-files/home/home.html";
+      } else {
+        window.alert(text);
+      }
+    })
+    .catch((error) => {
+      console.log(`Could not fetch: ${error}`);
+    });
+});
+
+// ----------------------------------------------------------------
+
+// Authenticate session with cookies
+document.addEventListener("DOMContentLoaded", (evt) => {
+  // Make GET request
+  fetch("/api/auth-session")
+    .then(async (response) => {
+      // Get only the response status
+      const status = response.status;
+      // Handle based on status
+      if (status === 200) {
+        // Get response body as text
+        const textResponse = await response.text();
+        // return text body.
+        return textResponse;
+      } else {
+        // Throw error
+        throw new Error("Could not authenticate token.");
+      }
+    })
+    .then((text) => {
+      // Get google-sign-in elements
+      const googleSignInElements = document.querySelectorAll(".sign-in-google");
+
+      // Get all the sign-up forms
+      const signUpForms = document.querySelectorAll(".sign-up");
+
+      // Get all the sign-in forms
+      const signInForms = document.querySelectorAll(".sign-in-form");
+
+      // Toggle class hidden for all the google-sign-in elements
+      for (const element of googleSignInElements) {
+        element.classList.toggle("hidden");
+      }
+
+      // Toggle class hidden for all the sign-up form elements
+      for (const element of signUpForms) {
+        element.classList.toggle("hidden");
+      }
+
+      // Toggle class hidden for all the sign-in form elements
+      for (const element of signInForms) {
+        element.classList.toggle("hidden");
+      }
+
+      // Log server response to console
+      console.log(`Server response: ${text}`);
+    })
+    .catch((error) => {
+      // Log Error to console
+      console.log(`Error: ${error}`);
+    });
+});
+
+// -------------------------------------------------------------

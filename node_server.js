@@ -89,6 +89,119 @@ check (password != '')
         }
         // --------------------------------------------------------------------------
         // ************************** END POINT ********************************
+        // Authenticate session with token cookie
+        if (request.method === "GET" && request.url === "/api/auth-session") {
+          // Add a try...catch block
+          try {
+            // Back-end operations start when the request is completed.
+
+            // --------------------------------------------------
+            // Try to load cookies
+            const cookie = request.headers.cookie;
+
+            // Check if cookie exists
+            if (!cookie) {
+              // Throw error
+              throw new Error("Cookies does not exist");
+            }
+            // Log cookies to console
+            console.log(`Cookie: ${cookie} \n\n --------------`);
+
+            // Get the index of last occurrence of the word 'token'.
+            const lastIndexOfToken = cookie.lastIndexOf("token");
+
+            // Log lastIndexOfToken to console
+            console.log(`index: ${lastIndexOfToken} \n\n ---------------`);
+
+            // Define a variable called subString
+            let subString;
+
+            // Define a variable called tokenSubString
+            let tokenSubString;
+
+            // Check whether index of 'token' exists
+            if (lastIndexOfToken != -1) {
+              // Get the remaining substring.
+              subString = cookie.slice(lastIndexOfToken);
+
+              // print subString to console.
+              console.log(`Substring: ${subString} \n\n ---------------`);
+
+              // Get index of ';' from subString
+              const indexOfSemicolon = subString.indexOf(";");
+
+              // Handle the value of indexOfSemicolon
+              if (indexOfSemicolon === -1) {
+                // Take the remaining string as tokenSubString.
+                tokenSubString = subString;
+              }
+
+              // Check semicolon exists and handle
+              else if (indexOfSemicolon > 0) {
+                // Slice and Get only the token substring
+                tokenSubString = subString.slice(0, indexOfSemicolon + 1);
+              }
+
+              // Log tokenSubString
+              console.log(`Token: ${tokenSubString}`);
+            } else {
+              // Throw error
+              throw new Error("token is not stored in cookies.");
+            }
+
+            // Split subString by '=' sign
+            const splitList = tokenSubString.split("=");
+
+            // Extract token by splitting the substring by '='
+            const token = splitList[1];
+
+            // Print token to console
+            console.log(`Token: ${token} \n\n ---------------`);
+
+            // verify a token symmetric - synchronous
+            const decoded = jwt.verify(token, "super-secret");
+
+            // Log the decoded value
+            console.log(decoded.username); // bar
+
+            // --------------------------------------------------
+            // Set status code and headers for response
+            response.writeHead(200, {
+              "Content-Type": "text/plain",
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "POST, OPTIONS",
+              "Access-Control-Allow-Headers": "Content-Type",
+            });
+
+            // -----------------------------------------------
+
+            // Send response
+            response.write(decoded.username);
+            // --------------------------------------------
+            // Finish sending response body
+            response.end();
+            return;
+
+            // -----------------------------------------------------
+            // Catch errors encountered during backend operations.
+          } catch (error) {
+            // Set status code and headers for response
+            response.writeHead(401, {
+              "Content-Type": "text/plain",
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "POST, OPTIONS",
+              "Access-Control-Allow-Headers": "Content-Type",
+            });
+            // Respond with "NOT_AUTHENTICATED"
+            response.write("NOT_AUTHENTICATED");
+            // End response
+            response.end();
+            console.error(error);
+            return;
+          }
+        }
+        // -----------------------------------------------------------------------
+        // ************************** END POINT ********************************
         // Root
         if (request.method === "GET" && request.url === "/") {
           // Add a try...catch block
@@ -482,6 +595,8 @@ check (password != '')
             });
           // -------------------------------------------------------------------------
         }
+
+        // ---------------------------------------------------------------------
 
         // ------------------------------------------------------------------------
       } catch (err) {
