@@ -85,7 +85,7 @@ section.brand {
 }
 
 /* <!-- CTA Sign-up form article --> */
-section.brand form.sign-up {
+form.sign-up {
   border: 1px solid #cccccc;
   padding: 10px;
   margin: 5px;
@@ -95,28 +95,28 @@ section.brand form.sign-up {
 }
 
 /* <!-- text box for new username --> */
-section.brand form.sign-up input#new-username {
+form.sign-up input#new-username {
   border: 1px solid #cccccc;
   padding: 10px;
   margin: 5px;
 }
 
 /* <!-- text box for new password  --> */
-section.brand form.sign-up input#new-password {
+form.sign-up input#new-password {
   border: 1px solid #cccccc;
   padding: 10px;
   margin: 5px;
 }
 
 /* <!-- text box for confirm new password  --> */
-section.brand form.sign-up input#confirm-password {
+form.sign-up input#confirm-password {
   border: 1px solid #cccccc;
   padding: 10px;
   margin: 5px;
 }
 
 /* <!-- Button for Submit & Login --> */
-section.brand form.sign-up button#submit-and-login {
+form.sign-up button#submit-and-login {
   border: 1px solid #cccccc;
   padding: 10px;
   margin: 5px;
@@ -303,3 +303,8 @@ button.cta-sign-up {
   margin: 5px;
 }
 /* --------------------------------------------------------------- */
+
+/* Define a class called hidden */
+.hidden {
+  display: none;
+}

@@ -170,27 +170,29 @@
       <!-- Below code was directly taken from Google official documentation for implementing the button for sign-in with Google -->
       <!-- configures the Google Identity Services library using g_id_onload, -->
       <!-- displays a Sign in with Google button using g_id_signin, -->
-      <div
-        id="g_id_onload"
-        data-client_id="1053269966750-942laa9pgboo27i8n6ogm51c3052mh0t.apps.googleusercontent.com"
-        data-context="signin"
-        data-ux_mode="popup"
-        data-callback="handleCredentialResponse"
-        data-itp_support="true"
-      ></div>
+      <article class="sign-in-google">
+        <div
+          id="g_id_onload"
+          data-client_id="1053269966750-942laa9pgboo27i8n6ogm51c3052mh0t.apps.googleusercontent.com"
+          data-context="signin"
+          data-ux_mode="popup"
+          data-callback="handleCredentialResponse"
+          data-itp_support="true"
+        ></div>
 
-      <div
-        class="g_id_signin"
-        data-type="standard"
-        data-shape="pill"
-        data-theme="outline"
-        data-text="signin_with"
-        data-size="medium"
-        data-logo_alignment="left"
-      ></div>
+        <div
+          class="g_id_signin"
+          data-type="standard"
+          data-shape="pill"
+          data-theme="outline"
+          data-text="signin_with"
+          data-size="medium"
+          data-logo_alignment="left"
+        ></div>
+      </article>
       <!-- ----------------------------------------------------------------- -->
       <!-- Form for capturing User input -->
-      <form method="post" id="user-inputs">
+      <form method="post" id="user-inputs" class="sign-in-form">
         <!-- Enter username box -->
         <input
           type="text"
@@ -210,14 +212,6 @@
         <!-- Sign-in button -->
         <button id="sign-in-button">Sign in</button>
       </form>
-      <!-- ----------------------------------------------------------------- -->
-      <!-- Buttons section -->
-      <section id="button-section">
-        <!-- Register New user button with re-route to sign-up page-->
-        <form action="/static-files/sign-up/sign-up.html">
-          <button id="register-new-user">Sign-up</button>
-        </form>
-      </section>
       <!-- ----------------------------------------------------------------- -->
 
       <!-- Sign-up benefits -->
@@ -278,8 +272,36 @@
           data-logo_alignment="left"
         ></div>
       </article>
-      <!-- Sign-up button -->
-      <button class="cta-sign-up">Sign-up</button>
+      <!-- Second CTA Sign-up form article -->
+      <article class="sign-up">
+        <form method="post" id="register-user-form-2" class="sign-up">
+          <!-- text box for new username -->
+          <input
+            type="text"
+            name="new-username"
+            id="new-username"
+            placeholder="Enter a New Username"
+          />
+
+          <!-- text box for new password  -->
+          <input
+            type="password"
+            name="new-password"
+            id="new-password"
+            placeholder="Enter a New password"
+          />
+
+          <!-- text box for confirm new password  -->
+          <input
+            type="password"
+            name="confirm-password"
+            id="confirm-password"
+            placeholder="Confirm New password"
+          />
+          <!-- Button for Submit & Login -->
+          <button id="submit-and-login">Sign Up</button>
+        </form>
+      </article>
     </main>
   </body>
 </html>
