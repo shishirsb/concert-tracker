@@ -69,7 +69,7 @@ check (password != '')
   const process = require("node:process");
   // --------------------------------------------------------------------------
   // Getting the PORT number if it is defined.
-  const PORT = process.env.PORT || 8000;
+  const PORT = process.env.PORT;
 
   // --------------------------------------------------------------------------
   // Create a server
@@ -293,8 +293,8 @@ check (password != '')
             // Back-end operations start when the request is completed.
 
             // Get only the resource pathname
-            url = new URL(`http://example.com${request.url}`);
-            pathname = url.pathname;
+            const url = new URL(`http://example.com${request.url}`);
+            const pathname = url.pathname;
             // ----------------
             // Get the full uri of the requested resource.
             const uri = path.join(__dirname, pathname);
@@ -608,9 +608,8 @@ check (password != '')
         response.end("ERROR");
       }
     })
-    .listen({
-      host: "0.0.0.0",
-      port: PORT,
+    .listen(PORT, "0.0.0.0", () => {
+      console.log(`Server running on ${PORT}`);
     });
   // Catching any errors from the beginning of the file.
 } catch (error) {
