@@ -1,4 +1,10 @@
 /* ================================================================ */
+/* HTML tag */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ---------------------------------------------------------------- */
 /* Sign-in page */
 body {
   display: flex;
@@ -9,8 +15,6 @@ body {
 }
 
 /* ================================================================ */
-
-/* ---------------------------------------------------------------- */
 
 /* <!-- Site header --> */
 header.site {
@@ -38,12 +42,22 @@ header.site span.tag-line {
   margin: 5px;
 }
 
+/* <!-- A Sign-in button at the top-right --> */
+a.link-to-signin {
+  margin-left: auto;
+}
+
+button#sign-in {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
+}
+
 /* <!-- A Sign-out button at the top-right --> */
 button#sign-out {
   border: 1px solid #cccccc;
   padding: 10px;
   margin: 5px;
-  justify-self: right;
   margin-left: auto;
 }
 
@@ -139,6 +153,7 @@ section#select-city {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
 }
 
 /* <!-- Label --> */
@@ -149,7 +164,10 @@ section#select-city span.label {
 
 /* <!-- Select city dropdown --> */
 section#select-city select#city-selector {
-  padding: 3px;
+  /* padding: 3px; */
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
   /* margin: 2px; */
 }
 /* --------------------- */

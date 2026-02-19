@@ -25,6 +25,11 @@
       <!-- Tagline -->
       <span class="tag-line"><i>Tagline</i></span>
 
+      <!-- A Sign-in button at the top-right -->
+      <a href="#sign-in-google" class="link-to-signin"
+        ><button id="sign-in">Sign-In</button></a
+      >
+
       <!-- A Sign-out button at the top-right -->
       <button id="sign-out" class="hidden">Sign-out</button>
     </header>
@@ -173,7 +178,7 @@
       <!-- Below code was directly taken from Google official documentation for implementing the button for sign-in with Google -->
       <!-- configures the Google Identity Services library using g_id_onload, -->
       <!-- displays a Sign in with Google button using g_id_signin, -->
-      <article class="sign-in-google">
+      <article class="sign-in-google" id="sign-in-google">
         <div
           id="g_id_onload"
           data-client_id="1053269966750-942laa9pgboo27i8n6ogm51c3052mh0t.apps.googleusercontent.com"
