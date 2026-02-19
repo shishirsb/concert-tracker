@@ -800,8 +800,8 @@ check (password != '')
         response.end("ERROR");
       }
     })
-    .listen(8000, "0.0.0.0", () => {
-      console.log(`Server running on ${8000}`);
+    .listen(PORT, "0.0.0.0", () => {
+      console.log(`Server running on ${PORT}`);
     });
   // Catching any errors from the beginning of the file.
 } catch (error) {
