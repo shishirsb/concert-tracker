@@ -79,7 +79,6 @@ signInButton.addEventListener("click", (e) => {
     });
 });
 // --------------------------------------------------------------------
-//
 
 // Register button functionality
 
@@ -263,35 +262,8 @@ document.addEventListener("DOMContentLoaded", (evt) => {
       }
     })
     .then((text) => {
-      // Get google-sign-in elements
-      const googleSignInElements = document.querySelectorAll(".sign-in-google");
-
-      // Get all the sign-up forms
-      const signUpForms = document.querySelectorAll(".sign-up");
-
-      // Get all the sign-in forms
-      const signInForms = document.querySelectorAll(".sign-in-form");
-
-      // Get the sign-out button
-      const signOutButton = document.querySelector("button#sign-out");
-
-      // Toggle class hidden for all the google-sign-in elements
-      for (const element of googleSignInElements) {
-        element.classList.toggle("hidden");
-      }
-
-      // Toggle class hidden for all the sign-up form elements
-      for (const element of signUpForms) {
-        element.classList.toggle("hidden");
-      }
-
-      // Toggle class hidden for all the sign-in form elements
-      for (const element of signInForms) {
-        element.classList.toggle("hidden");
-      }
-
-      // Toggle class hidden for sign-out button
-      signOutButton.classList.toggle("hidden");
+      // toggle display for all the user-authentication buttons (sign-in, sign-up....)
+      toggle_display_for_user_auth_buttons();
 
       // Log server response to console
       console.log(`Server response: ${text}`);
@@ -356,6 +328,9 @@ function toggle_display_for_user_auth_buttons() {
   // Get the sign-out button
   const signOutButton = document.querySelector("button#sign-out");
 
+  // Get the sign-in button
+  const signInButton = document.querySelector("button#sign-in");
+
   // Toggle class hidden for all the google-sign-in elements
   for (const element of googleSignInElements) {
     element.classList.toggle("hidden");
@@ -373,4 +348,7 @@ function toggle_display_for_user_auth_buttons() {
 
   // Toggle class hidden for sign-out button
   signOutButton.classList.toggle("hidden");
+
+  // Toggle class hidden for sign-out button
+  signInButton.classList.toggle("hidden");
 }

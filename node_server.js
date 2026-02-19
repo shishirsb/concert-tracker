@@ -89,6 +89,124 @@ check (password != '')
         }
 
         // ---------------------------------------------------------------------------
+        // Send a POST request after user signs in with google.
+        // ************************** API END POINT ********************************
+        //Send a POST request to sign-in user.
+        // Create endpoint: Proceed only if the request is POST method and if the url is /api/signin
+        if (request.method === "POST" && request.url === "/api/google-signin") {
+          // Get the headers, method and url from the request.
+          const { method, url, headers } = request;
+          // -----------------------------------------------------------------
+          let body = [];
+          // -----------------------------------------------------------------
+          // Catching error on the request
+          request
+            // -----------------------------------------------------
+            // Reading data and push to body list.
+            .on("data", (chunk) => {
+              body.push(chunk);
+            })
+            // -----------------------------------------------------
+            // Finish reading data
+            .on("end", async () => {
+              // ---------------------------------------------------
+              // Define what happens after reading the body from request.
+              try {
+                // Combine all the elements of the body list.
+                body = Buffer.concat(body).toString();
+                // ---------------------------------------------------
+
+                //Convert body from string to JSON value.
+                body_json = JSON.parse(body);
+                // --------------------------------------------
+
+                console.log(body);
+                // --------------------------------------------
+                // Get input email and unique_id
+                const { username, unique_id } = body_json;
+
+                // Prepare select statement by filtering input username
+                const select_stmt = db.prepare(
+                  "SELECT * from users where username = ?",
+                );
+
+                // Execute select statement to get the 1st matching row.
+                const result = select_stmt.get(username);
+
+                // Pring result to console.
+                console.log(result);
+
+                // Check if username does not exist.
+                if (!result) {
+                  // Insert user details in the database.
+                  // Execute the prepared INSERT statement with values sent through the request.
+                  const insertUser = db.transaction((user) => {
+                    insert_user.run(user);
+                  });
+                  insertUser({
+                    username: username,
+                    password: "Not Applicable",
+                  });
+                  // --------------------------------------------
+                }
+
+                // --------------------------------------------
+                // Create a token for authentication
+                const token = jwt.sign({ username: username }, "super-secret");
+
+                console.log(`User data: ${body}`);
+                // Log generated token
+                console.log(`Token generated: ${token}`);
+
+                // --------------------------------------------
+
+                // Set status code and headers for response
+                response.writeHead(200, {
+                  "Content-Type": "application/json",
+                  "Access-Control-Allow-Origin": "*",
+                  "Access-Control-Allow-Methods": "POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Content-Type",
+                  "Set-Cookie": `token=${token}; HttpOnly; Path=/`,
+                });
+
+                // -----------------------------------------------
+                // Create a reply object
+                const reply = {
+                  message: "google_signin_was_successful",
+                  username: username,
+                };
+
+                // Send response
+                response.write(JSON.stringify(reply));
+                // --------------------------------------------
+                // Finish sending response body
+                response.end();
+                return;
+                // --------------------------------------------
+                // Catch any errors during back-end operations and preparing response
+              } catch (error) {
+                // Set status code to 404
+                response.statusCode = 404;
+                if (error.code === "SQLITE_CONSTRAINT_PRIMARYKEY") {
+                  // Set error message
+                  response.write("DUPLICATE_USERNAME");
+                  // End response
+                  response.end();
+                  console.error(error);
+                  return;
+                } else {
+                  // Set response message
+                  response.write("FAILED_TO_SIGN_IN");
+                  // End response
+                  response.end();
+                  console.error(error);
+                  return;
+                }
+              }
+            });
+        }
+
+        // -----------------------------------------------------------------
         // ************************** END POINT ********************************
         // Authenticate session with token cookie
         if (request.method === "GET" && request.url === "/api/logout") {
@@ -439,18 +557,6 @@ check (password != '')
                 //Convert body from string to JSON value.
                 body_json = JSON.parse(body);
 
-                // --------------------------------------------
-                // Create a token for authentication
-                const token = jwt.sign(
-                  { username: body_json.newUsername },
-                  "super-secret",
-                );
-
-                console.log(`User data: ${body}`);
-                // Log generated token
-                console.log(`Token generated: ${token}`);
-                // --------------------------------------------
-
                 // -----------------------------------------------
                 // Hash password before inserting to db.
                 const newPassword_hashed = await bcrypt.hash(
@@ -473,6 +579,17 @@ check (password != '')
                 // const responseBody = { headers, method, url, body };
 
                 //'SQLITE_CONSTRAINT_PRIMARYKEY'
+                // --------------------------------------------
+                // --------------------------------------------
+                // Create a token for authentication
+                const token = jwt.sign(
+                  { username: body_json.newUsername },
+                  "super-secret",
+                );
+
+                console.log(`User data: ${body}`);
+                // Log generated token
+                console.log(`Token generated: ${token}`);
                 // --------------------------------------------
 
                 // Set status code and headers for response
@@ -683,8 +800,8 @@ check (password != '')
         response.end("ERROR");
       }
     })
-    .listen(PORT, "0.0.0.0", () => {
-      console.log(`Server running on ${PORT}`);
+    .listen(8000, "0.0.0.0", () => {
+      console.log(`Server running on ${8000}`);
     });
   // Catching any errors from the beginning of the file.
 } catch (error) {
