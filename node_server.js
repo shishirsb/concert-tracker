@@ -87,9 +87,55 @@ check (password != '')
           response.end();
           return;
         }
-        // --------------------------------------------------------------------------
+
+        // ---------------------------------------------------------------------------
         // ************************** END POINT ********************************
         // Authenticate session with token cookie
+        if (request.method === "GET" && request.url === "/api/logout") {
+          // Add a try...catch block
+          try {
+            // Back-end operations start when the request is completed.
+
+            // --------------------------------------------------
+            // Set status code and headers for response (remove cookies)
+            response.writeHead(200, {
+              "Content-Type": "text/plain",
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "POST, OPTIONS",
+              "Access-Control-Allow-Headers": "Content-Type",
+              "Set-Cookie": `token=; HttpOnly; Path=/; max-age=-1`,
+            });
+
+            // -----------------------------------------------
+
+            // Send response
+            response.write("Successful_logout");
+            // --------------------------------------------
+            // Finish sending response body
+            response.end();
+            return;
+
+            // -----------------------------------------------------
+            // Catch errors encountered during backend operations.
+          } catch (error) {
+            // Set status code and headers for response
+            response.writeHead(401, {
+              "Content-Type": "text/plain",
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "POST, OPTIONS",
+              "Access-Control-Allow-Headers": "Content-Type",
+            });
+            // Respond with "NOT_AUTHENTICATED"
+            response.write("Unsuccessful_logout");
+            // End response
+            response.end();
+            console.error(error);
+            return;
+          }
+        }
+        // --------------------------------------------------------------------------
+        // ************************** END POINT ********************************
+        // Authenticate session with cookies
         if (request.method === "GET" && request.url === "/api/auth-session") {
           // Add a try...catch block
           try {
@@ -139,7 +185,7 @@ check (password != '')
               // Check semicolon exists and handle
               else if (indexOfSemicolon > 0) {
                 // Slice and Get only the token substring
-                tokenSubString = subString.slice(0, indexOfSemicolon + 1);
+                tokenSubString = subString.slice(0, indexOfSemicolon);
               }
 
               // Log tokenSubString
@@ -363,6 +409,7 @@ check (password != '')
         }
         // --------------------------------------------------------------------
         // ************************** API END POINT ********************************
+        //send a POST request to register user.
         // Create endpoint: Proceed only if the request is POST method and if the url is /api/signup
         if (request.method === "POST" && request.url === "/api/signup") {
           // Get the headers, method and url from the request.
@@ -430,15 +477,21 @@ check (password != '')
 
                 // Set status code and headers for response
                 response.writeHead(200, {
-                  "Content-Type": "text/plain",
+                  "Content-Type": "application/json",
                   "Access-Control-Allow-Origin": "*",
                   "Access-Control-Allow-Methods": "POST, OPTIONS",
                   "Access-Control-Allow-Headers": "Content-Type",
                   "Set-Cookie": `token=${token}; HttpOnly; Path=/`,
                 });
 
+                // Create a reply object
+                const reply = {
+                  message: "SUCCESS_FROM_NEW_SERVER",
+                  username: body_json.newUsername,
+                };
+
                 // Send response
-                response.write("SUCCESS_FROM_NEW_SERVER");
+                response.write(JSON.stringify(reply));
                 // --------------------------------------------
                 // Finish sending response body
                 response.end();
@@ -449,15 +502,19 @@ check (password != '')
                 // Set status code to 404
                 response.statusCode = 401;
                 if (error.code === "SQLITE_CONSTRAINT_PRIMARYKEY") {
-                  // Set error message
-                  response.write("DUPLICATE_USERNAME");
+                  // Prepare response
+                  const reply = { message: "DUPLICATE_USERNAME" };
+                  // Set response message
+                  response.write(JSON.stringify(reply));
                   // End response
                   response.end();
                   console.error(error);
                   return;
                 } else {
+                  // Prepare response
+                  const reply = { message: "FAILED_REGISTERING_USER" };
                   // Set response message
-                  response.write("FAILED_REGISTERING_USER");
+                  response.write(JSON.stringify(reply));
                   // End response
                   response.end();
                   console.error(error);
@@ -471,6 +528,7 @@ check (password != '')
 
         // --------------------------------------------------------------------------
         // ************************** API END POINT ********************************
+        //Send a POST request to sign-in user.
         // Create endpoint: Proceed only if the request is POST method and if the url is /api/signin
         if (request.method === "POST" && request.url === "/api/signin") {
           // Get the headers, method and url from the request.
@@ -551,19 +609,36 @@ check (password != '')
                 }
 
                 // --------------------------------------------
+                // Create a token for authentication
+                const token = jwt.sign(
+                  { username: usernameField },
+                  "super-secret",
+                );
+
+                console.log(`User data: ${body}`);
+                // Log generated token
+                console.log(`Token generated: ${token}`);
+
+                // --------------------------------------------
 
                 // Set status code and headers for response
                 response.writeHead(200, {
-                  "Content-Type": "text/plain",
+                  "Content-Type": "application/json",
                   "Access-Control-Allow-Origin": "*",
                   "Access-Control-Allow-Methods": "POST, OPTIONS",
                   "Access-Control-Allow-Headers": "Content-Type",
+                  "Set-Cookie": `token=${token}; HttpOnly; Path=/`,
                 });
 
                 // -----------------------------------------------
+                // Create a reply object
+                const reply = {
+                  message: "SUCCESS",
+                  username: usernameField,
+                };
 
                 // Send response
-                response.write("SUCCESS");
+                response.write(JSON.stringify(reply));
                 // --------------------------------------------
                 // Finish sending response body
                 response.end();
