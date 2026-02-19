@@ -43,33 +43,34 @@ signInButton.addEventListener("click", (e) => {
     // Retrieve response promise
     .then(async (response) => {
       // Get response body as a string
-      const textResponse = await response.text();
+      const JSONResponse = await response.json();
       // return the response.
-      return textResponse;
+      return JSONResponse;
       // }
     })
     // Get the text reponse
-    .then((text) => {
+    .then((json_data) => {
       // Print the server reponse to console.
-      console.log(`Server response: ${text}`);
+      console.log(`Server response: ${json_data.username}`);
       // Check if reponse is SUCCESS
-      if (text === "SUCCESS") {
+      if (json_data.message === "SUCCESS") {
         // reroute user to the home page
-        window.location.href = "/static-files/home/home.html";
+        // window.location.href = "/static-files/home/home.html";
+        toggle_display_for_user_auth_buttons();
         return;
         // Check if reponse is FAIL:USERNAME_NOT_FOUND
-      } else if (text === "FAIL:USERNAME_NOT_FOUND") {
+      } else if (json_data.message === "FAIL:USERNAME_NOT_FOUND") {
         // alert user about the status
         window.alert("The username seems to be incorrect. Please try again.");
         return;
         // Check if reponse is FAIL:PASSWORD_NOT_MATCHING
-      } else if (text === "FAIL:PASSWORD_NOT_MATCHING") {
+      } else if (json_data.message === "FAIL:PASSWORD_NOT_MATCHING") {
         // alert user about the status
         window.alert("The password seems to be incorrect. Please try again.");
         return;
       } else {
         // alert user about the status
-        window.alert(text);
+        window.alert(json_data);
         return;
       }
     })
@@ -137,18 +138,19 @@ registerForm.addEventListener("submit", async (e) => {
     body: JSON.stringify(body),
   })
     .then(async (response) => {
-      const textResponse = await response.text();
-      return textResponse;
+      const JSONResponse = await response.json();
+      return JSONResponse;
       // if (response.text() === "success") {
       //   window.location.href = "/home/home.html";
       // }
     })
-    .then((text) => {
-      console.log(`Server response: ${text}`);
-      if (text === "SUCCESS_FROM_NEW_SERVER") {
-        window.location.href = "/static-files/home/home.html";
+    .then((json_data) => {
+      console.log(`Server response: ${json_data.username}`);
+      if (json_data.message === "SUCCESS_FROM_NEW_SERVER") {
+        // toggle display for all the user-authentication buttons (sign-in, sign-up....)
+        toggle_display_for_user_auth_buttons();
       } else {
-        window.alert(text);
+        window.alert(json_data.message);
       }
     })
     .catch((error) => {
@@ -220,18 +222,19 @@ registerForm_2.addEventListener("submit", async (e) => {
     body: JSON.stringify(body),
   })
     .then(async (response) => {
-      const textResponse = await response.text();
-      return textResponse;
+      const JSONResponse = await response.json();
+      return JSONResponse;
       // if (response.text() === "success") {
       //   window.location.href = "/home/home.html";
       // }
     })
-    .then((text) => {
-      console.log(`Server response: ${text}`);
-      if (text === "SUCCESS_FROM_NEW_SERVER") {
-        window.location.href = "/static-files/home/home.html";
+    .then((json_data) => {
+      console.log(`Server response: ${json_data.username}`);
+      if (json_data.message === "SUCCESS_FROM_NEW_SERVER") {
+        // toggle display for all the user-authentication buttons (sign-in, sign-up....)
+        toggle_display_for_user_auth_buttons();
       } else {
-        window.alert(text);
+        window.alert(json_data.message);
       }
     })
     .catch((error) => {
@@ -269,6 +272,9 @@ document.addEventListener("DOMContentLoaded", (evt) => {
       // Get all the sign-in forms
       const signInForms = document.querySelectorAll(".sign-in-form");
 
+      // Get the sign-out button
+      const signOutButton = document.querySelector("button#sign-out");
+
       // Toggle class hidden for all the google-sign-in elements
       for (const element of googleSignInElements) {
         element.classList.toggle("hidden");
@@ -284,6 +290,9 @@ document.addEventListener("DOMContentLoaded", (evt) => {
         element.classList.toggle("hidden");
       }
 
+      // Toggle class hidden for sign-out button
+      signOutButton.classList.toggle("hidden");
+
       // Log server response to console
       console.log(`Server response: ${text}`);
     })
@@ -294,3 +303,74 @@ document.addEventListener("DOMContentLoaded", (evt) => {
 });
 
 // -------------------------------------------------------------
+// Sign-out button feature
+// Get the sign-out button
+const signOutButton = document.querySelector("button#sign-out");
+
+// Add Click event handler for sign-out button
+signOutButton.addEventListener("click", (e) => {
+  // Remove default action
+  e.preventDefault();
+
+  // Make GET request to delete cookies
+  fetch("/api/logout")
+    .then(async (response) => {
+      // Get only the response status
+      const status = response.status;
+      // Handle based on status
+      if (status === 200) {
+        // Get response body as text
+        const textResponse = await response.text();
+        // return text body.
+        return textResponse;
+      } else {
+        // Throw error
+        throw new Error("Unsuccessfull logout");
+      }
+    })
+    .then((text) => {
+      // toggle display for all the user-authentication buttons (sign-in, sign-up....)
+      toggle_display_for_user_auth_buttons();
+
+      // Log server response to console
+      console.log(`Server response: ${text}`);
+    })
+    .catch((error) => {
+      // Log Error to console
+      console.log(`Error: ${error}`);
+    });
+});
+
+// --------------------------------------------------------
+// Create and use a function for toggling hidden class for user-auth buttons.
+function toggle_display_for_user_auth_buttons() {
+  // Get google-sign-in elements
+  const googleSignInElements = document.querySelectorAll(".sign-in-google");
+
+  // Get all the sign-up forms
+  const signUpForms = document.querySelectorAll(".sign-up");
+
+  // Get all the sign-in forms
+  const signInForms = document.querySelectorAll(".sign-in-form");
+
+  // Get the sign-out button
+  const signOutButton = document.querySelector("button#sign-out");
+
+  // Toggle class hidden for all the google-sign-in elements
+  for (const element of googleSignInElements) {
+    element.classList.toggle("hidden");
+  }
+
+  // Toggle class hidden for all the sign-up form elements
+  for (const element of signUpForms) {
+    element.classList.toggle("hidden");
+  }
+
+  // Toggle class hidden for all the sign-in form elements
+  for (const element of signInForms) {
+    element.classList.toggle("hidden");
+  }
+
+  // Toggle class hidden for sign-out button
+  signOutButton.classList.toggle("hidden");
+}

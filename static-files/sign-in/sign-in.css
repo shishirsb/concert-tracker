@@ -22,7 +22,7 @@ header.site {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
 }
 /* <!-- Logo --> */
 header.site span.logo {
@@ -36,6 +36,15 @@ header.site span.tag-line {
   border: 1px solid #cccccc;
   padding: 10px;
   margin: 5px;
+}
+
+/* <!-- A Sign-out button at the top-right --> */
+button#sign-out {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
+  justify-self: right;
+  margin-left: auto;
 }
 
 /* -------------------------------------------------------- */
@@ -308,3 +317,5 @@ button.cta-sign-up {
 .hidden {
   display: none;
 }
+
+/* -------------------------------------------------------------- */
