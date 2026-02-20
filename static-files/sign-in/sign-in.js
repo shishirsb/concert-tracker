@@ -59,18 +59,18 @@ signInButton.addEventListener("click", (e) => {
         toggle_display_for_user_auth_buttons();
         return;
         // Check if reponse is FAIL:USERNAME_NOT_FOUND
-      } else if (json_data.message === "FAIL:USERNAME_NOT_FOUND") {
+      } else if (json_data.message === "USERNAME_NOT_FOUND") {
         // alert user about the status
         window.alert("The username seems to be incorrect. Please try again.");
         return;
         // Check if reponse is FAIL:PASSWORD_NOT_MATCHING
-      } else if (json_data.message === "FAIL:PASSWORD_NOT_MATCHING") {
+      } else if (json_data.message === "PASSWORD_NOT_CORRECT") {
         // alert user about the status
         window.alert("The password seems to be incorrect. Please try again.");
         return;
       } else {
         // alert user about the status
-        window.alert(json_data);
+        window.alert(json_data.message);
         return;
       }
     })

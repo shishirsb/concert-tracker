@@ -69,7 +69,7 @@ check (password != '')
   const process = require("node:process");
   // --------------------------------------------------------------------------
   // Getting the PORT number if it is defined.
-  const PORT = process.env.PORT;
+  const PORT = process.env.PORT || 10000;
 
   // --------------------------------------------------------------------------
   // Create a server
@@ -80,7 +80,8 @@ check (password != '')
         //Handling pre-flight request OPTIONS
         if (request.method === "OPTIONS") {
           response.writeHead(204, {
-            "Access-Control-Allow-Origin": "*",
+            // "Access-Control-Allow-Origin":
+            //   "https://concert-tracker-nw6r.onrender.com",
             "Access-Control-Allow-Methods": "POST, OPTIONS",
             "Access-Control-Allow-Headers": "Content-Type",
           });
@@ -163,7 +164,7 @@ check (password != '')
                 // Set status code and headers for response
                 response.writeHead(200, {
                   "Content-Type": "application/json",
-                  "Access-Control-Allow-Origin": "*",
+                  // "Access-Control-Allow-Origin": "*",
                   "Access-Control-Allow-Methods": "POST, OPTIONS",
                   "Access-Control-Allow-Headers": "Content-Type",
                   "Set-Cookie": `token=${token}; HttpOnly; Path=/`,
@@ -218,7 +219,7 @@ check (password != '')
             // Set status code and headers for response (remove cookies)
             response.writeHead(200, {
               "Content-Type": "text/plain",
-              "Access-Control-Allow-Origin": "*",
+              // "Access-Control-Allow-Origin": "*",
               "Access-Control-Allow-Methods": "POST, OPTIONS",
               "Access-Control-Allow-Headers": "Content-Type",
               "Set-Cookie": `token=; HttpOnly; Path=/; max-age=-1`,
@@ -239,7 +240,7 @@ check (password != '')
             // Set status code and headers for response
             response.writeHead(401, {
               "Content-Type": "text/plain",
-              "Access-Control-Allow-Origin": "*",
+              // "Access-Control-Allow-Origin": "*",
               "Access-Control-Allow-Methods": "POST, OPTIONS",
               "Access-Control-Allow-Headers": "Content-Type",
             });
@@ -332,7 +333,7 @@ check (password != '')
             // Set status code and headers for response
             response.writeHead(200, {
               "Content-Type": "text/plain",
-              "Access-Control-Allow-Origin": "*",
+              // "Access-Control-Allow-Origin": "*",
               "Access-Control-Allow-Methods": "POST, OPTIONS",
               "Access-Control-Allow-Headers": "Content-Type",
             });
@@ -352,7 +353,7 @@ check (password != '')
             // Set status code and headers for response
             response.writeHead(401, {
               "Content-Type": "text/plain",
-              "Access-Control-Allow-Origin": "*",
+              // "Access-Control-Allow-Origin": "*",
               "Access-Control-Allow-Methods": "POST, OPTIONS",
               "Access-Control-Allow-Headers": "Content-Type",
             });
@@ -399,7 +400,7 @@ check (password != '')
 
             // Serve html file
             fs.readFile(
-              "static-files/sign-in/sign-in.html",
+              path.join(__dirname, "static-files", "sign-in", "sign-in.html"),
               "utf8",
               (err, data) => {
                 // Catch error and leave the function
@@ -407,7 +408,7 @@ check (password != '')
                   // Set status code and headers for response
                   response.writeHead(401, {
                     "Content-Type": "plain/text",
-                    "Access-Control-Allow-Origin": "*",
+                    // "Access-Control-Allow-Origin": "*",
                     "Access-Control-Allow-Methods": "GET",
                     "Access-Control-Allow-Headers": "Content-Type",
                   });
@@ -423,7 +424,7 @@ check (password != '')
                 // Set status code and headers for response
                 response.writeHead(200, {
                   "Content-Type": "text/html",
-                  "Access-Control-Allow-Origin": "*",
+                  // "Access-Control-Allow-Origin": "*",
                   "Access-Control-Allow-Methods": "GET",
                   "Access-Control-Allow-Headers": "Content-Type",
                 });
@@ -595,7 +596,7 @@ check (password != '')
                 // Set status code and headers for response
                 response.writeHead(200, {
                   "Content-Type": "application/json",
-                  "Access-Control-Allow-Origin": "*",
+                  // "Access-Control-Allow-Origin": "*",
                   "Access-Control-Allow-Methods": "POST, OPTIONS",
                   "Access-Control-Allow-Headers": "Content-Type",
                   "Set-Cookie": `token=${token}; HttpOnly; Path=/`,
@@ -694,12 +695,33 @@ check (password != '')
                 if (!result) {
                   // Return error
                   // Set status code and headers for response
+                  // response.writeHead(401, {
+                  //   "Content-Type": "text/plain",
+                  // });
+                  // // Write response body
+                  // response.end("FAIL:USERNAME_NOT_FOUND");
+                  // // step out of the loop
+                  // return;
+
+                  // Set status code and headers for response
                   response.writeHead(401, {
-                    "Content-Type": "text/plain",
+                    "Content-Type": "application/json",
+                    // "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods": "POST, OPTIONS",
+                    "Access-Control-Allow-Headers": "Content-Type",
                   });
-                  // Write response body
-                  response.end("FAIL:USERNAME_NOT_FOUND");
-                  // step out of the loop
+
+                  // Create a reply object
+                  const reply = {
+                    message: "USERNAME_NOT_FOUND",
+                    username: usernameField,
+                  };
+
+                  // Send response
+                  response.write(JSON.stringify(reply));
+                  // --------------------------------------------
+                  // Finish sending response body
+                  response.end();
                   return;
                 }
 
@@ -716,12 +738,32 @@ check (password != '')
                 if (!match) {
                   // Return error
                   // Set status code and headers for response
+                  // response.writeHead(401, {
+                  //   "Content-Type": "text/plain",
+                  // });
+                  // // Write response body
+                  // response.end("FAIL:PASSWORD_NOT_MATCHING");
+                  // // step out of the loop
+                  // return;
+                  // Set status code and headers for response
                   response.writeHead(401, {
-                    "Content-Type": "text/plain",
+                    "Content-Type": "application/json",
+                    // "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods": "POST, OPTIONS",
+                    "Access-Control-Allow-Headers": "Content-Type",
                   });
-                  // Write response body
-                  response.end("FAIL:PASSWORD_NOT_MATCHING");
-                  // step out of the loop
+
+                  // Create a reply object
+                  const reply = {
+                    message: "PASSWORD_NOT_CORRECT",
+                    username: usernameField,
+                  };
+
+                  // Send response
+                  response.write(JSON.stringify(reply));
+                  // --------------------------------------------
+                  // Finish sending response body
+                  response.end();
                   return;
                 }
 
@@ -741,7 +783,7 @@ check (password != '')
                 // Set status code and headers for response
                 response.writeHead(200, {
                   "Content-Type": "application/json",
-                  "Access-Control-Allow-Origin": "*",
+                  // "Access-Control-Allow-Origin": "*",
                   "Access-Control-Allow-Methods": "POST, OPTIONS",
                   "Access-Control-Allow-Headers": "Content-Type",
                   "Set-Cookie": `token=${token}; HttpOnly; Path=/`,
@@ -763,25 +805,26 @@ check (password != '')
                 // --------------------------------------------
                 // Catch any errors during back-end operations and preparing response
               } catch (error) {
-                // Set status code to 404
-                response.statusCode = 404;
-                if (error.code === "SQLITE_CONSTRAINT_PRIMARYKEY") {
-                  // Set error message
-                  response.setHeader(401);
-                  response.write("DUPLICATE_USERNAME");
-                  // End response
-                  response.end();
-                  console.error(error);
-                  return;
-                } else {
-                  // Set response message
-                  response.setHeader(401);
-                  response.write("FAILED_TO_SIGN_IN");
-                  // End response
-                  response.end();
-                  console.error(error);
-                  return;
-                }
+                // Set status code and headers for response
+                response.writeHead(401, {
+                  "Content-Type": "application/json",
+                  // "Access-Control-Allow-Origin": "*",
+                  "Access-Control-Allow-Methods": "POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Content-Type",
+                });
+
+                // Create a reply object
+                const reply = {
+                  message: `FAILED_TO_SIGN_IN ${usernameField}: ${error}`,
+                  username: usernameField,
+                };
+
+                // Send response
+                response.write(JSON.stringify(reply));
+                // --------------------------------------------
+                // Finish sending response body
+                response.end();
+                return;
               }
               // --------------------------------------------
             });
