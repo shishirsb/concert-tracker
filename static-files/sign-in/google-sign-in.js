@@ -67,7 +67,7 @@ function handleCredentialResponse(response) {
 // Create and use a function for toggling hidden class for user-auth buttons.
 function toggle_display_for_user_auth_buttons() {
   // Get google-sign-in elements
-  const googleSignInElements = document.querySelectorAll(".sign-in-google");
+  const googleSignInElements = document.querySelectorAll(".g_id_signin");
 
   // Get all the sign-up forms
   const signUpForms = document.querySelectorAll(".sign-up");
@@ -77,6 +77,9 @@ function toggle_display_for_user_auth_buttons() {
 
   // Get the sign-out button
   const signOutButton = document.querySelector("button#sign-out");
+
+  // Get the sign-in button
+  const signInButton = document.querySelector("button#sign-in");
 
   // Toggle class hidden for all the google-sign-in elements
   for (const element of googleSignInElements) {
@@ -95,4 +98,7 @@ function toggle_display_for_user_auth_buttons() {
 
   // Toggle class hidden for sign-out button
   signOutButton.classList.toggle("hidden");
+
+  // Toggle class hidden for sign-out button
+  signInButton.classList.toggle("hidden");
 }

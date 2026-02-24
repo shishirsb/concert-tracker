@@ -343,7 +343,7 @@ function toggle_display_for_user_auth_buttons() {
 
   // Toggle class hidden for all the sign-in form elements
   for (const element of signInForms) {
-    element.classList.toggle("hidden");
+    element.classList.add("hidden");
   }
 
   // Toggle class hidden for sign-out button
@@ -438,8 +438,49 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
       headlineItems[i].classList.add("active");
     }
     // Increment i by 1.
-  }, 5000);
+  }, 3000);
 });
 // ----------------------------------------------------
 
 // ----------------------------------------------------
+// <!-- Trending Preview -->
+// Get event details.
+// Create a document load listener
+document.addEventListener("DOMContentLoaded", async (evt) => {
+  //Capture the filter data on page load
+  const citySelector = document.querySelector("#city-selector");
+  const city = citySelector.value;
+
+  // Initialize events list
+  let events = [];
+
+  // Make a GET request to get all the matching events
+  // Set query parameters
+  const params = new URLSearchParams();
+  params.set("city", city);
+
+  // Make a GET request
+  await fetch(`/api/concert-events?${params.toString()}`)
+    .then(async (response) => {
+      // Get only the response status
+      const status = response.status;
+      // Handle based on status
+      if (status === 200) {
+        // Get response body as text
+        const JSONResponse = await response.json();
+        // return text body.
+        return JSONResponse;
+      } else {
+        // Throw error
+        throw new Error("Error");
+      }
+    })
+    .then((JSONResponse) => {
+      // Get headlines
+      events = JSONResponse.events;
+    })
+    .catch((error) => {
+      // Log Error to console
+      console.log(`Error: ${error}`);
+    });
+});

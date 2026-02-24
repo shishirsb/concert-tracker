@@ -7,11 +7,19 @@
     <!-- Import CSS -->
     <link rel="stylesheet" href="/static-files/sign-in/sign-in.css" />
 
+    <!-- // Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,200..800;1,200..800&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- Import JS script -->
     <script src="/static-files/sign-in/sign-in.js" defer></script>
 
     <!-- Import JS script for google-sign-in -->
-    <script src="/static-files/sign-in/google-sign-in.js"></script>
+    <script src="/static-files/sign-in/google-sign-in.js" defer></script>
 
     <!-- // load the Google Identity Services client library -->
     <script src="https://accounts.google.com/gsi/client" async></script>
@@ -24,11 +32,6 @@
       <span class="logo"><i>Logo</i></span>
       <!-- Tagline -->
       <span class="tag-line"><i>Tagline</i></span>
-
-      <!-- A Sign-in button at the top-right -->
-      <a href="#sign-in-google" class="link-to-signin"
-        ><button id="sign-in">Sign-In</button></a
-      >
 
       <!-- A Sign-out button at the top-right -->
       <button id="sign-out" class="hidden">Sign-out</button>
@@ -46,33 +49,8 @@
             <!-- Headline items -->
           </article>
 
-          <p><i>((background image))</i></p>
-
           <!-- CTA buttons -->
-          <!-- Sign in with Gmail -->
 
-          <!-- Below code was directly taken from Google official documentation for implementing the button for sign-in with Google -->
-          <!-- configures the Google Identity Services library using g_id_onload, -->
-          <!-- displays a Sign in with Google button using g_id_signin, -->
-
-          <div
-            id="g_id_onload"
-            data-client_id="1053269966750-942laa9pgboo27i8n6ogm51c3052mh0t.apps.googleusercontent.com"
-            data-context="signin"
-            data-ux_mode="popup"
-            data-callback="handleCredentialResponse"
-            data-itp_support="true"
-          ></div>
-
-          <div
-            class="g_id_signin"
-            data-type="standard"
-            data-shape="rectangular"
-            data-theme="outline"
-            data-text="signin_with"
-            data-size="large"
-            data-logo_alignment="left"
-          ></div>
           <!-- CTA Sign-up form article -->
           <article class="sign-up">
             <form method="post" id="register-user-form" class="sign-up">
@@ -81,7 +59,7 @@
                 type="text"
                 name="new-username"
                 id="new-username"
-                placeholder="Enter a New Username"
+                placeholder="👤 | Enter a New Username"
               />
 
               <!-- text box for new password  -->
@@ -89,7 +67,7 @@
                 type="password"
                 name="new-password"
                 id="new-password"
-                placeholder="Enter a New password"
+                placeholder="🔒︎ | Enter a New password"
               />
 
               <!-- text box for confirm new password  -->
@@ -97,11 +75,47 @@
                 type="password"
                 name="confirm-password"
                 id="confirm-password"
-                placeholder="Confirm New password"
+                placeholder="🔒︎ | Confirm New password"
               />
-              <!-- Button for Submit & Login -->
-              <button id="submit-and-login">Sign Up</button>
+
+              <!-- Buttons section  -->
+
+              <section id="buttons-section">
+                <!-- Sign-up Button -->
+                <!-- Button for Submit & Login -->
+                <button id="submit-and-login">Sign Up</button>
+
+                <!-- Login button -->
+                <a href="#sign-in-google" class="link-to-signin"
+                  ><button id="sign-in">Login</button></a
+                >
+              </section>
             </form>
+
+            <!-- Sign in with Gmail -->
+
+            <!-- Below code was directly taken from Google official documentation for implementing the button for sign-in with Google -->
+            <!-- configures the Google Identity Services library using g_id_onload, -->
+            <!-- displays a Sign in with Google button using g_id_signin, -->
+
+            <div
+              id="g_id_onload"
+              data-client_id="1053269966750-942laa9pgboo27i8n6ogm51c3052mh0t.apps.googleusercontent.com"
+              data-context="signin"
+              data-ux_mode="popup"
+              data-callback="handleCredentialResponse"
+              data-itp_support="true"
+            ></div>
+
+            <div
+              class="g_id_signin"
+              data-type="standard"
+              data-shape="rectangular"
+              data-theme="outline"
+              data-text="signin_with"
+              data-size="large"
+              data-logo_alignment="left"
+            ></div>
           </article>
         </section>
         <!-- Let user select a city -->
@@ -122,35 +136,155 @@
 
         <!-- Social proof banner -->
 
-        <section class="social-proof-banner">
-          <!-- short sentences -->
-          <span>SOCIAL PROOF BANNER</span>
-          <span><i>1,200+ Concerts Tracked</i></span>
-          <span><i>8 Major Cities</i></span>
-          <span><i>AI-Powered Insights</i></span>
-        </section>
+        <!-- <section class="social-proof-banner"> -->
+        <!-- short sentences -->
+        <!-- <span>SOCIAL PROOF BANNER</span> -->
+        <!-- <span><i>1,200+ Concerts Tracked</i></span> -->
+        <!-- <span><i>8 Major Cities</i></span> -->
+        <!-- <span><i>AI-Powered Insights</i></span> -->
+        <!-- </section> -->
       </header>
 
       <!-- Trending Preview -->
       <section class="trending-preview">
         <!-- Title for event listings -->
-        <h2>LIVE EVENT LISTING</h2>
+        <!-- <h2>LIVE EVENT LISTING</h2> -->
 
         <!-- List of event cards -->
         <!-- Event card 1 -->
         <article class="event-card">
-          <p>Event card 1</p>
+          <header>
+            <h2>A longer heading in this card</h2>
+          </header>
+
+          <img
+            src="https://mdn.github.io/shared-assets/images/examples/balloons.jpg"
+            alt="Hot air balloons"
+          />
+          <div class="content">
+            <p>
+              In a curious work, published in Paris in 1863 by Delaville
+              Dedreux, there is a suggestion for reaching the North Pole by an
+              aerostat.
+            </p>
+          </div>
+          <footer>I have a footer!</footer>
         </article>
 
         <!-- Event card 2 -->
         <article class="event-card">
-          <p>Event card 2</p>
+          <header>
+            <h2>A longer heading in this card</h2>
+          </header>
+
+          <!-- Card Image  -->
+
+          <img
+            src="https://mdn.github.io/shared-assets/images/examples/balloons.jpg"
+            alt="Hot air balloons"
+          />
+          <div class="content">
+            <p>
+              In a curious work, published in Paris in 1863 by Delaville
+              Dedreux, there is a suggestion for reaching the North Pole by an
+              aerostat.
+            </p>
+          </div>
+          <footer>I have a footer!</footer>
+        </article>
+
+        <!-- Event card 3 -->
+        <article class="event-card">
+          <header>
+            <h2>A longer heading in this card</h2>
+          </header>
+
+          <!-- Card Image  -->
+
+          <img
+            src="https://mdn.github.io/shared-assets/images/examples/balloons.jpg"
+            alt="Hot air balloons"
+          />
+          <div class="content">
+            <p>
+              In a curious work, published in Paris in 1863 by Delaville
+              Dedreux, there is a suggestion for reaching the North Pole by an
+              aerostat.
+            </p>
+          </div>
+          <footer>I have a footer!</footer>
+        </article>
+
+        <!-- Event card 4 -->
+        <article class="event-card">
+          <header>
+            <h2>A longer heading in this card</h2>
+          </header>
+
+          <!-- Card Image  -->
+
+          <img
+            src="https://mdn.github.io/shared-assets/images/examples/balloons.jpg"
+            alt="Hot air balloons"
+          />
+          <div class="content">
+            <p>
+              In a curious work, published in Paris in 1863 by Delaville
+              Dedreux, there is a suggestion for reaching the North Pole by an
+              aerostat.
+            </p>
+          </div>
+          <footer>I have a footer!</footer>
+        </article>
+
+        <!-- Event card 5 -->
+        <article class="event-card">
+          <header>
+            <h2>A longer heading in this card</h2>
+          </header>
+
+          <!-- Card Image  -->
+
+          <img
+            src="https://mdn.github.io/shared-assets/images/examples/balloons.jpg"
+            alt="Hot air balloons"
+          />
+          <div class="content">
+            <p>
+              In a curious work, published in Paris in 1863 by Delaville
+              Dedreux, there is a suggestion for reaching the North Pole by an
+              aerostat.
+            </p>
+          </div>
+          <footer>I have a footer!</footer>
+        </article>
+
+        <!-- Event card 6 -->
+        <article class="event-card">
+          <header>
+            <h2>A longer heading in this card</h2>
+          </header>
+
+          <!-- Card Image  -->
+
+          <img
+            src="https://mdn.github.io/shared-assets/images/examples/balloons.jpg"
+            alt="Hot air balloons"
+          />
+          <div class="content">
+            <p>
+              In a curious work, published in Paris in 1863 by Delaville
+              Dedreux, there is a suggestion for reaching the North Pole by an
+              aerostat.
+            </p>
+          </div>
+          <footer>I have a footer!</footer>
         </article>
 
         <!-- View All CTA -->
-        <button id="view-all-button">
+        <!-- <button id="view-all-button">
           View All button (encourage sign-up)
-        </button>
+        </button> -->
       </section>
 
       <!-- AI demo -->
@@ -270,26 +404,24 @@
       <!-- Below code was directly taken from Google official documentation for implementing the button for sign-in with Google -->
       <!-- configures the Google Identity Services library using g_id_onload, -->
       <!-- displays a Sign in with Google button using g_id_signin, -->
-      <article class="sign-in-google">
-        <div
-          id="g_id_onload"
-          data-client_id="1053269966750-942laa9pgboo27i8n6ogm51c3052mh0t.apps.googleusercontent.com"
-          data-context="signin"
-          data-ux_mode="popup"
-          data-callback="handleCredentialResponse"
-          data-itp_support="true"
-        ></div>
+      <div
+        id="g_id_onload"
+        data-client_id="1053269966750-942laa9pgboo27i8n6ogm51c3052mh0t.apps.googleusercontent.com"
+        data-context="signin"
+        data-ux_mode="popup"
+        data-callback="handleCredentialResponse"
+        data-itp_support="true"
+      ></div>
 
-        <div
-          class="g_id_signin"
-          data-type="standard"
-          data-shape="pill"
-          data-theme="outline"
-          data-text="signin_with"
-          data-size="medium"
-          data-logo_alignment="left"
-        ></div>
-      </article>
+      <div
+        class="g_id_signin"
+        data-type="standard"
+        data-shape="rectangular"
+        data-theme="outline"
+        data-text="signin_with"
+        data-size="large"
+        data-logo_alignment="left"
+      ></div>
       <!-- Second CTA Sign-up form article -->
       <article class="sign-up">
         <form method="post" id="register-user-form-2" class="sign-up">
