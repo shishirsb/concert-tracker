@@ -54,26 +54,25 @@
           <!-- Below code was directly taken from Google official documentation for implementing the button for sign-in with Google -->
           <!-- configures the Google Identity Services library using g_id_onload, -->
           <!-- displays a Sign in with Google button using g_id_signin, -->
-          <article class="sign-in-google">
-            <div
-              id="g_id_onload"
-              data-client_id="1053269966750-942laa9pgboo27i8n6ogm51c3052mh0t.apps.googleusercontent.com"
-              data-context="signin"
-              data-ux_mode="popup"
-              data-callback="handleCredentialResponse"
-              data-itp_support="true"
-            ></div>
 
-            <div
-              class="g_id_signin"
-              data-type="standard"
-              data-shape="pill"
-              data-theme="outline"
-              data-text="signin_with"
-              data-size="medium"
-              data-logo_alignment="left"
-            ></div>
-          </article>
+          <div
+            id="g_id_onload"
+            data-client_id="1053269966750-942laa9pgboo27i8n6ogm51c3052mh0t.apps.googleusercontent.com"
+            data-context="signin"
+            data-ux_mode="popup"
+            data-callback="handleCredentialResponse"
+            data-itp_support="true"
+          ></div>
+
+          <div
+            class="g_id_signin"
+            data-type="standard"
+            data-shape="rectangular"
+            data-theme="outline"
+            data-text="signin_with"
+            data-size="large"
+            data-logo_alignment="left"
+          ></div>
           <!-- CTA Sign-up form article -->
           <article class="sign-up">
             <form method="post" id="register-user-form" class="sign-up">
@@ -164,7 +163,7 @@
       <!-- Below code was directly taken from Google official documentation for implementing the button for sign-in with Google -->
       <!-- configures the Google Identity Services library using g_id_onload, -->
       <!-- displays a Sign in with Google button using g_id_signin, -->
-      <article class="sign-in-google" id="sign-in-google">
+      <!-- <article class="sign-in-google" id="sign-in-google">
         <div
           id="g_id_onload"
           data-client_id="1053269966750-942laa9pgboo27i8n6ogm51c3052mh0t.apps.googleusercontent.com"
@@ -183,7 +182,32 @@
           data-size="medium"
           data-logo_alignment="left"
         ></div>
-      </article>
+      </article> -->
+
+      <!-- Sign in with Gmail -->
+
+      <!-- Below code was directly taken from Google official documentation for implementing the button for sign-in with Google -->
+      <!-- configures the Google Identity Services library using g_id_onload, -->
+      <!-- displays a Sign in with Google button using g_id_signin, -->
+
+      <div
+        id="g_id_onload"
+        data-client_id="1053269966750-942laa9pgboo27i8n6ogm51c3052mh0t.apps.googleusercontent.com"
+        data-context="signin"
+        data-ux_mode="popup"
+        data-callback="handleCredentialResponse"
+        data-itp_support="true"
+      ></div>
+
+      <div
+        class="g_id_signin"
+        data-type="standard"
+        data-shape="rectangular"
+        data-theme="outline"
+        data-text="signin_with"
+        data-size="large"
+        data-logo_alignment="left"
+      ></div>
       <!-- ----------------------------------------------------------------- -->
       <!-- Form for capturing User input -->
       <form method="post" id="user-inputs" class="sign-in-form">

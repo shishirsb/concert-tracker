@@ -123,6 +123,11 @@ section.brand {
   align-items: center;
 }
 
+/* <!-- Sign in with Gmail --> */
+div.g_id_signin {
+  margin: 5px;
+}
+
 /* <!-- CTA Sign-up form article --> */
 form.sign-up {
   border: 1px solid #cccccc;
@@ -249,29 +254,7 @@ input#ask-ai {
   display: block;
   width: 95%;
 }
-/* -------------------------------------------------------- */
-/* <!-- Sign in with Gmail --> */
-div#g_id_onload {
-  /* border: 1px solid #cccccc; */
-  padding: 10px;
-  margin: 5px;
-  width: 95%;
-  display: none;
-}
 
-div#g_id_signin {
-  /* border: 1px solid #22235d; */
-  padding: 10px;
-  margin: 5px;
-  width: 80%;
-}
-
-article.sign-in-google {
-  /* border: 1px solid #cccccc; */
-  padding: 10px;
-  margin: 5px;
-  width: 40%;
-}
 /* -------------------------------------------------------- */
 /* <!-- ----------------------------------------------------------------- --> */
 /* <!-- Form for capturing User input --> */
