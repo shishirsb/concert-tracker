@@ -12,50 +12,55 @@ body {
   align-items: center;
   padding-bottom: 30px;
   margin: 0px;
+  background-image:
+    linear-gradient(rgb(0, 0, 0, 0.8), rgb(0, 0, 0, 0.8)),
+    url("/static-files/sign-in/images/bg-image-4-portrait.png");
+  background-size: cover;
+  background-position-y: center;
 }
 
 /* ================================================================ */
 
 /* <!-- Site header --> */
 header.site {
-  border: 1px solid #cccccc;
-  padding: 10px;
-  margin: 5px;
+  /* border: 1px solid #cccccc; */
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  /* margin: 5px; */
   width: 100%;
-  max-width: 1000px;
+  max-width: 1450px;
   display: flex;
   flex-direction: row;
   align-items: center;
+  /* background-color: #191d4e; */
+  color: rgb(255, 255, 255);
   /* justify-content: center; */
 }
 /* <!-- Logo --> */
 header.site span.logo {
-  border: 1px solid #cccccc;
+  /* border: 1px solid #cccccc; */
   padding: 10px;
   margin: 5px;
 }
 
 /* <!-- Tagline --> */
 header.site span.tag-line {
-  border: 1px solid #cccccc;
+  /* border: 1px solid #cccccc; */
   padding: 10px;
   margin: 5px;
 }
 
-/* <!-- A Sign-in button at the top-right --> */
-a.link-to-signin {
-  margin-left: auto;
-}
-
 button#sign-in {
-  border: 1px solid #cccccc;
+  /* border: 1px solid #cccccc; */
   padding: 10px;
   margin: 5px;
 }
 
 /* <!-- A Sign-out button at the top-right --> */
 button#sign-out {
-  border: 1px solid #cccccc;
+  /* border: 1px solid #cccccc; */
   padding: 10px;
   margin: 5px;
   margin-left: auto;
@@ -64,12 +69,12 @@ button#sign-out {
 /* -------------------------------------------------------- */
 /* <!-- Main content --> */
 main {
-  border: 1px solid #cccccc;
-  padding: 10px;
-  margin: 5px;
-  margin: 5px;
+  /* border: 1px solid #cccccc; */
+  /* padding: 10px; */
+  /* margin: 5px; */
+  /* margin: 5px; */
   width: 100%;
-  max-width: 1000px;
+  max-width: 1450px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -77,25 +82,32 @@ main {
 /* -------------------------------------------------------- */
 /* <!-- Page Header --> */
 header.page {
-  border: 1px solid #cccccc;
-  padding: 10px;
+  /* border: 1px solid #cccccc; */
+  /* padding: 10px; */
   margin: 5px;
-  width: 95%;
+  width: 100%;
+  color: #ffffff;
 }
 
 /* <!-- Headline --> */
 header.page article.headline {
-  border: 1px solid #cccccc;
-  padding: 10px;
-  margin: 5px;
+  /* border: 1px solid #cccccc; */
+  /* padding: 10px; */
+  /* margin: 5px; */
   display: flex;
   flex-direction: row;
   overflow: hidden;
-  width: 95%;
+  width: 100%;
   text-align: center;
   position: relative;
-  height: 50px;
+  height: 100px;
+  color: #ffffff;
   /* width: 300px; */
+  font-family: "Atkinson Hyperlegible Mono", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: xx-large;
 }
 
 /* <!-- Headline items --> */
@@ -115,60 +127,117 @@ header.page article.headline p.active {
 /* -------------------------------------------------------- */
 /* <!-- Brand section  --> */
 section.brand {
-  border: 1px solid #cccccc;
-  padding: 10px;
-  margin: 5px;
+  /* border: 1px solid #cccccc; */
+  /* padding: 10px; */
+  /* margin: 5px; */
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-/* <!-- Sign in with Gmail --> */
-div.g_id_signin {
-  margin: 5px;
+  background-image:
+    linear-gradient(rgb(0, 0, 0, 0.2), rgb(0, 0, 0, 0.2)),
+    url("/static-files/sign-in/images/AI-concert-india.png");
+  background-size: cover;
+  background-position-y: center;
+  width: 100%;
 }
 
 /* <!-- CTA Sign-up form article --> */
-form.sign-up {
-  border: 1px solid #cccccc;
-  padding: 10px;
-  margin: 5px;
+article.sign-up {
+  padding: 25px;
+  background-color: rgba(73, 56, 65, 0.5);
+  border-radius: 10px;
+  backdrop-filter: blur(4.5px);
+  border: 1px solid #ede4d9;
+  width: 20%;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+form.sign-up {
+  /* border: 1px solid #cccccc; */
+  /* padding: 10px; */
+  /* margin: 5px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 /* <!-- text box for new username --> */
 form.sign-up input#new-username {
-  border: 1px solid #cccccc;
+  /* border: 1px solid #cccccc; */
   padding: 10px;
-  margin: 5px;
+  margin-top: 15px;
+  width: 75%;
+  border-radius: 15px;
 }
 
 /* <!-- text box for new password  --> */
 form.sign-up input#new-password {
-  border: 1px solid #cccccc;
+  /* border: 1px solid #cccccc; */
   padding: 10px;
-  margin: 5px;
+  margin-top: 15px;
+  width: 75%;
+  border-radius: 15px;
 }
 
 /* <!-- text box for confirm new password  --> */
 form.sign-up input#confirm-password {
-  border: 1px solid #cccccc;
+  /* border: 1px solid #cccccc; */
   padding: 10px;
-  margin: 5px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  width: 75%;
+  border-radius: 15px;
 }
 
 /* <!-- Button for Submit & Login --> */
 form.sign-up button#submit-and-login {
-  border: 1px solid #cccccc;
+  /* border: 1px solid #cccccc; */
   padding: 10px;
-  margin: 5px;
+  /* margin: 5px; */
+  width: 50%;
+  background-color: rgb(30, 37, 110, 0.9);
+  color: rgb(224, 216, 216);
+}
+
+/* <!-- Login button --> */
+a.link-to-signin {
+  padding: 10px;
+  /* margin: 5px; */
+  width: 50%;
+  /* background-color: rgb(30, 37, 110, 0.9); */
+  color: rgb(224, 216, 216);
+}
+
+button#sign-in {
+  width: 100%;
+  background-color: rgb(30, 37, 110, 0.9);
+  color: rgb(224, 216, 216);
+}
+
+/* <!-- Buttons section  --> */
+section#buttons-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 75%;
+}
+
+/* <!-- Sign-up Button --> */
+
+/* <!-- Sign in with Gmail --> */
+div.g_id_signin {
+  margin-top: 15px;
+  width: 75%;
 }
 /* -------------------------------------------------------- */
 /* <!-- Label + select city drop-down--> */
 section#select-city {
-  border: 1px solid #cccccc;
+  /* border: 1px solid #cccccc; */
   padding: 5px;
   margin: 5px;
   display: flex;
@@ -186,7 +255,7 @@ section#select-city span.label {
 /* <!-- Select city dropdown --> */
 section#select-city select#city-selector {
   /* padding: 3px; */
-  border: 1px solid #cccccc;
+  /* border: 1px solid #cccccc; */
   padding: 10px;
   margin: 5px;
   /* margin: 2px; */
@@ -194,7 +263,7 @@ section#select-city select#city-selector {
 /* --------------------- */
 /* <!-- Social proof banner --> */
 section.social-proof-banner {
-  border: 1px solid #cccccc;
+  /* border: 1px solid #cccccc; */
   padding: 10px;
   margin: 5px;
   display: flex;
@@ -211,31 +280,36 @@ section.social-proof-banner span {
 /* -------------------------------------------------------- */
 /* <!-- Trending Preview --> */
 section.trending-preview {
-  border: 1px solid #cccccc;
+  /* border: 1px solid #cccccc; */
   padding: 10px;
   margin: 5px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
   width: 95%;
-}
-
-/* <!-- Title for event listings --> */
-h2 {
-  border: 1px solid #cccccc;
-  padding: 10px;
-  margin: 5px;
-  width: 90%;
-  text-align: center;
+  color: rgb(224, 215, 215);
 }
 
 /* <!-- Event card 1 --> */
 article.event-card {
-  border: 1px solid #cccccc;
+  /* border: 1px solid #cccccc; */
   padding: 10px;
   margin: 5px;
-  width: 90%;
+  width: 15vw;
+  height: auto;
   text-align: center;
+  background-color: rgba(73, 56, 65, 0.5);
+  backdrop-filter: blur(4.5px);
+  border-radius: 10px;
+  box-shadow: 2px 2px 7px rgb(0, 0, 0);
+  backdrop-filter: blur(4.5px);
+}
+
+/* <!-- Card Image  --> */
+article.event-card img {
+  width: 100%;
 }
 /* -------------------------------------------------------- */
 /* <!-- View All CTA --> */
@@ -263,10 +337,17 @@ form#user-inputs {
   padding: 10px;
   margin: 5px;
   width: 95%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 form#user-inputs input {
-  height: 30px;
+  /* height: 30px; */
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin: 5px;
 }
 
 /* <!-- Sign-in button --> */
@@ -301,6 +382,7 @@ section.signup-benefits {
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: rgb(184, 175, 175);
 }
 
 /* <!-- Header --> */
@@ -332,7 +414,7 @@ button.cta-sign-up {
 
 /* Define a class called hidden */
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 /* -------------------------------------------------------------- */

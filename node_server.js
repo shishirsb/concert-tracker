@@ -92,6 +92,31 @@ check (password != '')
           return;
         }
         // --------------------------------------------------------------------------
+        // ************************** END POINT ********************************
+        // Authenticate session with token cookie
+        if (
+          request.method === "GET" &&
+          request.url.startsWith("/api/concert-events")
+        ) {
+          // Add a try...catch block
+          try {
+            // Backend operations
+            // Create a url object
+            const url = new URL(`http://example.com${request.url}`);
+
+            // Log city parameter to console.
+            console.log(url.searchParams.get("city"));
+
+            return;
+
+            // -----------------------------------------------------
+            // Catch errors encountered during backend operations.
+          } catch (error) {
+            // Prepare JSON response
+          }
+        }
+
+        // ---------------------------------------------------------------------------
         // <!-- Headline items -->
         // ************************** END POINT ********************************
         // Authenticate session with token cookie

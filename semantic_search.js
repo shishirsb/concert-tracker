@@ -21,10 +21,9 @@ async function get_events(page_number) {
     const url = "https://www.searchapi.io/api/v1/search";
     const params = {
       engine: "google_events",
-      q: "Music Concert Events",
+      q: "All Music Concert Events",
       api_key: "g3kLpDwt3aPVjbGbyxL6SbiT",
       gl: "in",
-      location: "Bengaluru",
       page: page_number,
     };
 
@@ -42,6 +41,7 @@ async function get_events(page_number) {
       return "no_results";
     }
   } catch (error) {
+    console.error(error);
     return "error";
   }
 }
@@ -71,6 +71,14 @@ async function create_vectorstore() {
   // Instantiate vector store
   const vectorStore = new MemoryVectorStore(embeddings);
 
+  // Log all events as it is extracted from the API to console
+  for (const doc of events) {
+    console.log(`All Events: \n ${JSON.stringify(doc)} \n -----------------`);
+  }
+
+  // Divider
+  console.log("====================================================");
+
   // Create document split as list of string elements, to write to the vector store.
   const documentList = events.map((event) => {
     return new Document({
@@ -88,9 +96,11 @@ async function create_vectorstore() {
     });
   });
 
-  // Log all extracted events
+  // Log all extracted events parsed into a documentlist
   for (const doc of documentList) {
-    console.log(`${JSON.stringify(doc)} \n -----------------`);
+    console.log(
+      `Parsed events: \n ${JSON.stringify(doc)} \n -----------------`,
+    );
   }
 
   // Get headlines from OpenAI
