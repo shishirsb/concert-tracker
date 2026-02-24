@@ -317,7 +317,7 @@ signOutButton.addEventListener("click", (e) => {
 // Create and use a function for toggling hidden class for user-auth buttons.
 function toggle_display_for_user_auth_buttons() {
   // Get google-sign-in elements
-  const googleSignInElements = document.querySelectorAll(".sign-in-google");
+  const googleSignInElements = document.querySelectorAll(".g_id_signin");
 
   // Get all the sign-up forms
   const signUpForms = document.querySelectorAll(".sign-up");
