@@ -22,7 +22,7 @@ header.site {
   padding: 10px;
   margin: 5px;
   width: 100%;
-  max-width: 480px;
+  max-width: 1000px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -69,7 +69,7 @@ main {
   margin: 5px;
   margin: 5px;
   width: 100%;
-  max-width: 480px;
+  max-width: 1000px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -88,14 +88,30 @@ header.page article.headline {
   border: 1px solid #cccccc;
   padding: 10px;
   margin: 5px;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  width: 95%;
+  text-align: center;
+  position: relative;
+  height: 50px;
+  /* width: 300px; */
 }
 
-/* <!-- Sub-headline --> */
-header.page article.sub-headline {
-  border: 1px solid #cccccc;
-  padding: 10px;
-  margin: 5px;
+/* <!-- Headline items --> */
+header.page article.headline p.headline-item {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transition: opacity 1s ease-in-out;
+  opacity: 0;
 }
+
+header.page article.headline p.active {
+  opacity: 1;
+}
+
 /* -------------------------------------------------------- */
 /* <!-- Brand section  --> */
 section.brand {

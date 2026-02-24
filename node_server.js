@@ -1,8 +1,13 @@
 try {
   // Backend operations
   // ------------------------------------------------------------------------------
+
+  // ---------------------------------------------------------------------------
+  // Import http module
+  const http = require("node:http");
   // Import File system modules
   const fs = require("node:fs");
+  const { open } = require("node:fs/promises");
   //-------------------------------
   // Import path object
   const path = require("node:path");
@@ -64,9 +69,7 @@ check (password != '')
   // console.log(select_users.all());
   // --------------------------------------------------------------------------
   // Create a node server and define API endpoints.
-  // Import http, process modules
-  const http = require("node:http");
-  const process = require("node:process");
+
   // --------------------------------------------------------------------------
   // Getting the PORT number if it is defined.
   const PORT = process.env.PORT || 10000;
@@ -87,6 +90,134 @@ check (password != '')
           });
           response.end();
           return;
+        }
+        // --------------------------------------------------------------------------
+        // <!-- Headline items -->
+        // ************************** END POINT ********************************
+        // Authenticate session with token cookie
+        if (request.method === "GET" && request.url === "/api/headlines") {
+          // Add a try...catch block
+          try {
+            // Back-end operations start when the request is completed.
+
+            // ----------------------------------------------------
+            // Initialize an empty list
+            let headlinesList = [];
+
+            try {
+              // ----------------------------------------------------
+              // Read file contents
+              (async () => {
+                const file = await open(
+                  path.join(__dirname, "headlines_1.txt"),
+                );
+
+                for await (const line of file.readLines()) {
+                  headlinesList.push(line);
+                  console.log(line);
+                }
+
+                // Prepare reply
+                const reply = {
+                  headlines: headlinesList,
+                  message: "headlines_extracted",
+                };
+
+                // Set status code and headers for response
+                response.writeHead(200, {
+                  "Content-Type": "application/json",
+                  "Access-Control-Allow-Methods": "GET",
+                  "Access-Control-Allow-Headers": "Content-Type",
+                });
+                // Send response
+                response.write(JSON.stringify(reply));
+                // Finish sending response body
+                response.end();
+                return;
+              })();
+            } catch (error) {
+              // Prepare JSON response
+              reply = { message: "Error", error: err, headlines: [] };
+
+              // Set status code and headers for response
+              response.writeHead(401, {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Methods": "GET",
+                "Access-Control-Allow-Headers": "Content-Type",
+              });
+              // Send response
+              response.write(JSON.stringify(reply));
+              // Finish sending response body
+              response.end();
+              return;
+            }
+
+            // -------------------------------------------------
+            // Serve html file
+            // fs.readFile(
+            //   path.join(__dirname, "headlines.txt"),
+            //   "utf8",
+            //   (err, data) => {
+            //     // Catch error and leave the function
+            //     if (err) {
+            //       // Prepare JSON response
+            //       reply = { message: "Error", error: err, headlines: "" };
+
+            //       // Set status code and headers for response
+            //       response.writeHead(401, {
+            //         "Content-Type": "application/json",
+            //         "Access-Control-Allow-Methods": "GET",
+            //         "Access-Control-Allow-Headers": "Content-Type",
+            //       });
+            //       // Send response
+            //       response.write(JSON.stringify(reply));
+            //       // --------------------------------------------
+            //       // Finish sending response body
+            //       response.end();
+            //       console.error(err);
+            //       return;
+            //     }
+
+            //     // Prepare JSON response
+            //     reply = { headlines: data, message: "headlines_extracted" };
+
+            //     // Set status code and headers for response
+            //     response.writeHead(200, {
+            //       "Content-Type": "application/json",
+            //       "Access-Control-Allow-Methods": "GET",
+            //       "Access-Control-Allow-Headers": "Content-Type",
+            //     });
+
+            //     // Send response
+            //     response.write(JSON.stringify(reply));
+            //     // --------------------------------------------
+            //     // Finish sending response body
+            //     response.end();
+            //     return;
+            //   },
+            // );
+            return;
+
+            // -----------------------------------------------------
+            // Catch errors encountered during backend operations.
+          } catch (error) {
+            // Prepare JSON response
+            reply = { error: error, message: "error" };
+
+            // Set status code and headers for response
+            response.writeHead(200, {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Methods": "GET",
+              "Access-Control-Allow-Headers": "Content-Type",
+            });
+
+            // Send response
+            response.write(JSON.stringify(reply));
+            // --------------------------------------------
+            // Finish sending response body
+            response.end();
+            return;
+          }
         }
 
         // ---------------------------------------------------------------------------
@@ -372,30 +503,6 @@ check (password != '')
           // Add a try...catch block
           try {
             // Back-end operations start when the request is completed.
-
-            // // --------------------------------------------------
-            // console.log(request.headers.cookie);
-            // // Get cookies from request.
-            // const cookie = request.headers.cookie;
-            // // Get the index of first occurrence of the word 'token'.
-            // const indexOfToken = cookie.indexOf("token");
-            // // Get the remaining substring.
-            // const subString = cookie.slice(indexOfToken);
-            // // print subString to console.
-            // console.log(subString);
-
-            // // Split subString by '=' sign
-            // const splitList = subString.split("=");
-            // // Extract token by splitting the substring by '='
-            // const token = splitList[1];
-            // // Print token to console
-            // console.log(token);
-
-            // // verify a token symmetric - synchronous
-            // const decoded = jwt.verify(token, "super-secret");
-            // // Log the decoded value
-            // console.log(decoded.username); // bar
-
             // --------------------------------------------------
 
             // Serve html file

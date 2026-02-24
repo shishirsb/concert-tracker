@@ -352,3 +352,94 @@ function toggle_display_for_user_auth_buttons() {
   // Toggle class hidden for sign-out button
   signInButton.classList.toggle("hidden");
 }
+
+// ------------------------------------------
+// <!-- Headline items -->
+// Display headlines with javascript.
+// Create a document load listener
+document.addEventListener("DOMContentLoaded", async (evt) => {
+  //Get the container element
+  const containerElement = document.querySelector(
+    "header.page article.headline",
+  );
+
+  // Initialize an empty list
+  let headlinesList = [];
+
+  // Get headlines by making a GET request
+  await fetch("/api/headlines")
+    .then(async (response) => {
+      // Get only the response status
+      const status = response.status;
+      // Handle based on status
+      if (status === 200) {
+        // Get response body as text
+        const JSONResponse = await response.json();
+        // return text body.
+        return JSONResponse;
+      } else {
+        // Throw error
+        throw new Error("Error");
+      }
+    })
+    .then((JSONResponse) => {
+      // Get headlines
+      headlinesList = JSONResponse.headlines;
+    })
+    .catch((error) => {
+      // Log Error to console
+      console.log(`Error: ${error}`);
+    });
+
+  // const headlinesList = [
+  //   "A Grammy-winning artist just added India to their tour list.",
+  //   "Midnight ticket drops are driving fans into a frenzy.",
+  //   "An iconic 90s rock band is rumored to reunite in Mumbai.",
+  //   "Festival season might start earlier than expected this year.",
+  //   "VIP passes for a Bengaluru gig sold out in under 10 minutes.",
+  // ];
+
+  for (const item of headlinesList) {
+    // Create a p element inside the container.
+    const pElement = document.createElement("p");
+    pElement.classList.add("headline-item");
+    pElement.innerText = item;
+    containerElement.append(pElement);
+  }
+
+  // Add class active to only first element
+  const firstHeaderItem = document.querySelector(
+    "header.page article.headline p.headline-item",
+  );
+  firstHeaderItem.classList.add("active");
+
+  // ------------------------------
+  // <!-- Headline -->
+
+  // Trigger a function every 5 seconds
+
+  //  Get all the headline items
+  const headlineItems = document.querySelectorAll(
+    "header.page article.headline p.headline-item",
+  );
+
+  // initialize an index to 0
+  let i = 0;
+
+  window.setInterval(() => {
+    // Remove active class from current element.
+    headlineItems[i].classList.remove("active");
+    // Increment index by 1
+    i = i + 1;
+    if (i < headlineItems.length) {
+      headlineItems[i].classList.add("active");
+    } else {
+      i = 0;
+      headlineItems[i].classList.add("active");
+    }
+    // Increment i by 1.
+  }, 5000);
+});
+// ----------------------------------------------------
+
+// ----------------------------------------------------
