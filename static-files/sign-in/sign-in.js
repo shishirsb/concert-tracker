@@ -424,21 +424,21 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
   );
 
   // initialize an index to 0
-  let i = 0;
+  let index = 0;
 
-  window.setInterval(() => {
+  // Define a function to switch between headline items
+  function switchHeadline() {
     // Remove active class from current element.
-    headlineItems[i].classList.remove("active");
-    // Increment index by 1
-    i = i + 1;
-    if (i < headlineItems.length) {
-      headlineItems[i].classList.add("active");
-    } else {
-      i = 0;
-      headlineItems[i].classList.add("active");
-    }
-    // Increment i by 1.
-  }, 3000);
+    headlineItems[index].classList.remove("active");
+
+    // Get the next index. Reset to 0 at the end of list.
+    index = (index + 1) % headlineItems.length;
+
+    // Add active class to the next item
+    headlineItems[index].classList.add("active");
+  }
+
+  window.setInterval(switchHeadline, 4000);
 });
 // ----------------------------------------------------
 

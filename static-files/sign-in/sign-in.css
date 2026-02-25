@@ -100,7 +100,7 @@ header.page article.headline {
   width: 100%;
   text-align: center;
   position: relative;
-  height: 100px;
+  min-height: 170px;
   color: #ffffff;
   /* width: 300px; */
   font-family: "Atkinson Hyperlegible Mono", sans-serif;
@@ -116,7 +116,7 @@ header.page article.headline p.headline-item {
   width: 100%;
   height: 100%;
   position: absolute;
-  transition: opacity 1s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
   opacity: 0;
 }
 
@@ -130,7 +130,7 @@ section.brand {
   /* border: 1px solid #cccccc; */
   /* padding: 10px; */
   /* margin: 5px; */
-  height: 100vh;
+  min-height: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -149,10 +149,13 @@ article.sign-up {
   border-radius: 10px;
   backdrop-filter: blur(4.5px);
   border: 1px solid #ede4d9;
-  width: 20%;
+  max-width: 290px;
+  width: 70%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 25px;
+  margin-top: 15px;
 }
 
 form.sign-up {
@@ -232,7 +235,8 @@ section#buttons-section {
 /* <!-- Sign in with Gmail --> */
 div.g_id_signin {
   margin-top: 15px;
-  width: 75%;
+  min-width: 200px;
+  max-width: 250px;
 }
 /* -------------------------------------------------------- */
 /* <!-- Label + select city drop-down--> */
@@ -290,6 +294,8 @@ section.trending-preview {
   flex-wrap: wrap;
   width: 95%;
   color: rgb(224, 215, 215);
+  height: 70vh;
+  overflow: auto;
 }
 
 /* <!-- Event card 1 --> */
@@ -297,7 +303,8 @@ article.event-card {
   /* border: 1px solid #cccccc; */
   padding: 10px;
   margin: 5px;
-  width: 15vw;
+  min-width: 100px;
+  max-width: 200px;
   height: auto;
   text-align: center;
   background-color: rgba(73, 56, 65, 0.5);
@@ -333,28 +340,35 @@ input#ask-ai {
 /* <!-- ----------------------------------------------------------------- --> */
 /* <!-- Form for capturing User input --> */
 form#user-inputs {
-  border: 1px solid #cccccc;
+  /* border: 1px solid #cccccc; */
+  box-sizing: border-box;
   padding: 10px;
   margin: 5px;
   width: 95%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  max-width: 400px;
+  min-width: 250px;
 }
 
 form#user-inputs input {
   /* height: 30px; */
-  border: 1px solid #cccccc;
+  /* border: 1px solid #cccccc; */
+  box-sizing: border-box;
   padding: 10px;
   margin: 5px;
+  width: 95%;
 }
 
 /* <!-- Sign-in button --> */
 form#user-inputs button#sign-in-button {
-  border: 1px solid #cccccc;
+  /* border: 1px solid #cccccc; */
   padding: 10px;
   margin: 5px;
+  box-sizing: border-box;
+  width: 70%;
 }
 
 /* ------------------------------------------------------------ */
