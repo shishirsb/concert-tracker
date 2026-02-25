@@ -289,9 +289,10 @@ section.trending-preview {
   margin: 5px;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: start;
   justify-content: space-around;
   flex-wrap: wrap;
+  flex: 1;
   width: 95%;
   color: rgb(224, 215, 215);
   height: 70vh;
@@ -305,6 +306,7 @@ article.event-card {
   margin: 5px;
   min-width: 100px;
   max-width: 200px;
+  /* height: 300px; */
   height: auto;
   text-align: center;
   background-color: rgba(73, 56, 65, 0.5);
