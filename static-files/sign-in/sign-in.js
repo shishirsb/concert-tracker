@@ -459,7 +459,7 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
   const params = new URLSearchParams();
   params.set("city", city);
 
-  // Make a GET request
+  // Make a GET request to get all the matching events
   await fetch(`/api/concert-events?${params.toString()}`)
     .then(async (response) => {
       // Get only the response status
@@ -483,4 +483,32 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
       // Log Error to console
       console.log(`Error: ${error}`);
     });
+
+  // Insert events as separate cards.
+
+  // Get the container element of event cards
+  const containerEventCards = document.querySelector(
+    "section.trending-preview",
+  );
+
+  // Get the first html template
+  const eventCardTemplate = document.querySelector("article.event-card");
+
+  // Clear old cards.
+  containerEventCards.innerHTML = "";
+
+  // For each event
+  for (const event of events) {
+    // Greate a clone
+    const cloneCard = eventCardTemplate.cloneNode(true);
+    // Insert data
+    const title = cloneCard.querySelector("h2");
+    const image = cloneCard.querySelector("img");
+    title.innerText = event.title;
+    image.setAttribute("src", event.thumbnail);
+    image.setAttribute("alt", event.title);
+
+    containerEventCards.append(cloneCard);
+    cloneCard.classList.remove("hidden");
+  }
 });

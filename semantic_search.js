@@ -25,6 +25,7 @@ async function get_events(page_number) {
       api_key: "g3kLpDwt3aPVjbGbyxL6SbiT",
       gl: "in",
       page: page_number,
+      location: "Bengaluru",
     };
 
     // Call SearchAPI to get list of events.
@@ -34,12 +35,14 @@ async function get_events(page_number) {
 
     // Split JSON data into individual events.
     // Get the list of events
-    if (response.data.events) {
-      events.push(...response.data.events);
-      return "found_events";
-    } else {
-      return "no_results";
-    }
+    // if (response.data.events) {
+    //   events.push(...response.data.events);
+    //   return "found_events";
+    // } else {
+    //   return "no_results";
+    // }
+
+    // Store in Database
   } catch (error) {
     console.error(error);
     return "error";
@@ -63,70 +66,70 @@ async function create_vectorstore() {
     }
   }
 
-  // Get vector embeddings from OpenAI
-  const embeddings = new OpenAIEmbeddings({
-    model: "text-embedding-3-large",
-  });
+  // // Get vector embeddings from OpenAI
+  // const embeddings = new OpenAIEmbeddings({
+  //   model: "text-embedding-3-large",
+  // });
 
-  // Instantiate vector store
-  const vectorStore = new MemoryVectorStore(embeddings);
+  // // Instantiate vector store
+  // const vectorStore = new MemoryVectorStore(embeddings);
 
-  // Log all events as it is extracted from the API to console
-  for (const doc of events) {
-    console.log(`All Events: \n ${JSON.stringify(doc)} \n -----------------`);
-  }
+  // // Log all events as it is extracted from the API to console
+  // for (const doc of events) {
+  //   console.log(`All Events: \n ${JSON.stringify(doc)} \n -----------------`);
+  // }
 
-  // Divider
-  console.log("====================================================");
+  // // Divider
+  // console.log("====================================================");
 
-  // Create document split as list of string elements, to write to the vector store.
-  const documentList = events.map((event) => {
-    return new Document({
-      pageContent: `
-      Title: ${JSON.stringify(event.title)}
-      Date: ${JSON.stringify(event.date.day)}, ${JSON.stringify(event.date.month)}
-      Duration: ${JSON.stringify(event.duration)}
-      Address: ${JSON.stringify(event.address)}
-      Location: ${JSON.stringify(event.location)}
-      Description: ${JSON.stringify(event.description)}
-      Venue: ${JSON.stringify(event.venue.name)}
-      Rating: ${JSON.stringify(event.venue.rating)}
-      Reviews: ${JSON.stringify(event.venue.reviews)}
-      `,
-    });
-  });
+  // // Create document split as list of string elements, to write to the vector store.
+  // const documentList = events.map((event) => {
+  //   return new Document({
+  //     pageContent: `
+  //     Title: ${JSON.stringify(event.title)}
+  //     Date: ${JSON.stringify(event.date.day)}, ${JSON.stringify(event.date.month)}
+  //     Duration: ${JSON.stringify(event.duration)}
+  //     Address: ${JSON.stringify(event.address)}
+  //     Location: ${JSON.stringify(event.location)}
+  //     Description: ${JSON.stringify(event.description)}
+  //     Venue: ${JSON.stringify(event.venue.name)}
+  //     Rating: ${JSON.stringify(event.venue.rating)}
+  //     Reviews: ${JSON.stringify(event.venue.reviews)}
+  //     `,
+  //   });
+  // });
 
-  // Log all extracted events parsed into a documentlist
-  for (const doc of documentList) {
-    console.log(
-      `Parsed events: \n ${JSON.stringify(doc)} \n -----------------`,
-    );
-  }
+  // // Log all extracted events parsed into a documentlist
+  // for (const doc of documentList) {
+  //   console.log(
+  //     `Parsed events: \n ${JSON.stringify(doc)} \n -----------------`,
+  //   );
+  // }
 
-  // Get headlines from OpenAI
-  const client = new OpenAI();
+  // // Get headlines from OpenAI
+  // const client = new OpenAI();
 
-  const response = await client.responses.create({
-    model: "gpt-5-mini-2025-08-07",
-    input: `Give me 5 eye-catching headlines with emojies for these concert events: ${JSON.stringify(events)}
-    Do not include serial numbers.`,
-  });
-  // Log headlines to console.
-  console.log(response.output_text);
+  // const response = await client.responses.create({
+  //   model: "gpt-5-mini-2025-08-07",
+  //   input: `Give me 5 eye-catching headlines with emojies for these concert events: ${JSON.stringify(events)}
+  //   Do not include serial numbers.`,
+  // });
+  // // Log headlines to console.
+  // console.log(response.output_text);
 
-  // Store headlines in a file
-  // Get the content to write to file
-  const content = response.output_text;
+  // // Store headlines in a file
+  // // Get the content to write to file
+  // const content = response.output_text;
 
-  // write content to a text file.
-  fs.writeFile(path.join(__dirname, "headlines_1.txt"), content, (err) => {
-    if (err) {
-      console.error(err);
-      throw new Error("Could not write to file");
-    } else {
-      console.log("File written");
-    }
-  });
+  // // write content to a text file.
+  // fs.writeFile(path.join(__dirname, "headlines_1.txt"), content, (err) => {
+  //   if (err) {
+  //     console.error(err);
+  //     throw new Error("Could not write to file");
+  //   } else {
+  //     console.log("File written");
+  //   }
+  // });
 
   // //Create vector store
   // await vectorStore.addDocuments(documentList);

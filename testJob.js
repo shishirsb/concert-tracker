@@ -1,3 +1,9 @@
+// Import the built-in sqlite module
+const Database = require("better-sqlite3");
+
+// Get JSON data as a string
+const axios = require("axios");
+
 // // Import required module for node-cron
 // const cron = require("node-cron");
 // // --------------------------------------------
@@ -9,45 +15,176 @@
 // // -------------------------------------------------
 // // Extract last 1 year data
 
-// // Like the browser fetch API, the default method is GET
-// async function main() {
-//   // Like the browser fetch API, the default method is GET
-//   const response = await fetch("https://jsonplaceholder.typicode.com/posts");
-//   const data = await response.json();
-//   console.log(data);
-//   // returns something like:
-//   //   {
-//   //   userId: 1,
-//   //   id: 1,
-//   //   title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
-//   //   body: 'quia et suscipit\n' +
-//   //     'suscipit recusandae consequuntur expedita et cum\n' +
-//   //     'reprehenderit molestiae ut ut quas totam\n' +
-//   //     'nostrum rerum est autem sunt rem eveniet architecto'
-//   // }
-// }
+// Origin: // Extract only the matching events from database.
+// Create a new database object.
+const db = new Database("db.db", { verbose: console.log });
 
-// main().catch(console.error);
+//Set Pragma values
+db.pragma("journal_mode = WAL");
+// Create a function to extract events data from API.
+async function get_events(page_number, location) {
+  // Start try block
+  try {
+    // Set configuration to make GET request to API.
+    const url = "https://www.searchapi.io/api/v1/search";
+    const params = {
+      engine: "google_events",
+      q: "All music concert events",
+      api_key: "g3kLpDwt3aPVjbGbyxL6SbiT",
+      gl: "in",
+      page: page_number,
+      location: location,
+    };
+
+    // Call SearchAPI to get list of events.
+    const response = await axios.get(url, { params }).catch((error) => {
+      console.error("Error:", error);
+    });
+
+    // const response = {
+    //   data: JSON.parse(
+    //   ),
+    // };
+    console.log(JSON.stringify(response.data));
+
+    // Split JSON data into individual events.
+    // Get the list of events
+    // if (response.data.events) {
+    //   events.push(...response.data.events);
+    //   return "found_events";
+    // } else {
+    //   return "no_results";
+    // }
+
+    // Store in Database
+    // Create table events_all_searchapi if not existing
+    //Prepare Create Table SQL script
+    const create_table =
+      db.prepare(`create table if not exists events_all_searchapi 
+    (
+    event_id INTEGER 
+    constraint username_constraint 
+    primary key asc on conflict fail AUTOINCREMENT
+    not null on conflict fail
+    UNIQUE null on conflict fail 
+    check (event_id != ''),
+    source text DEFAULT 'SearchApi',
+    engine text,
+    google_domain text,
+    query text,
+    query_location text,
+    status text,
+    created_at text,
+    title text,
+    event_link text,
+    date text,
+    duration text,
+    address text,
+    event_location text,
+    thumbnail text,
+    description text,
+    venue text,
+    offers text,
+    event_location_map text,
+    user_data text DEFAULT NULL
+    )`);
+
+    // Run create table statement
+    create_table.run();
+
+    // Insert data into db.events_all_searchapi
+    // Prepare insert script
+    // Create a prepared statement to insert data into the database.
+    const insert_data = db.prepare(
+      `INSERT INTO events_all_searchapi 
+      (engine, google_domain, query, query_location, status, created_at, title, event_link, date, duration, address,
+      event_location, thumbnail, description, venue, offers, event_location_map )
+      VALUES (@engine, @google_domain, @query, @query_location, @status, @created_at,
+      @title, @event_link, @date, @duration, @address, @event_location, @thumbnail, @description, @venue, @offers, 
+      @event_location_map
+      )`,
+    );
+
+    let events = [];
+
+    //Prepare data to insert
+    for (const event of response.data.events) {
+      const event_data = {
+        engine: response.data.search_parameters.engine,
+        google_domain: response.data.search_parameters.google_domain,
+        query: response.data.search_parameters.q,
+        query_location: response.data.search_parameters.location,
+        status: response.data.search_metadata.status,
+        created_at: response.data.search_metadata.created_at,
+        title: event.title,
+        event_link: event.link,
+        date: JSON.stringify(event.date),
+        duration: event.duration,
+        address: event.address,
+        event_location: event.location,
+        thumbnail: event.thumbnail,
+        description: event.description,
+        venue: JSON.stringify(event.venue),
+        offers: JSON.stringify(event.offers),
+        event_location_map: JSON.stringify(event.event_location_map),
+      };
+
+      events.push(event_data);
+    }
+
+    // ---------------------------------------------------
+    // Insert event details in the database.
+    // Execute the prepared INSERT statement with values sent through the request.
+    const insertEvent = db.transaction((events) => {
+      for (const event of events) insert_data.run(event);
+    });
+
+    insertEvent(events);
+
+    if (response.data.events) {
+      return "found_events";
+    } else {
+      return "no_results";
+    }
+
+    // --------------------------------------------
+  } catch (error) {
+    console.error(error);
+    return "error";
+  }
+}
+
+async function extract_pagewise() {
+  // Initialize page number (i)
+  let i = 1;
+  // Set location
+  let location = "Bengaluru";
+  // Extract data from API pagewise.
+  let returnValue = "";
+  while (true) {
+    // Call the get_events function to extract data from current page, and append to the events list.
+    returnValue = await get_events(i, location);
+    if (returnValue === "found_events") {
+      i = i + 1;
+      continue;
+    } else {
+      break;
+    }
+  }
+}
+
+// extract_pagewise().catch(console.error);
 
 // ----------------------------------------------------
-// This code was directly taken from documentation (https://www.searchapi.io/docs/google-events-api)
 
-const axios = require("axios");
+// Query users table
+const results = db.prepare(
+  "select * from events_all_searchapi where query_location = 'Bengaluru'",
+);
+console.log(results.all());
 
-const url = "https://www.searchapi.io/api/v1/search";
-const params = {
-  engine: "google_events",
-  q: "All Music Concert Events in Bengaluru in the next 1 year",
-  api_key: "g3kLpDwt3aPVjbGbyxL6SbiT",
-};
+// //Prepare delete data SQL script
+// const delete_data = db.prepare(`delete from events_all_searchapi`);
 
-axios
-  .get(url, { params })
-  .then((response) => {
-    console.log(JSON.stringify(response.data));
-  })
-  .catch((error) => {
-    console.error("Error:", error);
-  });
-
-// ---------------------------------------------------
+// // Run delete statement
+// delete_data.run();
