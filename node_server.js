@@ -34,17 +34,17 @@ try {
 
   //Prepare Create Table SQL script
   const create_users_table = db.prepare(`create table if not exists users 
-(
-username text 
-constraint username_constraint 
-primary key asc on conflict fail
-not null on conflict fail
-check (username != ''),
-password text 
-constraint password_constraint 
-not null
-check (password != '')
-)`);
+  (
+  username text 
+  constraint username_constraint 
+  primary key asc on conflict fail
+  not null on conflict fail
+  check (username != ''),
+  password text 
+  constraint password_constraint 
+  not null
+  check (password != '')
+  )`);
 
   // Run create table statement
   create_users_table.run();
@@ -93,6 +93,7 @@ check (password != '')
         }
         // --------------------------------------------------------------------------
         // ************************** END POINT ********************************
+        // Make a GET request to get all the matching events
         // Authenticate session with token cookie
         if (
           request.method === "GET" &&
@@ -105,7 +106,35 @@ check (password != '')
             const url = new URL(`http://example.com${request.url}`);
 
             // Log city parameter to console.
-            console.log(url.searchParams.get("city"));
+            const city = url.searchParams.get("city");
+
+            // Extract only the matching events from database.
+            // Prepare select stmt
+            // Query users table
+            const select_stmt = db.prepare(
+              "select * from events_all_searchapi where query_location = ?",
+            );
+            results = select_stmt.all(city);
+            console.log(results);
+
+            // Return events
+            // Prepare reply
+            const reply = {
+              events: results,
+              message: "success",
+            };
+
+            // Set headers
+            // Set status code and headers for response
+            response.writeHead(200, {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Methods": "GET",
+              "Access-Control-Allow-Headers": "Content-Type",
+            });
+            // Send response
+            response.write(JSON.stringify(reply));
+            // Finish sending response body
+            response.end();
 
             return;
 

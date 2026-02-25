@@ -86,9 +86,9 @@
                 <button id="submit-and-login">Sign Up</button>
 
                 <!-- Login button -->
-                <a href="#sign-in-google" class="link-to-signin"
+                <!-- <a href="#sign-in-google" class="link-to-signin"
                   ><button id="sign-in">Login</button></a
-                >
+                > -->
               </section>
             </form>
 
@@ -128,9 +128,9 @@
           <span class="label">Showing concerts in:</span>
           <!-- Select city dropdown -->
           <select name="city" id="city-selector">
-            <option value="bengaluru">Bengaluru</option>
-            <option value="mumbai">Mumbai</option>
-            <option value="delhi">Delhi</option>
+            <option value="Bengaluru">Bengaluru</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Delhi">Delhi</option>
           </select>
         </section>
 
@@ -152,114 +152,16 @@
 
         <!-- List of event cards -->
         <!-- Event card 1 -->
-        <article class="event-card">
+        <article class="event-card hidden">
           <header>
-            <h2>Sonu Nigam Live in Concert | Mumbai</h2>
+            <!-- title -->
+            <h2 class="card-title">Sonu Nigam Live in Concert | Mumbai</h2>
           </header>
 
           <img
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBlGK0LnHeMH1cdylNLL98g9xtNVKMCdr2l7YSNm4C_bUA9gSh4G5ZOpUiyA&s=10"
             alt="Sonu Nigam Live in Concert | Mumbai"
           />
-          <div class="content">
-            <p>
-              Sonu Nigam Live IN CONCERT is an electrifying concert featuring
-              the legendary Indian playback singer Sonu Nigam. Known for his
-              soulful voice and versatility, he performs a mix of Bollywood
-              hits...
-            </p>
-          </div>
-          <!-- <footer>
-            Map Location:
-            https://www.google.com/maps/place//data=!4m2!3m1!1s0x3be7bb96ed580411:0x50db34b170bc6e6a?sa=X&ved=2ahUKEwilzdze7_GSAxWbCnkGHc-iNMgQ9eIBegQICxAA&hl=en&gl=in
-          </footer> -->
-        </article>
-
-        <!-- Event card 2 -->
-        <article class="event-card">
-          <header>
-            <h2>THE MUSIC OF HANS ZIMMER & OTHERS</h2>
-          </header>
-
-          <!-- Card Image  -->
-
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQi3WIWlXxl5PpTrC3GWTW_Fa0jL3DG1z-HXL_kL2kNy75g5Wtl-_dFGnlstV-&s=10"
-            alt="THE MUSIC OF HANS ZIMMER & OTHERS"
-          />
-          <div class="content">
-            <p>
-              FRANCE BILLET PRÉSENTE : THE MUSIC OF HANS ZIMMER & OTHERS STAR
-              ENTERTAINMENT PRESENTE : Ce spectacle The Music of Hans Zimmer &
-              Others - A Celebration of Film music \"The Music of Hans Zimmer\"
-              ...
-            </p>
-          </div>
-          <!-- <footer>I have a footer!</footer> -->
-        </article>
-
-        <!-- Event card 3 -->
-        <article class="event-card">
-          <header>
-            <h2>Lorde: Ultrasound World Tour</h2>
-          </header>
-
-          <!-- Card Image  -->
-
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxDUGnPFHpUkIMLroLbdLnJCu1gX9xOn5KaDEs0WNr_jqrL2SMEQmGr6EU0A&s=10"
-            alt="Lorde: Ultrasound World Tour"
-          />
-          <div class="content">
-            <p>
-              Find tickets for Lorde at RAC Arena in Perth on 2/25/2026 at 7:30
-              PM
-            </p>
-          </div>
-          <!-- <footer>I have a footer!</footer> -->
-        </article>
-
-        <!-- Event card 4 -->
-        <article class="event-card">
-          <header>
-            <h2>Karan Aujla</h2>
-          </header>
-
-          <!-- Card Image  -->
-
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRenFk3E4yZF3cC4ITbzQptgZIR3pNjHliuntJApnzqYevbRdQQEULIl-kEAw&s=10"
-            alt="Hot air balloons"
-          />
-          <div class="content">
-            <p>
-              Find tickets for Karan Aujla at Jawaharlal Nehru Stadium, Delhi in
-              New Delhi on 2/28/2026 at 6:00 PM
-            </p>
-          </div>
-          <!-- <footer>I have a footer!</footer> -->
-        </article>
-
-        <!-- Event card 5 -->
-        <article class="event-card">
-          <header>
-            <h2>A longer heading in this card</h2>
-          </header>
-
-          <!-- Card Image  -->
-
-          <img
-            src="https://mdn.github.io/shared-assets/images/examples/balloons.jpg"
-            alt="Hot air balloons"
-          />
-          <div class="content">
-            <p>
-              In a curious work, published in Paris in 1863 by Delaville
-              Dedreux, there is a suggestion for reaching the North Pole by an
-              aerostat.
-            </p>
-          </div>
-          <footer>I have a footer!</footer>
         </article>
 
         <!-- View All CTA -->
@@ -270,7 +172,7 @@
 
       <!-- AI demo -->
       <!-- Input text box -->
-      <input type="text" placeholder="Ask AI" id="ask-ai" />
+      <input type="text" placeholder="Ask AI" id="ask-ai" class="hidden" />
       <!-- ------------------------------------------------------------------ -->
       <!-- ----------------------------------------------------------------- -->
       <!-- Sign in with Gmail -->
@@ -348,7 +250,7 @@
       <!-- ----------------------------------------------------------------- -->
 
       <!-- Sign-up benefits -->
-      <section class="signup-benefits">
+      <section class="signup-benefits hidden">
         <!-- Header -->
         <header>
           <!-- Title -->
@@ -395,7 +297,7 @@
       ></div>
 
       <div
-        class="g_id_signin"
+        class="g_id_signin hidden"
         data-type="standard"
         data-shape="rectangular"
         data-theme="outline"
@@ -404,7 +306,7 @@
         data-logo_alignment="left"
       ></div>
       <!-- Second CTA Sign-up form article -->
-      <article class="sign-up">
+      <article class="sign-up hidden">
         <form method="post" id="register-user-form-2" class="sign-up">
           <!-- text box for new username -->
           <input
