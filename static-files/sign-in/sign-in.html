@@ -49,10 +49,12 @@
             <!-- Headline items -->
           </article>
 
-          <!-- CTA buttons -->
+          <!-- CTA button -->
+          <!-- Get started for free -->
+          <a class="link-to-signup">Get Started</a>
 
           <!-- CTA Sign-up form article -->
-          <article class="sign-up">
+          <article class="sign-up hidden" id="sign-up-01">
             <form method="post" id="register-user-form" class="sign-up">
               <!-- text box for new username -->
               <input
@@ -83,13 +85,36 @@
               <section id="buttons-section">
                 <!-- Sign-up Button -->
                 <!-- Button for Submit & Login -->
-                <button id="submit-and-login">Sign Up</button>
+                <button id="submit-and-login">Sign-up</button>
 
                 <!-- Login button -->
-                <!-- <a href="#sign-in-google" class="link-to-signin"
-                  ><button id="sign-in">Login</button></a
-                > -->
+                <a href="#sign-in-google" class="link-to-signin"
+                  >Already a member? Login</a
+                >
               </section>
+            </form>
+
+            <!-- ----------------------------------------------------------------- -->
+            <!-- Form for capturing User input -->
+            <form method="post" id="user-inputs" class="sign-in-form hidden">
+              <!-- Enter username box -->
+              <input
+                type="text"
+                name="username"
+                id="username"
+                placeholder="Username"
+              />
+              <!-- ----------------------------------------------------------------- -->
+              <!-- Enter Password box -->
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Password"
+              />
+
+              <!-- Sign-in button -->
+              <button id="sign-in-button">Sign in</button>
             </form>
 
             <!-- Sign in with Gmail -->
@@ -116,6 +141,7 @@
               data-size="large"
               data-logo_alignment="left"
             ></div>
+            <!-- ----------------------------------------------------------------- -->
           </article>
         </section>
         <!-- Let user select a city -->
@@ -163,178 +189,7 @@
             alt="Sonu Nigam Live in Concert | Mumbai"
           />
         </article>
-
-        <!-- View All CTA -->
-        <!-- <button id="view-all-button">
-          View All button (encourage sign-up)
-        </button> -->
       </section>
-
-      <!-- AI demo -->
-      <!-- Input text box -->
-      <input type="text" placeholder="Ask AI" id="ask-ai" class="hidden" />
-      <!-- ------------------------------------------------------------------ -->
-      <!-- ----------------------------------------------------------------- -->
-      <!-- Sign in with Gmail -->
-
-      <!-- Below code was directly taken from Google official documentation for implementing the button for sign-in with Google -->
-      <!-- configures the Google Identity Services library using g_id_onload, -->
-      <!-- displays a Sign in with Google button using g_id_signin, -->
-      <!-- <article class="sign-in-google" id="sign-in-google">
-        <div
-          id="g_id_onload"
-          data-client_id="1053269966750-942laa9pgboo27i8n6ogm51c3052mh0t.apps.googleusercontent.com"
-          data-context="signin"
-          data-ux_mode="popup"
-          data-callback="handleCredentialResponse"
-          data-itp_support="true"
-        ></div>
-
-        <div
-          class="g_id_signin"
-          data-type="standard"
-          data-shape="pill"
-          data-theme="outline"
-          data-text="signin_with"
-          data-size="medium"
-          data-logo_alignment="left"
-        ></div>
-      </article> -->
-
-      <!-- Sign in with Gmail -->
-
-      <!-- Below code was directly taken from Google official documentation for implementing the button for sign-in with Google -->
-      <!-- configures the Google Identity Services library using g_id_onload, -->
-      <!-- displays a Sign in with Google button using g_id_signin, -->
-
-      <!-- <div
-        id="g_id_onload"
-        data-client_id="1053269966750-942laa9pgboo27i8n6ogm51c3052mh0t.apps.googleusercontent.com"
-        data-context="signin"
-        data-ux_mode="popup"
-        data-callback="handleCredentialResponse"
-        data-itp_support="true"
-      ></div>
-
-      <div
-        class="g_id_signin"
-        data-type="standard"
-        data-shape="rectangular"
-        data-theme="outline"
-        data-text="signin_with"
-        data-size="large"
-        data-logo_alignment="left"
-      ></div> -->
-      <!-- ----------------------------------------------------------------- -->
-      <!-- Form for capturing User input -->
-      <form method="post" id="user-inputs" class="sign-in-form">
-        <!-- Enter username box -->
-        <input
-          type="text"
-          name="username"
-          id="username"
-          placeholder="Username"
-        />
-        <!-- ----------------------------------------------------------------- -->
-        <!-- Enter Password box -->
-        <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="Password"
-        />
-
-        <!-- Sign-in button -->
-        <button id="sign-in-button">Sign in</button>
-      </form>
-      <!-- ----------------------------------------------------------------- -->
-
-      <!-- Sign-up benefits -->
-      <section class="signup-benefits hidden">
-        <!-- Header -->
-        <header>
-          <!-- Title -->
-          <h2>What you get after signing-up</h2>
-        </header>
-        <!-- ----------------------------------------- -->
-        <!-- Benefit Card -->
-        <article class="benefit-card">
-          <p>Benefit Card 1: Personalized alerts</p>
-        </article>
-        <!-- ----------------------------------------- -->
-        <!-- Benefit Card -->
-        <article class="benefit-card">
-          <p>Benefit Card 2: AI insights</p>
-        </article>
-        <!-- ----------------------------------------- -->
-
-        <!-- Benefit Card -->
-        <article class="benefit-card">
-          <p>Benefit Card 3: Price drop alerts</p>
-        </article>
-        <!-- ----------------------------------------- -->
-
-        <!-- Benefit Card -->
-        <article class="benefit-card">
-          <p>Benefit Card 4: Hidden Gigs</p>
-        </article>
-      </section>
-
-      <!-- CTA for sign-up -->
-      <!-- ----------------------------------------------------------------- -->
-      <!-- Sign in with Gmail -->
-
-      <!-- Below code was directly taken from Google official documentation for implementing the button for sign-in with Google -->
-      <!-- configures the Google Identity Services library using g_id_onload, -->
-      <!-- displays a Sign in with Google button using g_id_signin, -->
-      <div
-        id="g_id_onload"
-        data-client_id="1053269966750-942laa9pgboo27i8n6ogm51c3052mh0t.apps.googleusercontent.com"
-        data-context="signin"
-        data-ux_mode="popup"
-        data-callback="handleCredentialResponse"
-        data-itp_support="true"
-      ></div>
-
-      <div
-        class="g_id_signin"
-        data-type="standard"
-        data-shape="rectangular"
-        data-theme="outline"
-        data-text="signin_with"
-        data-size="large"
-        data-logo_alignment="left"
-      ></div>
-      <!-- Second CTA Sign-up form article -->
-      <article class="sign-up hidden">
-        <form method="post" id="register-user-form-2" class="sign-up">
-          <!-- text box for new username -->
-          <input
-            type="text"
-            name="new-username"
-            id="new-username"
-            placeholder="Enter a New Username"
-          />
-
-          <!-- text box for new password  -->
-          <input
-            type="password"
-            name="new-password"
-            id="new-password"
-            placeholder="Enter a New password"
-          />
-
-          <!-- text box for confirm new password  -->
-          <input
-            type="password"
-            name="confirm-password"
-            id="confirm-password"
-            placeholder="Confirm New password"
-          />
-          <!-- Button for Submit & Login -->
-          <button id="submit-and-login">Sign Up</button>
-        </form>
-      </article>
     </main>
   </body>
 </html>

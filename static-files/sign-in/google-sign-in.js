@@ -82,6 +82,9 @@ function hide_user_auth_buttons() {
     // Get the sign-in button
     const signInButton = document.querySelector("button#sign-in");
 
+    // Get the <!-- Get started for free --> CTA button
+    const getStartedCTA = document.querySelector(".link-to-signup");
+
     // Toggle class hidden for all the google-sign-in elements
     for (const element of googleSignInElements) {
       element.classList.add("hidden");
@@ -99,13 +102,16 @@ function hide_user_auth_buttons() {
 
     // Display sign-out button
     signOutButton.classList.remove("hidden");
-
     if (signInButton) {
+      // Toggle class hidden for sign-in button
       // Toggle class hidden for sign-in button
       signInButton.classList.add("hidden");
     } else {
       console.log(`signInButton was not found.`);
     }
+
+    // Hide the <!-- Get started for free --> CTA button
+    getStartedCTA.classList.add("hidden");
   } catch (err) {
     console.log(`Error in hide_user_auth_buttons function: ${err}`);
   }
