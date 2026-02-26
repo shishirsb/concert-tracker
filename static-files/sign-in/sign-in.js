@@ -157,90 +157,6 @@ registerForm.addEventListener("submit", async (e) => {
     });
 });
 
-// --------------------------------------------------------
-// <!-- Second CTA Sign-up form article -->
-
-// Register button functionality
-
-//Listen for click event on the Register button
-
-//Get the register form
-const registerForm_2 = document.querySelector("form#register-user-form-2");
-
-// Add a listner for Submit action on the register form
-registerForm_2.addEventListener("submit", async (e) => {
-  //Prevent default action
-  e.preventDefault();
-
-  // Get the form input fields
-  const newUsername_field = document.querySelector(
-    "form#register-user-form-2 input#new-username",
-  );
-  const newPassword_field = document.querySelector(
-    "form#register-user-form-2 input#new-password",
-  );
-  const confirmPassword_field = document.querySelector(
-    "form#register-user-form-2 input#confirm-password",
-  );
-
-  // validate input fields
-  if (newUsername_field.value === "") {
-    window.alert("Please enter a new Username");
-    return;
-  }
-
-  if (newPassword_field.value === "") {
-    window.alert("Please enter a new Password");
-    return;
-  }
-
-  if (confirmPassword_field.value !== newPassword_field.value) {
-    window.alert("The passwords are not matching.");
-    return;
-  }
-
-  //Get form data from the form fields.
-  const newUsername_value = newUsername_field.value;
-  const newPassword_value = newPassword_field.value;
-  const confirmPassword_value = confirmPassword_field.value;
-
-  const body = {
-    newUsername: newUsername_value,
-    newPassword: newPassword_value,
-    confirmPassword: confirmPassword_value,
-  };
-
-  //127.0.0.1:8000/signup
-  // https://concert-tracker-nw6r.onrender.com/api/signup
-  //send a POST request to register user.
-  fetch("/api/signup", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  })
-    .then(async (response) => {
-      const JSONResponse = await response.json();
-      return JSONResponse;
-      // if (response.text() === "success") {
-      //   window.location.href = "/home/home.html";
-      // }
-    })
-    .then((json_data) => {
-      console.log(`Server response: ${json_data.username}`);
-      if (json_data.message === "SUCCESS_FROM_NEW_SERVER") {
-        // toggle display for all the user-authentication buttons (sign-in, sign-up....)
-        hide_user_auth_buttons();
-      } else {
-        window.alert(json_data.message);
-      }
-    })
-    .catch((error) => {
-      console.log(`Could not fetch: ${error}`);
-    });
-});
-
 // ----------------------------------------------------------------
 
 // Authenticate session with cookies
@@ -275,6 +191,7 @@ document.addEventListener("DOMContentLoaded", (evt) => {
 });
 
 // -------------------------------------------------------------
+// <!-- A Sign-out button at the top-right -->
 // Sign-out button feature
 // Get the sign-out button
 const signOutButton = document.querySelector("button#sign-out");
@@ -376,6 +293,9 @@ function hide_user_auth_buttons() {
     // Get the sign-in button
     const signInButton = document.querySelector("button#sign-in");
 
+    // Get the <!-- Get started for free --> CTA button
+    const getStartedCTA = document.querySelector(".link-to-signup");
+
     // Toggle class hidden for all the google-sign-in elements
     for (const element of googleSignInElements) {
       element.classList.add("hidden");
@@ -400,6 +320,9 @@ function hide_user_auth_buttons() {
     } else {
       console.log(`signInButton was not found.`);
     }
+
+    // Hide the <!-- Get started for free --> CTA button
+    getStartedCTA.classList.add("hidden");
   } catch (err) {
     console.log(`Error in hide_user_auth_buttons function: ${err}`);
   }
@@ -434,9 +357,9 @@ function display_user_auth_buttons() {
     }
 
     // Toggle class hidden for all the sign-in form elements
-    for (const element of signInForms) {
-      element.classList.remove("hidden");
-    }
+    // for (const element of signInForms) {
+    //   element.classList.remove("hidden");
+    // }
 
     // Toggle class hidden for sign-out button
     signOutButton.classList.add("hidden");
@@ -609,5 +532,53 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
 
     containerEventCards.append(cloneCard);
     cloneCard.classList.remove("hidden");
+  }
+});
+
+// -----------------------------------------
+
+// <!-- Login button -->
+// Get the hyperlink element
+const loginLink = document.querySelector(".link-to-signin");
+
+if (loginLink) {
+  loginLink.addEventListener("click", (e) => {
+    try {
+      // Hide the sign-up form and show the sign-in form
+      // Hide the sign-up form
+      // Get sign-up form element
+      const signupForm = document.querySelector("#register-user-form");
+      signupForm.classList.add("hidden");
+
+      // Show the sign-in form
+      // Get the sign-in form element
+      const signinForm = document.querySelector(".sign-in-form");
+      signinForm.classList.remove("hidden");
+    } catch (err) {
+      console.log(`Error in Login button function: ${err}`);
+    }
+  });
+} else {
+  console.log(`Login hyperlink was not found.`);
+}
+
+// ---------------------------------------
+
+// <!-- Get started for free -->
+// Get the CTA button
+const getStartedCTA = document.querySelector(".link-to-signup");
+
+// Add click event listnener
+getStartedCTA.addEventListener("click", (e) => {
+  try {
+    // Show sign-up article element and hide the CTA link
+    // Get the article
+    const signupFormArticle = document.querySelector("#sign-up-01");
+    signupFormArticle.classList.remove("hidden");
+
+    // Hide the CTA link
+    getStartedCTA.classList.add("hidden");
+  } catch (err) {
+    console.log(`Error in <!-- Get started for free --> function: ${err}`);
   }
 });
