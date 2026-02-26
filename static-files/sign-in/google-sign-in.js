@@ -100,8 +100,12 @@ function hide_user_auth_buttons() {
     // Display sign-out button
     signOutButton.classList.remove("hidden");
 
-    // Toggle class hidden for sign-in button
-    signInButton.classList.add("hidden");
+    if (signInButton) {
+      // Toggle class hidden for sign-in button
+      signInButton.classList.add("hidden");
+    } else {
+      console.log(`signInButton was not found.`);
+    }
   } catch (err) {
     console.log(`Error in hide_user_auth_buttons function: ${err}`);
   }
