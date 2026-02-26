@@ -45,7 +45,7 @@ function handleCredentialResponse(response) {
       console.log(`Server response: ${json_data.username}`);
       if (json_data.message === "google_signin_was_successful") {
         // toggle display for all the user-authentication buttons (sign-in, sign-up....)
-        toggle_display_for_user_auth_buttons();
+        hide_user_auth_buttons();
       } else {
         window.alert(json_data.message);
       }
@@ -64,41 +64,45 @@ function handleCredentialResponse(response) {
 }
 
 // ------------------------------------------------------------------------------
-// Create and use a function for toggling hidden class for user-auth buttons.
-function toggle_display_for_user_auth_buttons() {
-  // Get google-sign-in elements
-  const googleSignInElements = document.querySelectorAll(".g_id_signin");
+// Function to hide user auth buttons
+function hide_user_auth_buttons() {
+  try {
+    // Get google-sign-in elements
+    const googleSignInElements = document.querySelectorAll(".g_id_signin");
 
-  // Get all the sign-up forms
-  const signUpForms = document.querySelectorAll(".sign-up");
+    // Get all the sign-up forms
+    const signUpForms = document.querySelectorAll(".sign-up");
 
-  // Get all the sign-in forms
-  const signInForms = document.querySelectorAll(".sign-in-form");
+    // Get all the sign-in forms
+    const signInForms = document.querySelectorAll(".sign-in-form");
 
-  // Get the sign-out button
-  const signOutButton = document.querySelector("button#sign-out");
+    // Get the sign-out button
+    const signOutButton = document.querySelector("button#sign-out");
 
-  // Get the sign-in button
-  const signInButton = document.querySelector("button#sign-in");
+    // Get the sign-in button
+    const signInButton = document.querySelector("button#sign-in");
 
-  // Toggle class hidden for all the google-sign-in elements
-  for (const element of googleSignInElements) {
-    element.classList.toggle("hidden");
+    // Toggle class hidden for all the google-sign-in elements
+    for (const element of googleSignInElements) {
+      element.classList.add("hidden");
+    }
+
+    // Toggle class hidden for all the sign-up form elements
+    for (const element of signUpForms) {
+      element.classList.add("hidden");
+    }
+
+    // Toggle class hidden for all the sign-in form elements
+    for (const element of signInForms) {
+      element.classList.add("hidden");
+    }
+
+    // Display sign-out button
+    signOutButton.classList.remove("hidden");
+
+    // Toggle class hidden for sign-in button
+    signInButton.classList.add("hidden");
+  } catch (err) {
+    console.log(`Error in hide_user_auth_buttons function: ${err}`);
   }
-
-  // Toggle class hidden for all the sign-up form elements
-  for (const element of signUpForms) {
-    element.classList.toggle("hidden");
-  }
-
-  // Toggle class hidden for all the sign-in form elements
-  for (const element of signInForms) {
-    element.classList.toggle("hidden");
-  }
-
-  // Toggle class hidden for sign-out button
-  signOutButton.classList.toggle("hidden");
-
-  // Toggle class hidden for sign-out button
-  signInButton.classList.toggle("hidden");
 }

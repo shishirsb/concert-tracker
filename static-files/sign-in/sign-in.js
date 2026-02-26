@@ -56,7 +56,7 @@ signInButton.addEventListener("click", (e) => {
       if (json_data.message === "SUCCESS") {
         // reroute user to the home page
         // window.location.href = "/static-files/home/home.html";
-        toggle_display_for_user_auth_buttons();
+        hide_user_auth_buttons();
         return;
         // Check if reponse is FAIL:USERNAME_NOT_FOUND
       } else if (json_data.message === "USERNAME_NOT_FOUND") {
@@ -147,7 +147,7 @@ registerForm.addEventListener("submit", async (e) => {
       console.log(`Server response: ${json_data.username}`);
       if (json_data.message === "SUCCESS_FROM_NEW_SERVER") {
         // toggle display for all the user-authentication buttons (sign-in, sign-up....)
-        toggle_display_for_user_auth_buttons();
+        hide_user_auth_buttons();
       } else {
         window.alert(json_data.message);
       }
@@ -231,7 +231,7 @@ registerForm_2.addEventListener("submit", async (e) => {
       console.log(`Server response: ${json_data.username}`);
       if (json_data.message === "SUCCESS_FROM_NEW_SERVER") {
         // toggle display for all the user-authentication buttons (sign-in, sign-up....)
-        toggle_display_for_user_auth_buttons();
+        hide_user_auth_buttons();
       } else {
         window.alert(json_data.message);
       }
@@ -263,7 +263,7 @@ document.addEventListener("DOMContentLoaded", (evt) => {
     })
     .then((text) => {
       // toggle display for all the user-authentication buttons (sign-in, sign-up....)
-      toggle_display_for_user_auth_buttons();
+      hide_user_auth_buttons();
 
       // Log server response to console
       console.log(`Server response: ${text}`);
@@ -302,7 +302,7 @@ signOutButton.addEventListener("click", (e) => {
     })
     .then((text) => {
       // toggle display for all the user-authentication buttons (sign-in, sign-up....)
-      toggle_display_for_user_auth_buttons();
+      display_user_auth_buttons();
 
       // Log server response to console
       console.log(`Server response: ${text}`);
@@ -315,42 +315,137 @@ signOutButton.addEventListener("click", (e) => {
 
 // --------------------------------------------------------
 // Create and use a function for toggling hidden class for user-auth buttons.
-function toggle_display_for_user_auth_buttons() {
-  // Get google-sign-in elements
-  const googleSignInElements = document.querySelectorAll(".g_id_signin");
+// function toggle_display_for_user_auth_buttons() {
+//   try {
+//     // Get google-sign-in elements
+//     const googleSignInElements = document.querySelectorAll(".g_id_signin");
 
-  // Get all the sign-up forms
-  const signUpForms = document.querySelectorAll(".sign-up");
+//     // Get all the sign-up forms
+//     const signUpForms = document.querySelectorAll(".sign-up");
 
-  // Get all the sign-in forms
-  const signInForms = document.querySelectorAll(".sign-in-form");
+//     // Get all the sign-in forms
+//     const signInForms = document.querySelectorAll(".sign-in-form");
 
-  // Get the sign-out button
-  const signOutButton = document.querySelector("button#sign-out");
+//     // Get the sign-out button
+//     const signOutButton = document.querySelector("button#sign-out");
 
-  // Get the sign-in button
-  const signInButton = document.querySelector("button#sign-in");
+//     // Get the sign-in button
+//     const signInButton = document.querySelector("button#sign-in");
 
-  // Toggle class hidden for all the google-sign-in elements
-  for (const element of googleSignInElements) {
-    element.classList.toggle("hidden");
+//     // Toggle class hidden for all the google-sign-in elements
+//     for (const element of googleSignInElements) {
+//       element.classList.toggle("hidden");
+//     }
+
+//     // Toggle class hidden for all the sign-up form elements
+//     for (const element of signUpForms) {
+//       element.classList.toggle("hidden");
+//     }
+
+//     // Toggle class hidden for all the sign-in form elements
+//     for (const element of signInForms) {
+//       element.classList.add("hidden");
+//     }
+
+//     // Toggle class hidden for sign-out button
+//     signOutButton.classList.toggle("hidden");
+
+//     // Toggle class hidden for sign-out button
+//     signInButton.classList.toggle("hidden");
+//   } catch (err) {
+//     console.log(`Error in hide_user_auth_buttons function: ${err}`);
+//   }
+// }
+
+// ----
+// Function to hide user auth buttons
+function hide_user_auth_buttons() {
+  try {
+    // Get google-sign-in elements
+    const googleSignInElements = document.querySelectorAll(".g_id_signin");
+
+    // Get all the sign-up forms
+    const signUpForms = document.querySelectorAll(".sign-up");
+
+    // Get all the sign-in forms
+    const signInForms = document.querySelectorAll(".sign-in-form");
+
+    // Get the sign-out button
+    const signOutButton = document.querySelector("button#sign-out");
+
+    // Get the sign-in button
+    const signInButton = document.querySelector("button#sign-in");
+
+    // Toggle class hidden for all the google-sign-in elements
+    for (const element of googleSignInElements) {
+      element.classList.add("hidden");
+    }
+
+    // Toggle class hidden for all the sign-up form elements
+    for (const element of signUpForms) {
+      element.classList.add("hidden");
+    }
+
+    // Toggle class hidden for all the sign-in form elements
+    for (const element of signInForms) {
+      element.classList.add("hidden");
+    }
+
+    // Display sign-out button
+    signOutButton.classList.remove("hidden");
+
+    // Toggle class hidden for sign-in button
+    signInButton.classList.add("hidden");
+  } catch (err) {
+    console.log(`Error in hide_user_auth_buttons function: ${err}`);
   }
+}
+// -----
+// Function to show user auth buttons
+function display_user_auth_buttons() {
+  try {
+    // Get google-sign-in elements
+    const googleSignInElements = document.querySelectorAll(".g_id_signin");
 
-  // Toggle class hidden for all the sign-up form elements
-  for (const element of signUpForms) {
-    element.classList.toggle("hidden");
+    // Get all the sign-up forms
+    const signUpForms = document.querySelectorAll(".sign-up");
+
+    // Get all the sign-in forms
+    const signInForms = document.querySelectorAll(".sign-in-form");
+
+    // Get the sign-out button
+    const signOutButton = document.querySelector("button#sign-out");
+
+    // Get the sign-in button
+    const signInButton = document.querySelector("button#sign-in");
+
+    // Toggle class hidden for all the google-sign-in elements
+    for (const element of googleSignInElements) {
+      element.classList.remove("hidden");
+    }
+
+    // Toggle class hidden for all the sign-up form elements
+    for (const element of signUpForms) {
+      element.classList.remove("hidden");
+    }
+
+    // Toggle class hidden for all the sign-in form elements
+    for (const element of signInForms) {
+      element.classList.remove("hidden");
+    }
+
+    // Toggle class hidden for sign-out button
+    signOutButton.classList.add("hidden");
+
+    if (signInButton) {
+      // Toggle class hidden for sign-in button
+      signInButton.classList.remove("hidden");
+    } else {
+      console.log(`signInButton was not found.`);
+    }
+  } catch (err) {
+    console.log(`Error in hide_user_auth_buttons function: ${err}`);
   }
-
-  // Toggle class hidden for all the sign-in form elements
-  for (const element of signInForms) {
-    element.classList.add("hidden");
-  }
-
-  // Toggle class hidden for sign-out button
-  signOutButton.classList.toggle("hidden");
-
-  // Toggle class hidden for sign-out button
-  signInButton.classList.toggle("hidden");
 }
 
 // ------------------------------------------
