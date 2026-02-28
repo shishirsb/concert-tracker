@@ -3,7 +3,6 @@
 html {
   scroll-behavior: smooth;
 }
-
 /* ---------------------------------------------------------------- */
 /* Sign-in page */
 body {
@@ -11,10 +10,8 @@ body {
   flex-direction: column;
   align-items: center;
   padding-bottom: 30px;
-  margin: 0px;
-  background-image:
-    linear-gradient(rgb(0, 0, 0, 0.8), rgb(0, 0, 0, 0.8)),
-    url("/static-files/sign-in/images/bg-image-4-portrait.png");
+  background: linear-gradient(45deg, rgb(58, 57, 57), rgb(18, 18, 19));
+  /* url("/static-files/sign-in/images/bg-image-4-portrait.png"); */
   background-size: cover;
   background-position-y: center;
 }
@@ -30,7 +27,7 @@ header.site {
   padding-bottom: 10px;
   /* margin: 5px; */
   width: 100%;
-  max-width: 1450px;
+  /* max-width: 1450px; */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -64,6 +61,10 @@ button#sign-out {
   padding: 10px;
   margin: 5px;
   margin-left: auto;
+  background: linear-gradient(to right, rgb(12, 12, 12), rgb(169, 168, 169));
+  color: white;
+  outline: none;
+  border: 1px solid;
 }
 
 /* -------------------------------------------------------- */
@@ -74,7 +75,7 @@ main {
   /* margin: 5px; */
   /* margin: 5px; */
   width: 100%;
-  max-width: 1450px;
+  /* max-width: 1450px; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -84,7 +85,7 @@ main {
 header.page {
   /* border: 1px solid #cccccc; */
   /* padding: 10px; */
-  margin: 5px;
+  /* margin: 5px; */
   width: 100%;
   color: #ffffff;
 }
@@ -136,7 +137,7 @@ section.brand {
   align-items: center;
   background-image:
     linear-gradient(rgb(0, 0, 0, 0.2), rgb(0, 0, 0, 0.2)),
-    url("/static-files/sign-in/images/AI-concert-india.png");
+    url("https://images.unsplash.com/photo-1474899310722-cb9b0f84bb91?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
   background-size: cover;
   background-position-y: center;
   width: 100%;
@@ -151,7 +152,9 @@ section.brand {
   margin: 10px;
   border-radius: 50px;
   font-size: x-large;
-  background: linear-gradient(to right, rgb(179, 71, 176), rgb(150, 14, 132));
+  background: linear-gradient(to right, rgb(12, 12, 12), rgb(169, 168, 169));
+  color: white;
+  text-decoration: none;
 }
 
 /* <!-- CTA Sign-up form article --> */
@@ -309,6 +312,16 @@ section#select-city select#city-selector {
   margin: 5px;
   /* margin: 2px; */
 }
+
+/* <!-- Select Artist dropdown --> */
+#artist-selector {
+  /* padding: 3px; */
+  /* border: 1px solid #cccccc; */
+  padding: 10px;
+  margin: 5px;
+  /* margin: 2px; */
+}
+
 /* --------------------- */
 /* <!-- Social proof banner --> */
 section.social-proof-banner {

@@ -582,3 +582,16 @@ getStartedCTA.addEventListener("click", (e) => {
     console.log(`Error in <!-- Get started for free --> function: ${err}`);
   }
 });
+
+// --------------------------------------------
+
+// <!-- Select city dropdown -->
+// Extract all available cities from the database
+
+// Get the select-city drop-down element
+const selectCityDropdown = document.querySelector("#city-selector");
+
+// Add an event listener for documentload
+document.addEventListener("DOMContentLoaded", async (evt) => {
+  // Call an API to get all the cities available.
+});
