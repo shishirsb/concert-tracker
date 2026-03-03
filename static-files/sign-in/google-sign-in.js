@@ -16,7 +16,7 @@ function decodeJWT(token) {
 
 // JavaScript callback function handler named handleCredentialResponse to receive user sign-in credential from Google.
 // The below code snippets were directly taken from Google's official documentation.
-function handleCredentialResponse(response) {
+async function handleCredentialResponse(response) {
   // Decode the Encoded response from Google.
   const responsePayload = decodeJWT(response.credential);
 
@@ -27,7 +27,7 @@ function handleCredentialResponse(response) {
   };
 
   // Send a POST request after user signs in with google.
-  fetch("/api/google-signin", {
+  await fetch("/api/google-signin", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -46,6 +46,11 @@ function handleCredentialResponse(response) {
       if (json_data.message === "google_signin_was_successful") {
         // toggle display for all the user-authentication buttons (sign-in, sign-up....)
         hide_user_auth_buttons();
+
+        // show user greeting
+        const userGreetingElement = document.querySelector(".user-greeting");
+        userGreetingElement.innerHTML = `Welcome ${json_data.username}!`;
+        userGreetingElement.classList.remove("hidden");
       } else {
         window.alert(json_data.message);
       }

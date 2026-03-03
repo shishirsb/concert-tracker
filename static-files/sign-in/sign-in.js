@@ -1,5 +1,4 @@
-// Sign-in with Google
-
+// <!-- Form for capturing User input -->
 // Regular Sign-in Logic
 
 // Get the sign-in button
@@ -57,6 +56,12 @@ signInButton.addEventListener("click", (e) => {
         // reroute user to the home page
         // window.location.href = "/static-files/home/home.html";
         hide_user_auth_buttons();
+
+        // Show welcome message
+        const userGreetingElement = document.querySelector(".user-greeting");
+        userGreetingElement.innerHTML = `Welcome ${json_data.username}!`;
+        userGreetingElement.classList.remove("hidden");
+
         return;
         // Check if reponse is FAIL:USERNAME_NOT_FOUND
       } else if (json_data.message === "USERNAME_NOT_FOUND") {
@@ -79,7 +84,7 @@ signInButton.addEventListener("click", (e) => {
     });
 });
 // --------------------------------------------------------------------
-
+// <!-- CTA Sign-up form article -->
 // Register button functionality
 
 //Listen for click event on the Register button
@@ -148,6 +153,11 @@ registerForm.addEventListener("submit", async (e) => {
       if (json_data.message === "SUCCESS_FROM_NEW_SERVER") {
         // toggle display for all the user-authentication buttons (sign-in, sign-up....)
         hide_user_auth_buttons();
+
+        // show user greeting
+        const userGreetingElement = document.querySelector(".user-greeting");
+        userGreetingElement.innerHTML = `Welcome ${json_data.username}!`;
+        userGreetingElement.classList.remove("hidden");
       } else {
         window.alert(json_data.message);
       }
@@ -180,6 +190,11 @@ document.addEventListener("DOMContentLoaded", (evt) => {
     .then((text) => {
       // toggle display for all the user-authentication buttons (sign-in, sign-up....)
       hide_user_auth_buttons();
+
+      // show user greeting
+      const userGreetingElement = document.querySelector(".user-greeting");
+      userGreetingElement.innerHTML = `Welcome ${text}!`;
+      userGreetingElement.classList.remove("hidden");
 
       // Log server response to console
       console.log(`Server response: ${text}`);
@@ -220,6 +235,10 @@ signOutButton.addEventListener("click", (e) => {
     .then((text) => {
       // toggle display for all the user-authentication buttons (sign-in, sign-up....)
       display_user_auth_buttons();
+
+      // show user greeting
+      const userGreetingElement = document.querySelector(".user-greeting");
+      userGreetingElement.classList.add("hidden");
 
       // Log server response to console
       console.log(`Server response: ${text}`);
@@ -463,12 +482,57 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
   window.setInterval(switchHeadline, 4000);
 });
 // ----------------------------------------------------
+// <!-- Select city dropdown -->
+// Extract all available cities from the database
+
+// Get the select-city drop-down element
+const selectCityDropdown = document.querySelector("#city-selector");
+
+// Add an event listener for documentload
+document.addEventListener("DOMContentLoaded", async (evt) => {
+  // Call an API to get all the cities available from the database.
+});
 
 // ----------------------------------------------------
 // <!-- Trending Preview -->
 // Get event details.
 // Create a document load listener
 document.addEventListener("DOMContentLoaded", async (evt) => {
+  // <!-- Select city dropdown -->
+  try {
+    // Call an API to get all the cities available from the database.
+    // Prepare parameter list
+    const parameters = {};
+    // Make a request for list of available cities.
+    const response = await call("/api/get-cities", null);
+    if (!response) console.log(`No response from API end point.`);
+    else {
+      const cities = response.data.cities;
+      if (!cities) console.log(`No cities were extracted`);
+      else {
+        // Push the cities into the <select> element as options
+        // Match each array element to a function call.
+        cities.forEach((value) => {
+          // Create an option element
+          const optionElement = document.createElement("option");
+
+          // Set the text display and value of the option
+          optionElement.text = value;
+          optionElement.value = value;
+
+          // Add the option to the select drop-down element.
+          // Get the <select> element.
+          const selectCityDropDown = document.querySelector("#city-selector");
+          selectCityDropDown.add(optionElement);
+        });
+      }
+    }
+  } catch (err) {
+    console.log(
+      `Error while pupulating options to city sector drop-down. Error: ${err}`,
+    );
+  }
+  // ----------
   //Capture the filter data on page load
   const citySelector = document.querySelector("#city-selector");
   const city = citySelector.value;
@@ -526,9 +590,9 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
     // Insert data
     const title = cloneCard.querySelector("h2");
     const image = cloneCard.querySelector("img");
-    title.innerText = event.title;
-    image.setAttribute("src", event.thumbnail);
-    image.setAttribute("alt", event.title);
+    title.innerText = event.event_title;
+    image.setAttribute("src", event.event_image_url);
+    // image.setAttribute("alt", event.event_title);
 
     containerEventCards.append(cloneCard);
     cloneCard.classList.remove("hidden");
@@ -585,13 +649,43 @@ getStartedCTA.addEventListener("click", (e) => {
 
 // --------------------------------------------
 
-// <!-- Select city dropdown -->
-// Extract all available cities from the database
-
-// Get the select-city drop-down element
-const selectCityDropdown = document.querySelector("#city-selector");
-
-// Add an event listener for documentload
-document.addEventListener("DOMContentLoaded", async (evt) => {
-  // Call an API to get all the cities available.
+// Add an event listener for city sector's state change.
+selectCityDropdown.addEventListener("select", async (evt) => {
+  //
 });
+
+async function call(endPoint, parameters) {
+  try {
+    // Make a GET request to get all the matching events
+    // Set query parameters
+    let params = null;
+    let url = "";
+    if (parameters) {
+      const params = new URLSearchParams(parameters);
+      url = `${endPoint}${params.toString()}`;
+    } else {
+      url = `${endPoint}`;
+    }
+
+    // Make a GET request to get all the matching events
+    const response = await fetch(url);
+
+    // Handle based on status
+    if (response.status === 200) {
+      // Get response body as text
+      const JSONResponse = await response.json();
+      // return text body.
+      return JSONResponse;
+    } else {
+      // Throw error
+      throw new Error("Error");
+    }
+  } catch (err) {
+    console.log(
+      `Error while calling API: ${endPoint} with params: ${parameters}. Error: ${err}`,
+    );
+    return `error while fetching: ${url}`;
+  }
+}
+
+// ---------------------------------------------

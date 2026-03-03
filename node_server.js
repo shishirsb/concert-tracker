@@ -91,6 +91,85 @@ try {
           response.end();
           return;
         }
+
+        //-------------------------------------------------------------------------
+        // ************************** END POINT ********************************
+        // Make a request for list of available cities.
+        if (
+          request.method === "GET" &&
+          request.url.startsWith("/api/get-cities")
+        ) {
+          try {
+            // Query database for list of unique full-cities names.
+
+            // Get parameters
+            // Create a url object
+            const url = new URL(`http://example.com${request.url}`);
+
+            // Log city parameter to console.
+            // const city = url.searchParams.get("city");
+
+            // Prepare Filter conditions
+            const filterCondition = "";
+            if (url.searchParams.entries()) {
+              url.searchParams.entries().forEach((param) => {
+                filterCondition = `${filterCondition} and ${param[0]}=${param[1]}`;
+              });
+            }
+
+            // Prepare a select stmt
+            const select_stmt =
+              db.prepare(`select distinct city from music_concert_events
+            where true
+            ${filterCondition}`);
+
+            // Execute select query and extract results.
+            const results = select_stmt.all();
+
+            // Get only city names as a list
+            const citiesList = results.map((row) => {
+              return row.city;
+            });
+
+            // Prepare response
+            const reply = {
+              massage: "success",
+              data: {
+                cities: citiesList,
+              },
+              error: "No errors",
+            };
+
+            // Set headers
+            response.writeHead(200, {
+              "Content-Type": "application/json",
+              // "Access-Control-Allow-Methods": "GET",
+              // "Access-Control-Allow-Headers": "Content-Type",
+            });
+
+            // Send response
+            response.end(JSON.stringify(reply));
+            return;
+          } catch (err) {
+            // Set headers
+            response.writeHead(401, {
+              "Content-Type": "application/json",
+              // "Access-Control-Allow-Methods": "GET",
+              // "Access-Control-Allow-Headers": "Content-Type",
+            });
+
+            // Prepare response
+            const reply = {
+              message: "failed",
+              error: err,
+              data: [],
+            };
+
+            // Send response
+            response.end(JSON.stringify(reply));
+            return;
+          }
+        }
         // --------------------------------------------------------------------------
         // ************************** END POINT ********************************
         // Make a GET request to get all the matching events
@@ -106,15 +185,22 @@ try {
             const url = new URL(`http://example.com${request.url}`);
 
             // Log city parameter to console.
-            const city = url.searchParams.get("city");
+            // const city = url.searchParams.get("city");
 
             // Extract only the matching events from database.
+            // Prepare Filter conditions
+            let filterCondition = "";
+            if (url.searchParams.entries()) {
+              url.searchParams.entries().forEach((param) => {
+                filterCondition = `${filterCondition} and ${param[0]}='${param[1]}'`;
+              });
+            }
             // Prepare select stmt
             // Query users table
             const select_stmt = db.prepare(
-              "select * from events_all_searchapi where query_location = ?",
+              `select * from music_concert_events where true ${filterCondition}`,
             );
-            results = select_stmt.all(city);
+            results = select_stmt.all();
             console.log(results);
 
             // Return events
@@ -142,6 +228,27 @@ try {
             // Catch errors encountered during backend operations.
           } catch (error) {
             // Prepare JSON response
+            const reply = {
+              events: [],
+              message: "fail",
+            };
+
+            // Set headers
+            // Set status code and headers for response
+            response.writeHead(401, {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Methods": "GET",
+              "Access-Control-Allow-Headers": "Content-Type",
+            });
+            // Send response
+            response.write(JSON.stringify(reply));
+            // Finish sending response body
+            response.end();
+
+            //  Log error to console
+            console.log(`Error while fetching events: ${error}`);
+
+            return;
           }
         }
 

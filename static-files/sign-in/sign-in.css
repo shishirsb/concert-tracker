@@ -45,6 +45,7 @@ header.site span.logo img {
   width: 60px;
   border: 1.5px #ffffff;
   margin: 5px;
+  border-radius: 40%;
 }
 
 /* <!-- Tagline --> */
@@ -53,6 +54,11 @@ header.site span.tag-line {
   padding: 10px;
   margin: 5px;
 }
+
+/* <!-- User greeting  --> */
+/* .user-greeting {
+  margin-left: auto;
+} */
 
 button#sign-in {
   /* border: 1px solid #cccccc; */
@@ -65,11 +71,22 @@ button#sign-out {
   /* border: 1px solid #cccccc; */
   padding: 10px;
   margin: 5px;
-  margin-left: auto;
+  /* margin-left: auto; */
   background: linear-gradient(to right, rgb(12, 12, 12), rgb(169, 168, 169));
   color: white;
   outline: none;
   border: 1px solid;
+}
+
+/* <!-- Right aligned container. --> */
+.site-header-right-container {
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 /* -------------------------------------------------------- */
