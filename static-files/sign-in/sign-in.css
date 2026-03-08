@@ -123,19 +123,47 @@ header.page {
 /* <!-- Search box --> */
 .search-bar {
   padding: 5px;
-  /* margin: 5px; */
-  border-radius: 20px;
-  width: 280px;
+  width: 225px;
   height: 30px;
   font:
     italic 1.2rem "Fira Sans",
     serif;
+  border: none;
+}
+
+.search-bar:focus {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+/* <!-- Search icon image  --> */
+.search-icon-image {
+  width: 25px;
+  margin: 3px;
+  aspect-ratio: 1 / 1;
+  /* border: 1px solid black; */
 }
 
 /* <!-- Search box section --> */
 .search-bar-section {
-  margin: 5%;
-  /* width: 100%; */
+  margin-top: 20px;
+  margin: 30px 10px;
+  background-color: white;
+  border-radius: 20px;
+  padding: 1px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+/* <!-- adjustment icon image  --> */
+.adjustment-icon-image {
+  width: 35px;
+  aspect-ratio: 1 / 1;
+  /* border: 1px solid black; */
 }
 
 /* <!-- Display all the relevant artists and events. --> */
