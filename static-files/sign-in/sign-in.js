@@ -588,11 +588,66 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
     // Greate a clone
     const cloneCard = eventCardTemplate.cloneNode(true);
     // Insert data
-    const title = cloneCard.querySelector("h2");
-    const image = cloneCard.querySelector("img");
-    title.innerText = event.event_title;
-    image.setAttribute("src", event.event_image_url);
-    // image.setAttribute("alt", event.event_title);
+    // Add title
+    cloneCard.querySelector(".card-title").innerText = event.event_title;
+    cloneCard.querySelector(".card-title").classList.remove("hidden");
+
+    // Check if main artist data is available.
+    if (event.main_artist) {
+      // Add Artists
+      cloneCard.querySelector(".card-artists").innerText = event.main_artist;
+      cloneCard.querySelector(".card-artists").classList.remove("hidden");
+    }
+
+    // Check if event-link data is available.
+    if (event.event_url) {
+      // Add event link
+      cloneCard.querySelector(".know-more").innerText = event.event_url;
+      cloneCard.querySelector(".know-more").classList.remove("hidden");
+    }
+
+    // Check if event-address data is available.
+    if (event.event_address) {
+      // Add address
+      cloneCard.querySelector(".location").innerText = event.event_address;
+      cloneCard.querySelector(".location").classList.remove("hidden");
+    }
+
+    // Check if event-address data is available.
+    if (event.event_date) {
+      // Add date
+      cloneCard.querySelector(".location").innerText = event.event_date;
+      cloneCard.querySelector(".location").classList.remove("hidden");
+    }
+
+    // Check if event-time data is available.
+    if (event.event_start_time) {
+      // Add event_start_time
+      cloneCard.querySelector(".time").innerText = event.event_start_time;
+      cloneCard.querySelector(".time").classList.remove("hidden");
+    }
+
+    // Check if event-price data is available.
+    if (event.price) {
+      // Add Price
+      cloneCard.querySelector(".price").innerText = event.price;
+      cloneCard.querySelector(".price").classList.remove("hidden");
+    }
+
+    // Check if event-genre data is available.
+    if (event.event_genre) {
+      // Add Genre
+      cloneCard.querySelector(".genre").innerText = event.event_genre;
+      cloneCard.querySelector(".genre").classList.remove("hidden");
+    }
+
+    // Check if event-description data is available.
+    if (event.event_description) {
+      // Add event description
+      cloneCard.querySelector(".description").innerText =
+        event.event_description;
+      cloneCard.querySelector(".description").classList.remove("hidden");
+    }
 
     containerEventCards.append(cloneCard);
     cloneCard.classList.remove("hidden");
