@@ -87,22 +87,46 @@ header.page {
   width: 100%;
   color: #ffffff;
 }
+/* <!-- Area selector outer section --> */
+.select-area-outer-section {
+  display: flex;
+  flex-direction: row;
+}
+
+/* <!-- Map location icon  --> */
+.map-location-icon {
+  height: 40px;
+}
+
+/* <!-- Area selector drop-down section  --> */
+.area-selector-section {
+  display: flex;
+  flex-direction: column;
+}
 
 /* <!-- Select a location --> */
-.select-location-drop-down {
-  padding: 5px;
-  margin: 5px;
+.select-area-drop-down {
+  padding: 3px;
+  margin-bottom: 2px;
   font:
-    italic 1.2rem "Fira Sans",
+    1rem "Fira Sans",
+    serif;
+}
+
+/* <!-- City and Country display  --> */
+.city-country-display {
+  font:
+    0.8rem "Fira Sans",
     serif;
 }
 
 /* <!-- Search box --> */
 .search-bar {
   padding: 5px;
-  margin: 5px;
+  /* margin: 5px; */
   border-radius: 20px;
-  width: 70%;
+  width: 280px;
+  height: 30px;
   font:
     italic 1.2rem "Fira Sans",
     serif;
@@ -134,27 +158,26 @@ header.page {
 .display-event-categories-section {
   display: flex;
   flex-direction: row;
-  /* align-items: center; */
-  /* justify-content: start; */
-  overflow-y: hidden;
+  overflow-y: auto;
   gap: 5px;
-  /* max-width: 400px; */
-  /* width: 400px; */
+  max-width: 350px;
+  max-height: 200px;
 }
 
 /* <!-- Category card --> */
 .category-card {
   width: 100px;
   border: #cccccc;
-  border-radius: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-shrink: 0;
 }
 
 /* <!-- Category Image --> */
 .category-image {
   width: 80%;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   border: #cccccc;
 }
@@ -189,19 +212,25 @@ header.page {
   display: flex;
   flex-direction: row;
   align-items: center;
-  overflow-y: hidden;
+  overflow-y: auto;
+  max-width: 350px;
+  max-height: 420px;
 }
 
 /* <!-- Event card  --> */
 .event-card {
   width: 270px;
+  flex-shrink: 0;
   /* border-radius: 20px; */
 }
 
 /* <!-- Event card image  --> */
 .event-card img {
-  size: 80%;
   border-radius: 20px;
+  width: 80%;
+  aspect-ratio: 1 / 1;
+  /* border-radius: 50%; */
+  border: #cccccc;
 }
 
 .event-title {
