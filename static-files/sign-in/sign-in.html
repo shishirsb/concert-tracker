@@ -27,182 +27,246 @@
   <body>
     <!-- --------------------------------------------------------------------- -->
     <!-- Site header -->
-    <header class="site">
-      <!-- Logo -->
-      <span class="logo"
-        ><img src="/static-files/sign-in/images/logo3.jpeg"
-      /></span>
-      <!-- Tagline -->
-      <span class="tag-line"><i>AI-powered concert discovery platform</i></span>
-
-      <!-- Right aligned container. -->
-      <section class="site-header-right-container">
-        <!-- User greeting  -->
-        <p class="user-greeting hidden">Welcome</p>
-
-        <!-- A Sign-out button at the top-right -->
-        <button id="sign-out" class="hidden">Sign-out</button>
-      </section>
-    </header>
+    <header class="site"></header>
     <!-- --------------------------------------------------------------------- -->
 
     <!-- Main content -->
     <main>
       <!-- Page Header -->
       <header class="page">
-        <!-- Brand section  -->
-        <section class="brand">
-          <!-- Headline -->
-          <article class="headline">
-            <!-- Headline items -->
-          </article>
+        <!-- Select Country -->
+        <section class="select-country">
+          <span>🌍</span>
+          <select
+            name="country"
+            id="country-selector-1"
+            class="select-country-drop-down"
+          >
+            <option value="India">India</option>
+            <option value="Srilanka">Srilanka</option>
+            <option value="Italy">Italy</option>
+          </select>
 
-          <!-- CTA button -->
-          <!-- Get started for free -->
-          <a class="link-to-signup" href="#">Get Started</a>
-
-          <!-- CTA Sign-up form article -->
-          <article class="sign-up hidden" id="sign-up-01">
-            <form method="post" id="register-user-form" class="sign-up">
-              <!-- text box for new username -->
-              <input
-                type="text"
-                name="new-username"
-                id="new-username"
-                placeholder="👤 | Enter a New Username"
-              />
-
-              <!-- text box for new password  -->
-              <input
-                type="password"
-                name="new-password"
-                id="new-password"
-                placeholder="🔒︎ | Enter a New password"
-              />
-
-              <!-- text box for confirm new password  -->
-              <input
-                type="password"
-                name="confirm-password"
-                id="confirm-password"
-                placeholder="🔒︎ | Confirm New password"
-              />
-
-              <!-- Buttons section  -->
-
-              <section id="buttons-section">
-                <!-- Sign-up Button -->
-                <!-- Button for Submit & Login -->
-                <button id="submit-and-login">Sign-up</button>
-
-                <!-- Login button -->
-                <a href="#sign-in-google" class="link-to-signin"
-                  >Already a member? Login</a
-                >
-              </section>
-            </form>
-
-            <!-- ----------------------------------------------------------------- -->
-            <!-- Form for capturing User input -->
-            <form method="post" id="user-inputs" class="sign-in-form hidden">
-              <!-- Enter username box -->
-              <input
-                type="text"
-                name="username"
-                id="username"
-                placeholder="Username"
-              />
-              <!-- ----------------------------------------------------------------- -->
-              <!-- Enter Password box -->
-              <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Password"
-              />
-
-              <!-- Sign-in button -->
-              <button id="sign-in-button">Sign in</button>
-            </form>
-
-            <!-- Sign in with Gmail -->
-
-            <!-- Below code was directly taken from Google official documentation for implementing the button for sign-in with Google -->
-            <!-- configures the Google Identity Services library using g_id_onload, -->
-            <!-- displays a Sign in with Google button using g_id_signin, -->
-
-            <div
-              id="g_id_onload"
-              data-client_id="1053269966750-942laa9pgboo27i8n6ogm51c3052mh0t.apps.googleusercontent.com"
-              data-context="signin"
-              data-ux_mode="popup"
-              data-callback="handleCredentialResponse"
-              data-itp_support="true"
-            ></div>
-
-            <div
-              class="g_id_signin"
-              data-type="standard"
-              data-shape="rectangular"
-              data-theme="outline"
-              data-text="signin_with"
-              data-size="large"
-              data-logo_alignment="left"
-            ></div>
-            <!-- ----------------------------------------------------------------- -->
-          </article>
-        </section>
-        <!-- Let user select a city -->
-
-        <!-- Label + select city drop-down-->
-        <section id="select-city">
-          <!-- New para -->
-
-          <!-- Label -->
-          <span class="label">Showing concerts in:</span>
-          <!-- Select city dropdown -->
-          <select name="city" id="city-selector">
-            <!-- <option value="Bengaluru">Bengaluru</option>
+          <select
+            name="city"
+            id="city-selector-1"
+            class="select-city-drop-down"
+          >
+            <option value="Bengaluru">Bengaluru</option>
+            <option value="Hyderabad">Hyderabad</option>
             <option value="Mumbai">Mumbai</option>
-            <option value="Delhi">Delhi</option> -->
-          </select>
-
-          <!-- Label -->
-          <span class="label">Artists:</span>
-          <!-- Select Artist dropdown -->
-          <select name="artist" id="artist-selector">
-            <option value="All Artists">All Artists</option>
-            <option value="Arjith Singh">Arjith Singh</option>
-            <option value="Calvin Harris">Calvin Harris</option>
+            <option value="Chennai">Chennai</option>
+            <option value="Uttarkhand">Uttarkhand</option>
+            <option value="Delhi">Delhi</option>
           </select>
         </section>
 
-        <!-- Social proof banner -->
-
-        <!-- <section class="social-proof-banner"> -->
-        <!-- short sentences -->
-        <!-- <span>SOCIAL PROOF BANNER</span> -->
-        <!-- <span><i>1,200+ Concerts Tracked</i></span> -->
-        <!-- <span><i>8 Major Cities</i></span> -->
-        <!-- <span><i>AI-Powered Insights</i></span> -->
-        <!-- </section> -->
+        <!-- Search box section -->
+        <section class="search-bar-section">
+          <!-- Search box -->
+          <input
+            type="text"
+            placeholder=" 🔍︎ "
+            id="search-bar-1"
+            class="search-bar"
+          />
+          <span>☰</span>
+        </section>
       </header>
 
-      <!-- Trending Preview -->
-      <section class="trending-preview">
-        <!-- Title for event listings -->
-        <!-- <h2>LIVE EVENT LISTING</h2> -->
+      <!-- Display all the relevant artists and events. -->
+      <section class="display-artists-and-events">
+        <!-- Main title -->
+        <p class="main-title">
+          What's happening this
+          <select
+            name="duration"
+            id="duration-selector-1"
+            class="duration-selector"
+          >
+            <option value="week">week</option>
+            <option value="month">month</option>
+            <option value="year">year</option>
+          </select>
+        </p>
 
-        <!-- List of event cards -->
-        <!-- Event card 1 -->
-        <article class="event-card hidden">
-          <header>
-            <!-- title -->
-            <h2 class="card-title"></h2>
-          </header>
+        <!-- Show list of categories -->
+        <section class="display-event-categories-section">
+          <!-- Category card -->
+          <div class="category-card">
+            <!-- Category Image -->
+            <img
+              class="category-image"
+              src="https://eclecticmusiclover.com/wp-content/uploads/2025/12/indie-music-art-2025.jpg?w=640"
+              alt="indie-music-poster"
+            />
+            <!-- Category name -->
+            <p class="category-name">Indie Music</p>
+          </div>
+          <!-- ------ -->
+          <!-- Category card -->
+          <div class="category-card">
+            <!-- Category Image -->
+            <img
+              class="category-image"
+              src="https://eclecticmusiclover.com/wp-content/uploads/2025/12/indie-music-art-2025.jpg?w=640"
+              alt="indie-music-poster"
+            />
+            <!-- Category name -->
+            <p class="category-name">Indie Music</p>
+          </div>
+          <!-- --------- -->
+          <!-- Category card -->
+          <div class="category-card">
+            <!-- Category Image -->
+            <img
+              class="category-image"
+              src="https://eclecticmusiclover.com/wp-content/uploads/2025/12/indie-music-art-2025.jpg?w=640"
+              alt="indie-music-poster"
+            />
+            <!-- Category name -->
+            <p class="category-name">Indie Music</p>
+          </div>
+          <!-- ------ -->
+          <!-- Category card -->
+          <div class="category-card">
+            <!-- Category Image -->
+            <img
+              class="category-image"
+              src="https://eclecticmusiclover.com/wp-content/uploads/2025/12/indie-music-art-2025.jpg?w=640"
+              alt="indie-music-poster"
+            />
+            <!-- Category name -->
+            <p class="category-name">Indie Music</p>
+          </div>
+          <!-- ------- -->
+          <!-- Category card -->
+          <div class="category-card">
+            <!-- Category Image -->
+            <img
+              class="category-image"
+              src="https://eclecticmusiclover.com/wp-content/uploads/2025/12/indie-music-art-2025.jpg?w=640"
+              alt="indie-music-poster"
+            />
+            <!-- Category name -->
+            <p class="category-name">Indie Music</p>
+          </div>
+          <!-- ----- -->
+          <!-- Category card -->
+          <div class="category-card">
+            <!-- Category Image -->
+            <img
+              class="category-image"
+              src="https://eclecticmusiclover.com/wp-content/uploads/2025/12/indie-music-art-2025.jpg?w=640"
+              alt="indie-music-poster"
+            />
+            <!-- Category name -->
+            <p class="category-name">Indie Music</p>
+          </div>
+          <!-- ------ -->
+          <!-- Category card -->
+          <div class="category-card">
+            <!-- Category Image -->
+            <img
+              class="category-image"
+              src="https://eclecticmusiclover.com/wp-content/uploads/2025/12/indie-music-art-2025.jpg?w=640"
+              alt="indie-music-poster"
+            />
+            <!-- Category name -->
+            <p class="category-name">Indie Music</p>
+          </div>
+          <!-- --------- -->
+          <!-- Category card -->
+          <div class="category-card">
+            <!-- Category Image -->
+            <img
+              class="category-image"
+              src="https://eclecticmusiclover.com/wp-content/uploads/2025/12/indie-music-art-2025.jpg?w=640"
+              alt="indie-music-poster"
+            />
+            <!-- Category name -->
+            <p class="category-name">Indie Music</p>
+          </div>
+          <!-- ------ -->
+          <!-- Category card -->
+          <div class="category-card">
+            <!-- Category Image -->
+            <img
+              class="category-image"
+              src="https://eclecticmusiclover.com/wp-content/uploads/2025/12/indie-music-art-2025.jpg?w=640"
+              alt="indie-music-poster"
+            />
+            <!-- Category name -->
+            <p class="category-name">Indie Music</p>
+          </div>
+          <!-- ------- -->
+          <!-- Category card -->
+          <div class="category-card">
+            <!-- Category Image -->
+            <img
+              class="category-image"
+              src="https://eclecticmusiclover.com/wp-content/uploads/2025/12/indie-music-art-2025.jpg?w=640"
+              alt="indie-music-poster"
+            />
+            <!-- Category name -->
+            <p class="category-name">Indie Music</p>
+          </div>
+        </section>
 
-          <img src="" alt="" />
-        </article>
+        <!-- ------------------------------- -->
+        <!-- Featured events section  -->
+        <section class="featured-events-section">
+          <!-- Header for featured events section  -->
+          <article class="header-featured-events-section">
+            <p class="title-featured-events-section">Featured Events</p>
+            <p class="view-all-link">View all</p>
+          </article>
+
+          <section class="event-cards-section-featured-events">
+            <!-- Event card  -->
+            <article class="event-card">
+              <!-- Event card image  -->
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNVrPpkI3t4uW295STCNtGFth07fqCaUI1uw&s"
+                alt="event-image"
+              />
+              <p class="event-title">
+                Sitar for mental health by Rishab Rikhiram Sharma
+              </p>
+              <p class="event-date-time">Tue, 04 March, 8:00 PM</p>
+              <p class="event-address">Mahalakshmi racecourse road, Mumbai</p>
+            </article>
+            <!-- ---------------- -->
+            <!-- Event card  -->
+            <article class="event-card">
+              <!-- Event card image  -->
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNVrPpkI3t4uW295STCNtGFth07fqCaUI1uw&s"
+                alt="event-image"
+              />
+              <p class="event-title">
+                Sitar for mental health by Rishab Rikhiram Sharma
+              </p>
+              <p class="event-date-time">Tue, 04 March, 8:00 PM</p>
+              <p class="event-address">Mahalakshmi racecourse road, Mumbai</p>
+            </article>
+            <!-- ---------------- -->
+            <!-- Event card  -->
+            <article class="event-card">
+              <!-- Event card image  -->
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNVrPpkI3t4uW295STCNtGFth07fqCaUI1uw&s"
+                alt="event-image"
+              />
+              <p class="event-title">
+                Sitar for mental health by Rishab Rikhiram Sharma
+              </p>
+              <p class="event-date-time">Tue, 04 March, 8:00 PM</p>
+              <p class="event-address">Mahalakshmi racecourse road, Mumbai</p>
+            </article>
+            <!-- ---------------- -->
+          </section>
+        </section>
       </section>
     </main>
   </body>

@@ -10,36 +10,27 @@ body {
   flex-direction: column;
   align-items: center;
   padding-bottom: 30px;
-  background: linear-gradient(45deg, rgb(0, 0, 0), rgb(58, 57, 57));
+  background: black;
+  /* background: linear-gradient(45deg, rgb(0, 0, 0), rgb(58, 57, 57)); */
   /* url("/static-files/sign-in/images/bg-image-4-portrait.png"); */
-  background-size: cover;
-  background-position-y: center;
+  /* background-size: cover; */
+  /* background-position-y: center; */
 }
 
 /* ================================================================ */
 
 /* <!-- Site header --> */
 header.site {
-  /* border: 1px solid #cccccc; */
   padding-right: 20px;
   padding-left: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
-  /* margin: 5px; */
   width: 100%;
-  /* max-width: 1450px; */
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* background-color: #191d4e; */
   color: rgb(255, 255, 255);
-  /* justify-content: center; */
 }
-/* <!-- Logo --> */
-/* header.site span.logo {
-  /* border: 1px solid #cccccc; */
-/* width: 40px; */
-/* } */
 
 header.site span.logo img {
   width: 60px;
@@ -55,11 +46,6 @@ header.site span.tag-line {
   margin: 5px;
 }
 
-/* <!-- User greeting  --> */
-/* .user-greeting {
-  margin-left: auto;
-} */
-
 button#sign-in {
   /* border: 1px solid #cccccc; */
   padding: 10px;
@@ -68,10 +54,8 @@ button#sign-in {
 
 /* <!-- A Sign-out button at the top-right --> */
 button#sign-out {
-  /* border: 1px solid #cccccc; */
   padding: 10px;
   margin: 5px;
-  /* margin-left: auto; */
   background: linear-gradient(to right, rgb(12, 12, 12), rgb(169, 168, 169));
   color: white;
   outline: none;
@@ -92,12 +76,7 @@ button#sign-out {
 /* -------------------------------------------------------- */
 /* <!-- Main content --> */
 main {
-  /* border: 1px solid #cccccc; */
-  /* padding: 10px; */
-  /* margin: 5px; */
-  /* margin: 5px; */
   width: 100%;
-  /* max-width: 1450px; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -105,18 +84,145 @@ main {
 /* -------------------------------------------------------- */
 /* <!-- Page Header --> */
 header.page {
-  /* border: 1px solid #cccccc; */
-  /* padding: 10px; */
-  /* margin: 5px; */
   width: 100%;
   color: #ffffff;
 }
 
+/* <!-- Select a location --> */
+.select-location-drop-down {
+  padding: 5px;
+  margin: 5px;
+  font:
+    italic 1.2rem "Fira Sans",
+    serif;
+}
+
+/* <!-- Search box --> */
+.search-bar {
+  padding: 5px;
+  margin: 5px;
+  border-radius: 20px;
+  width: 70%;
+  font:
+    italic 1.2rem "Fira Sans",
+    serif;
+}
+
+/* <!-- Search box section --> */
+.search-bar-section {
+  margin: 5%;
+  /* width: 100%; */
+}
+
+/* <!-- Display all the relevant artists and events. --> */
+.display-artists-and-events {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* flex-direction: column; */
+  font:
+    1.2rem "Fira Sans",
+    serif;
+  color: white;
+}
+
+/* <!-- Main title --> */
+.main-title {
+}
+
+/* <!-- Show list of categories --> */
+.display-event-categories-section {
+  display: flex;
+  flex-direction: row;
+  /* align-items: center; */
+  /* justify-content: start; */
+  overflow-y: hidden;
+  gap: 5px;
+  /* max-width: 400px; */
+  /* width: 400px; */
+}
+
+/* <!-- Category card --> */
+.category-card {
+  width: 100px;
+  border: #cccccc;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* <!-- Category Image --> */
+.category-image {
+  width: 80%;
+  border-radius: 50%;
+  border: #cccccc;
+}
+
+/* <!-- Category name --> */
+.category-name {
+  font-size: 12px;
+}
+
+/* <!-- Header for featured events section  --> */
+.header-featured-events-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 50px;
+}
+
+/* <!-- Featured events section  --> */
+.featured-events-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.view-all-link {
+  font-size: small;
+  margin-left: auto;
+}
+
+/* <!-- Featured events section  --> */
+.event-cards-section-featured-events {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  overflow-y: hidden;
+}
+
+/* <!-- Event card  --> */
+.event-card {
+  width: 270px;
+  /* border-radius: 20px; */
+}
+
+/* <!-- Event card image  --> */
+.event-card img {
+  size: 80%;
+  border-radius: 20px;
+}
+
+.event-title {
+  font-size: 15px;
+  width: 80%;
+}
+
+.event-date-time {
+  font-size: 12px;
+  width: 80%;
+  color: #5a5757;
+}
+
+.event-address {
+  font-size: 12px;
+  width: 80%;
+  color: #5a5757;
+}
+/* ----------------------------------------- */
 /* <!-- Headline --> */
 header.page article.headline {
-  /* border: 1px solid #cccccc; */
-  /* padding: 10px; */
-  /* margin: 5px; */
   display: flex;
   flex-direction: row;
   overflow: hidden;
@@ -125,7 +231,6 @@ header.page article.headline {
   position: relative;
   min-height: 170px;
   color: #ffffff;
-  /* width: 300px; */
   font-family: "Atkinson Hyperlegible Mono", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
@@ -150,9 +255,6 @@ header.page article.headline p.active {
 /* -------------------------------------------------------- */
 /* <!-- Brand section  --> */
 section.brand {
-  /* border: 1px solid #cccccc; */
-  /* padding: 10px; */
-  /* margin: 5px; */
   min-height: 500px;
   display: flex;
   flex-direction: column;
@@ -390,24 +492,24 @@ section.trending-preview {
 }
 
 /* <!-- Event card 1 --> */
-article.event-card {
-  /* border: 1px solid #cccccc; */
-  padding: 5px;
-  margin: 5px;
+/* article.event-card { */
+/* border: 1px solid #cccccc; */
+/* padding: 5px; */
+/* margin: 5px;
   min-width: 100px;
-  max-width: 200px;
-  /* height: 300px; */
-  height: 250px;
-  /* max-height: 200px; */
-  text-align: center;
+  max-width: 200px; */
+/* height: 300px; */
+/* height: 250px; */
+/* max-height: 200px; */
+/* text-align: center;
   background-color: rgba(73, 56, 65, 0.5);
   backdrop-filter: blur(4.5px);
-  border-radius: 10px;
-  /* box-shadow: 2px 2px 7px rgb(0, 0, 0); */
-  box-shadow: -1px 1px 3px 1px rgb(0, 0, 0);
-  backdrop-filter: blur(4.5px);
-  /* box-shadow: 0px 2px; */
-}
+  border-radius: 10px; */
+/* box-shadow: 2px 2px 7px rgb(0, 0, 0); */
+/* box-shadow: -1px 1px 3px 1px rgb(0, 0, 0);
+  backdrop-filter: blur(4.5px); */
+/* box-shadow: 0px 2px; */
+/* } */
 
 /* <!-- title --> */
 h2.card-title {
