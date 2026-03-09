@@ -104,13 +104,25 @@ header.page {
   flex-direction: column;
 }
 
-/* <!-- Select a location --> */
+/* <!-- Select Area --> */
 .select-area-drop-down {
   padding: 3px;
   margin-bottom: 2px;
   font:
     1rem "Fira Sans",
     serif;
+  background-color: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  appearance: none;
+  background-color: transparent;
+  color: white;
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFtsZlXX4D2jCImf_qiTfwcQL7O7gZi6T0MQ&s");
+  background-size: 16px;
+  background-repeat: no-repeat;
+  background-position-x: right 12px;
+  background-position-y: top 7px;
 }
 
 /* <!-- City and Country display  --> */
@@ -157,6 +169,8 @@ header.page {
   align-items: center;
   justify-content: center;
   gap: 5px;
+  width: 345px;
+  align-self: center;
 }
 
 /* <!-- adjustment icon image  --> */
@@ -166,31 +180,88 @@ header.page {
   /* border: 1px solid black; */
 }
 
-/* <!-- Display all the relevant artists and events. --> */
-.display-artists-and-events {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* flex-direction: column; */
-  font:
-    1.2rem "Fira Sans",
-    serif;
-  color: white;
+@media (width < 480px) {
+  /* <!-- Display all the relevant artists and events. --> */
+  .display-artists-and-events {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* flex-direction: column; */
+    font:
+      1.2rem "Fira Sans",
+      serif;
+    color: white;
+  }
+}
+
+@media (width > 480px) {
+  /* <!-- Display all the relevant artists and events. --> */
+  .display-artists-and-events {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* flex-direction: column; */
+    width: 95%;
+    font:
+      1.2rem "Fira Sans",
+      serif;
+    color: white;
+  }
 }
 
 /* <!-- Main title --> */
 .main-title {
+  /* text-decoration: dotted underline rgb(255, 255, 255) 4px; */
 }
 
-/* <!-- Show list of categories --> */
-.display-event-categories-section {
-  display: flex;
-  flex-direction: row;
-  overflow-y: auto;
-  gap: 5px;
-  max-width: 350px;
-  max-height: 200px;
+/* <!-- Duration selector  -->  */
+.duration-selector {
+  background-color: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  appearance: none;
+  background-color: transparent;
+  color: white;
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFtsZlXX4D2jCImf_qiTfwcQL7O7gZi6T0MQ&s");
+  background-size: 16px;
+  background-repeat: no-repeat;
+  background-position-x: right -4px;
+  background-position-y: top 6px;
+  font:
+    1.2rem "Fira Sans",
+    serif;
 }
+
+@media (width < 480px) {
+  /* <!-- Show list of categories --> */
+  .display-event-categories-section {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 5px;
+    max-width: 350px;
+    max-height: 200px;
+  }
+}
+
+@media (width > 480px) {
+  /* <!-- Show list of categories --> */
+  .display-event-categories-section {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 5px;
+    /* max-width: 350px; */
+    max-height: 200px;
+  }
+}
+
+/* @media (width > 350px) {
+  .display-event-categories-section {
+    width: 600px;
+  }
+} */
 
 /* <!-- Category card --> */
 .category-card {
@@ -215,12 +286,28 @@ header.page {
   font-size: 12px;
 }
 
-/* <!-- Header for featured events section  --> */
-.header-featured-events-section {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 50px;
+/* Design for smaller screens */
+@media (width < 480px) {
+  /* <!-- Header for featured events section  --> */
+  .header-featured-events-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: 150px;
+  }
+}
+
+/* Design for bigger screens */
+@media (width > 480px) {
+  /* <!-- Header for featured events section  --> */
+  .header-featured-events-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: 600px;
+  }
 }
 
 /* <!-- Featured events section  --> */
@@ -235,30 +322,84 @@ header.page {
   margin-left: auto;
 }
 
-/* <!-- Featured events section  --> */
-.event-cards-section-featured-events {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  overflow-y: auto;
-  max-width: 350px;
-  max-height: 420px;
+/* Designed for mobile viewports */
+@media (width < 480px) {
+  /* <!-- Featured events section  --> */
+  .event-cards-section-featured-events {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow-y: auto;
+    max-width: 350px;
+    max-height: 450px;
+  }
+}
+
+/* Designed for laptops/desktop viewports */
+@media (width > 480px) {
+  /* <!-- Featured events section  --> */
+  .event-cards-section-featured-events {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow-y: auto;
+    width: 95%;
+    max-height: 420px;
+  }
 }
 
 /* <!-- Event card  --> */
 .event-card {
-  width: 270px;
+  width: 200px;
+  height: 300px;
   flex-shrink: 0;
+  /* border: 1px solid rgb(251, 249, 249); */
+  /* background-image: url("https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvcHgxMTY5NTQwLWltYWdlLWpvYjYzMC1hLWwwZzA2OGd0LmpwZw.jpg"); */
   /* border-radius: 20px; */
 }
 
+/* <!-- Event card icons section  --> */
+.event-card-icons-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  /* align-items: end; */
+  background-color: black;
+  padding: 5px;
+  border-top-right-radius: 20px;
+}
+
 /* <!-- Event card image  --> */
-.event-card img {
+/* .event-card {
   border-radius: 20px;
   width: 80%;
   aspect-ratio: 1 / 1;
   /* border-radius: 50%; */
-  border: #cccccc;
+/* border: #cccccc; */
+/* } */
+
+/* <!-- Event card image  --> */
+.card-image {
+  border-radius: 20px;
+  width: 90%;
+  height: 60%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: start;
+  background-image: url("https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvcHgxMTY5NTQwLWltYWdlLWpvYjYzMC1hLWwwZzA2OGd0LmpwZw.jpg");
+}
+
+.card-heart-icon {
+  width: 50px;
+}
+
+.card-share-icon {
+  width: 30px;
+  /* aspect-ratio: 1 / 1; */
 }
 
 .event-title {
@@ -277,6 +418,118 @@ header.page {
   width: 80%;
   color: #5a5757;
 }
+
+/* ----------------------------------------------------- */
+/* Design for smaller screens */
+@media (width < 480px) {
+  /* <!-- Header for featured events section  --> */
+  .header-artists-near-you {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: 150px;
+  }
+}
+
+/* Design for bigger screens */
+@media (width > 480px) {
+  /* <!-- Header for featured events section  --> */
+  .header-artists-near-you {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: 600px;
+  }
+}
+
+/* <!-- Display artists in a 2-row grid layout  --> */
+/* Designed for smaller screens  */
+@media (width < 480px) {
+  .artists-display {
+    display: grid;
+    grid-template-rows: 100px 100px;
+    grid-template-columns: 100px 100px 100px 100px;
+    /* display: flex; */
+    /* flex-direction: row; */
+    /* align-items: center; */
+    overflow-y: auto;
+    max-width: 340px;
+  }
+}
+
+/* Designed for larger screens  */
+@media (width > 480px) {
+  .artists-display {
+    display: grid;
+    grid-template-rows: 200px 200px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow-y: auto;
+    max-width: 90%;
+  }
+}
+
+/* <!-- Artist card --> */
+.artist-image-div {
+  width: 60px;
+  height: 75px;
+  font-size: small;
+  color: #dfdada;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* <!-- Category Image -->  */
+.artist-image-artists-display {
+  width: 90%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+}
+/* ----------------------------------------- */
+/* <!-- Header for the Browse by category section --> */
+.header-browse-by-category-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 70px;
+}
+
+/* <!-- Showcase category cards (Big) section  --> */
+.display-categories-big-section {
+  display: grid;
+  grid-template-columns: 160px 160px 160px;
+  grid-template-rows: 130px 130px;
+  width: 340px;
+  overflow-y: auto;
+}
+
+/* <!-- Category card (Big) --> */
+.category-card-big {
+  width: 150px;
+  height: 120px;
+  background-color: grey;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+}
+
+.category-name-inside-category-card-big {
+  font-size: small;
+  margin-left: 20px;
+}
+
+.number-of-events-in-category {
+  font-size: small;
+  margin-left: 20px;
+}
+
 /* ----------------------------------------- */
 /* <!-- Headline --> */
 header.page article.headline {
@@ -573,10 +826,10 @@ h2.card-title {
   font-size: medium;
 }
 /* <!-- Card Image  --> */
-article.event-card img {
+/* article.event-card img {
   width: 85%;
   height: auto;
-}
+} */
 /* -------------------------------------------------------- */
 /* <!-- View All CTA --> */
 button#view-all-button {
