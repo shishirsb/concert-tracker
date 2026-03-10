@@ -452,18 +452,18 @@ header.page {
 
 /* <!-- Display artists in a 2-row grid layout  --> */
 /* Designed for smaller screens  */
-/* @media (width < 480px) { */
-.artists-display {
-  display: grid;
-  grid-template-rows: 100px 100px;
-  grid-template-columns: 100px 100px 100px 100px;
-  /* display: flex; */
-  /* flex-direction: row; */
-  /* align-items: center; */
-  overflow-y: auto;
-  max-width: 95vw;
+@media (width < 480px) {
+  .artists-display {
+    display: grid;
+    grid-template-rows: 100px 100px;
+    grid-template-columns: 100px 100px 100px 100px;
+    /* display: flex; */
+    /* flex-direction: row; */
+    /* align-items: center; */
+    overflow-y: auto;
+    max-width: 95vw;
+  }
 }
-/* } */
 
 /* Designed for larger screens  */
 /* @media (width > 480px) { */
