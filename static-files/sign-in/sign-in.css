@@ -91,6 +91,7 @@ header.page {
 .select-area-outer-section {
   display: flex;
   flex-direction: row;
+  width: 95%;
 }
 
 /* <!-- Map location icon  --> */
@@ -102,6 +103,7 @@ header.page {
 .area-selector-section {
   display: flex;
   flex-direction: column;
+  /* width: 95%; */
 }
 
 /* <!-- Select Area --> */
@@ -191,6 +193,7 @@ header.page {
       1.2rem "Fira Sans",
       serif;
     color: white;
+    width: 100%;
   }
 }
 
@@ -201,7 +204,7 @@ header.page {
     flex-direction: column;
     align-items: flex-start;
     /* flex-direction: column; */
-    width: 95%;
+    width: 100%;
     font:
       1.2rem "Fira Sans",
       serif;
@@ -240,8 +243,9 @@ header.page {
     flex-direction: row;
     overflow-x: auto;
     gap: 5px;
-    max-width: 350px;
+    /* max-width: 350px; */
     max-height: 200px;
+    max-width: 95%;
   }
 }
 
@@ -254,6 +258,7 @@ header.page {
     gap: 5px;
     /* max-width: 350px; */
     max-height: 200px;
+    max-width: 95%;
   }
 }
 
@@ -315,6 +320,7 @@ header.page {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .view-all-link {
@@ -323,30 +329,30 @@ header.page {
 }
 
 /* Designed for mobile viewports */
-@media (width < 480px) {
-  /* <!-- Featured events section  --> */
-  .event-cards-section-featured-events {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    overflow-y: auto;
-    max-width: 350px;
-    max-height: 450px;
-  }
+/* @media (width < 480px) { */
+/* <!-- Featured events section  --> */
+.event-cards-section-featured-events {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  overflow-y: auto;
+  max-width: 95%;
+  max-height: 450px;
 }
+/* } */
 
 /* Designed for laptops/desktop viewports */
-@media (width > 480px) {
-  /* <!-- Featured events section  --> */
-  .event-cards-section-featured-events {
+/* @media (width > 480px) { */
+/* <!-- Featured events section  --> */
+/* .event-cards-section-featured-events {
     display: flex;
     flex-direction: row;
     align-items: center;
     overflow-y: auto;
     width: 95%;
     max-height: 420px;
-  }
-}
+  } */
+/* } */
 
 /* <!-- Event card  --> */
 .event-card {
@@ -446,22 +452,22 @@ header.page {
 
 /* <!-- Display artists in a 2-row grid layout  --> */
 /* Designed for smaller screens  */
-@media (width < 480px) {
-  .artists-display {
-    display: grid;
-    grid-template-rows: 100px 100px;
-    grid-template-columns: 100px 100px 100px 100px;
-    /* display: flex; */
-    /* flex-direction: row; */
-    /* align-items: center; */
-    overflow-y: auto;
-    max-width: 340px;
-  }
+/* @media (width < 480px) { */
+.artists-display {
+  display: grid;
+  grid-template-rows: 100px 100px;
+  grid-template-columns: 100px 100px 100px 100px;
+  /* display: flex; */
+  /* flex-direction: row; */
+  /* align-items: center; */
+  overflow-y: auto;
+  max-width: 95vw;
 }
+/* } */
 
 /* Designed for larger screens  */
-@media (width > 480px) {
-  .artists-display {
+/* @media (width > 480px) { */
+/* .artists-display {
     display: grid;
     grid-template-rows: 200px 200px;
     display: flex;
@@ -469,8 +475,8 @@ header.page {
     align-items: center;
     overflow-y: auto;
     max-width: 90%;
-  }
-}
+  } */
+/* } */
 
 /* <!-- Artist card --> */
 .artist-image-div {
@@ -504,7 +510,7 @@ header.page {
   display: grid;
   grid-template-columns: 160px 160px 160px;
   grid-template-rows: 130px 130px;
-  width: 340px;
+  width: 95vw;
   overflow-y: auto;
 }
 
