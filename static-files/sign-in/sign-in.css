@@ -80,7 +80,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 15px;
+  /* padding: 15px; */
 }
 /* -------------------------------------------------------- */
 /* <!-- Page Header --> */
@@ -215,7 +215,7 @@ header.page {
     color: white;
     width: 100%;
     /* padding: 15px; */
-    margin-left: 15px;
+    /* margin-left: 10px; */
   }
 }
 
@@ -665,7 +665,7 @@ header.page {
 .all-events-section-in-artist-details-section {
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  /* padding: 10px; */
 }
 
 /* <!-- Event Card  -->  */
@@ -792,7 +792,7 @@ header.page {
   grid-template-rows: 130px 130px;
   width: 95vw;
   overflow-y: auto;
-  margin-left: 15px;
+  /* margin-left: 15px; */
 }
 
 /* <!-- Category card (Big) --> */
@@ -864,11 +864,12 @@ header.page {
 /* <!-- All events display section  -->  */
 .all-events-display-section {
   display: grid;
-  grid-template-columns: 220px 220px 220px 220px;
+  grid-template-columns: 180px 180px 180px 180px;
   grid-template-rows: 300px 300px;
   overflow-x: auto;
   margin: 20px 10px;
-  margin-left: 15px;
+  gap: 15px;
+  /* margin-left: 15px; */
 }
 /* ----------------------------------------- */
 /* <!-- Headline --> */
