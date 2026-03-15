@@ -80,6 +80,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 15px;
 }
 /* -------------------------------------------------------- */
 /* <!-- Page Header --> */
@@ -171,8 +172,27 @@ header.page {
   align-items: center;
   justify-content: center;
   gap: 5px;
-  width: 345px;
+  /* width: 345px; */
+  width: 95%;
   align-self: center;
+}
+
+@media (width > 400px) {
+  .search-bar-section {
+    margin-top: 20px;
+    margin: 30px 10px;
+    background-color: white;
+    border-radius: 20px;
+    padding: 1px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    /* width: 345px; */
+    width: 350px;
+    align-self: center;
+  }
 }
 
 /* <!-- adjustment icon image  --> */
@@ -187,13 +207,15 @@ header.page {
   .display-artists-and-events {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
     /* flex-direction: column; */
     font:
       1.2rem "Fira Sans",
       serif;
     color: white;
     width: 100%;
+    /* padding: 15px; */
+    margin-left: 15px;
   }
 }
 
@@ -215,6 +237,7 @@ header.page {
 /* <!-- Main title --> */
 .main-title {
   /* text-decoration: dotted underline rgb(255, 255, 255) 4px; */
+  margin-left: 15px;
 }
 
 /* <!-- Duration selector  -->  */
@@ -434,7 +457,9 @@ header.page {
     flex-direction: row;
     align-items: center;
     justify-content: start;
-    gap: 150px;
+    gap: 130px;
+    margin-left: 15px;
+    margin-right: 15px;
   }
 }
 
@@ -450,7 +475,255 @@ header.page {
   }
 }
 
+/* ----------------------------------------------------------------- */
+/* <!-- A HTML block for showing Event details --> */
+.event-details-display-section {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  background-color: black;
+  overflow-y: auto;
+  top: 0;
+  left: 0;
+}
+
+.banner-image-in-event-details-section {
+  width: 100vw;
+  height: 50vh;
+  background-color: grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.icons-section-in-event-details-display-section {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+}
+
+.full-schedule-timeline-in-event-schedule-link-card {
+  font-size: small;
+  color: grey;
+}
+
+.km-distance-in-address-section-in-event-location-link-card {
+  font-size: small;
+  color: grey;
+}
+
+.section-for-photo-button {
+  padding: 10px;
+  margin-left: auto;
+}
+
+.heart-icon-inside-icons-section-in-event-details-section {
+  margin-left: auto;
+}
+
+.photo-gallery-button-in-event-details-section {
+  margin-left: auto;
+  margin-top: auto;
+  padding: 5px;
+}
+
+/* <!-- Event Location Link Card  --> */
+.event-location-link-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* justify-content: center; */
+  padding: 5px;
+}
+
+.title-for-who-is-taking-the-stage-section {
+  margin: 10px;
+}
+
+.event-time-in-about-event-section {
+  font-size: small;
+  color: grey;
+}
+
+.about-event-section-in-event-details-section {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* .map-location-icon-in-event-location-link-card {
+  width: 200px;
+} */
+
+/* .right-arrow-icon-in-event-location-link-card {
+  width: 10px;
+} */
+
+/* <!-- Event Schedule Link Card  -->  */
+.event-schedule-link-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* justify-content: center; */
+  padding: 5px;
+}
+
+/* <!-- Artist Card  --> */
+.artist-card-in-who-is-taking-the-stage-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: rgb(43, 42, 42);
+  gap: 5px;
+  padding: 5px;
+  width: 80%;
+  border-radius: 20px;
+  margin: 10px;
+}
+
+.artist-name-title-section {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+}
+
+.artist-image-in-artist-card {
+  width: 60px;
+  height: 60px;
+  background-color: rgb(127, 125, 125);
+  border-radius: 20px;
+}
+
+.artist-title-in-artist-name-title-section {
+  font-size: small;
+  color: grey;
+}
+
+.know-more-in-artist-name-title-section {
+  font-size: small;
+}
+/* ----------------------------------------------------------------- */
+
 /* <!-- Display artists in a 2-row grid layout  --> */
+
+/* <!-- A structured element for displaying artist details.  --> */
+.artist-details-display-page {
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  overflow-y: auto;
+}
+
+/* <!-- Banner image display section  --> */
+.banner-image-display-section {
+  width: 100vw;
+  height: 50vh;
+  background-color: grey;
+  padding-top: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* <!-- Icons section inside banner image display section  -->  */
+.icons-section-in-artists-display-page {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-right: 40px;
+  gap: 5px;
+  /* margin-top: 20px; */
+}
+
+/* <!-- About artist block  --> */
+.artist-about-section-in-artist-details-page {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.artist-description-in-about-section {
+  height: 10vh;
+  overflow-y: hidden;
+}
+/* <!-- Heart Icon  -->  */
+.heart-icon-inside-icons-section-in-artists-display-page {
+  margin-left: auto;
+}
+
+.show-more-button-in-about-artist-section {
+  font-size: small;
+}
+
+.all-events-section-in-artist-details-section {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+/* <!-- Event Card  -->  */
+.event-card-in-all-events-section-in-artist-details-section {
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 95%;
+  height: 150px;
+  background-color: rgb(55, 54, 54);
+}
+
+.image-in-event-card-in-all-events-section-in-artist-details-section {
+  height: 85%;
+  width: 30%;
+  background-color: grey;
+  border-radius: 25px;
+}
+
+.event-details-section-in-event-card-in-artist-details-section {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: 5px;
+  gap: 3px;
+}
+
+.time-in-event-card-in-artist-details-section {
+  font-size: small;
+  color: grey;
+}
+
+.title-in-event-card-in-artist-details-section {
+  font-size: medium;
+}
+
+.location-in-event-card-in-artist-details-section {
+  font-size: small;
+  color: grey;
+}
+
+.price-in-event-card-in-artist-details-section {
+  font-size: small;
+  color: grey;
+}
+
+.heart-icon-inside-event-card-in-event-details-section {
+  align-self: flex-start;
+}
+
+.photo-icon-in-event-details-section {
+  margin-left: auto;
+}
+
+/* ---------------------------------------- */
+
 /* Designed for smaller screens  */
 @media (width < 480px) {
   .artists-display {
@@ -464,6 +737,7 @@ header.page {
     max-width: 95vw;
     /* gap: 7px; */
     margin: 7px 7px;
+    margin-left: 15px;
     padding-bottom: 25px;
   }
 }
@@ -508,6 +782,7 @@ header.page {
   flex-direction: row;
   align-items: center;
   gap: 70px;
+  margin-left: 15px;
 }
 
 /* <!-- Showcase category cards (Big) section  --> */
@@ -517,6 +792,7 @@ header.page {
   grid-template-rows: 130px 130px;
   width: 95vw;
   overflow-y: auto;
+  margin-left: 15px;
 }
 
 /* <!-- Category card (Big) --> */
@@ -565,6 +841,7 @@ header.page {
   flex-shrink: 0;
   flex-grow: 0;
   min-height: 50px;
+  margin-left: 15px;
   /* border: 1px solid white; */
 }
 
@@ -591,6 +868,7 @@ header.page {
   grid-template-rows: 300px 300px;
   overflow-x: auto;
   margin: 20px 10px;
+  margin-left: 15px;
 }
 /* ----------------------------------------- */
 /* <!-- Headline --> */
