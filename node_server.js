@@ -92,84 +92,12 @@ try {
           return;
         }
 
-        //-------------------------------------------------------------------------
-        // ************************** END POINT ********************************
-        // Make a request for list of available cities.
         if (
           request.method === "GET" &&
-          request.url.startsWith("/api/get-cities")
+          request.url === "/api/get-available-areas"
         ) {
-          try {
-            // Query database for list of unique full-cities names.
-
-            // Get parameters
-            // Create a url object
-            const url = new URL(`http://example.com${request.url}`);
-
-            // Log city parameter to console.
-            // const city = url.searchParams.get("city");
-
-            // Prepare Filter conditions
-            const filterCondition = "";
-            if (url.searchParams.entries()) {
-              url.searchParams.entries().forEach((param) => {
-                filterCondition = `${filterCondition} and ${param[0]}=${param[1]}`;
-              });
-            }
-
-            // Prepare a select stmt
-            const select_stmt =
-              db.prepare(`select distinct city from music_concert_events
-            where true
-            ${filterCondition}`);
-
-            // Execute select query and extract results.
-            const results = select_stmt.all();
-
-            // Get only city names as a list
-            const citiesList = results.map((row) => {
-              return row.city;
-            });
-
-            // Prepare response
-            const reply = {
-              massage: "success",
-              data: {
-                cities: citiesList,
-              },
-              error: "No errors",
-            };
-
-            // Set headers
-            response.writeHead(200, {
-              "Content-Type": "application/json",
-              // "Access-Control-Allow-Methods": "GET",
-              // "Access-Control-Allow-Headers": "Content-Type",
-            });
-
-            // Send response
-            response.end(JSON.stringify(reply));
-            return;
-          } catch (err) {
-            // Set headers
-            response.writeHead(401, {
-              "Content-Type": "application/json",
-              // "Access-Control-Allow-Methods": "GET",
-              // "Access-Control-Allow-Headers": "Content-Type",
-            });
-
-            // Prepare response
-            const reply = {
-              message: "failed",
-              error: err,
-              data: [],
-            };
-
-            // Send response
-            response.end(JSON.stringify(reply));
-            return;
-          }
         }
+
         // --------------------------------------------------------------------------
         // ************************** END POINT ********************************
         // Make a GET request to get all the matching events
