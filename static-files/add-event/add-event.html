@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add event page</title>
+    <script src="/static-files/add-event/add-event.js" defer></script>
+    <link rel="stylesheet" href="/static-files/add-event/add-event.css" />
+  </head>
+  <body>
+    <!-- Add event form  -->
+    <form
+      action="/api/add-event"
+      class="add_event_form"
+      id="add_event_form_1"
+      method="POST"
+    >
+      <label for="event_title">Event Title: </label>
+      <input type="text" name="event_title" id="event_title" required />
+
+      <label for="language">Language: </label>
+      <select name="language" id="language">
+        <option value="">--Please choose an option--</option>
+        <option value="English">English</option>
+        <option value="Kannada">Kannada</option>
+        <option value="Hindi">Hindi</option>
+        <option value="Tamil">Tamil</option>
+        <option value="Malayalam">Malayalam</option>
+        <option value="Telugu">Telugu</option>
+        <option value="Marathi">Marathi</option>
+      </select>
+
+      <label for="main_artist">Main artist: </label>
+      <input type="text" name="main_artist" id="main_artist" required />
+
+      <label for="sub_artists">Sub artists: </label>
+      <input type="text" name="sub_artists" id="sub_artists" />
+
+      <label for="event_date">Event date: </label>
+      <input
+        type="date"
+        id="event_date"
+        name="event_date"
+        min="2018-01-01"
+        required
+      />
+
+      <label for="doors_open_time">Doors open time:</label>
+      <input type="time" id="doors_open_time" name="doors_open_time" required />
+
+      <label for="event_start_time">Event start time:</label>
+      <input
+        type="time"
+        id="event_start_time"
+        name="event_start_time"
+        required
+      />
+
+      <label for="event_address">Event address: </label>
+      <input type="text" name="event_address" id="event_address" required />
+
+      <label for="event_venue">Event venue: </label>
+      <input type="text" name="event_venue" id="event_venue" required />
+
+      <label for="country">Country: </label>
+      <select name="country" id="country-dropdown">
+        <option value="">--Please choose an option--</option>
+      </select>
+
+      <label for="state">State: </label>
+      <select name="state" id="state-dropdown">
+        <option value="">--Please choose an option--</option>
+      </select>
+
+      <label for="city">City: </label>
+      <select name="city" id="city-dropdown">
+        <option value="">--Please choose an option--</option>
+      </select>
+
+      <label for="price">Price: </label>
+      <input
+        type="text"
+        name="price"
+        id="price"
+        pattern="^\d+(\.\d{1,2})?$"
+        required
+      />
+
+      <label for="event_url">Event URL: </label>
+      <input type="url" name="event_url" id="event_url" required />
+
+      <!-- Select genre  -->
+      <label for="genre_id">Choose a genre:</label>
+      <select name="genre_id" id="genre_id">
+        <option value="">--Please choose an option--</option>
+      </select>
+
+      <label for="event_category">Event Category: </label>
+      <input type="text" name="event_category" id="event_category" required />
+
+      <label for="event_image_url">Add a url for event image: </label>
+      <input type="url" name="event_image_url" id="event_image_url" required />
+
+      <label for="event_description">Event description:</label>
+      <textarea
+        id="event_description"
+        name="event_description"
+        rows="5"
+        cols="33"
+      ></textarea>
+
+      <!-- Submit button inside add event form -->
+      <button form="add_event_form_1">Submit event</button>
+    </form>
+  </body>
+</html>

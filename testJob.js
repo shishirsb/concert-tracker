@@ -131,9 +131,11 @@ async function get_events(location) {
           city: z.string(),
           state: z.string(),
           country_code: z.string(),
+          country: z.string(),
           price: z.string(),
           event_url: z.string(),
-          event_genre: z.string(),
+          music_genre: z.string(),
+          event_category: z.string(),
           event_image_url: z.string(),
           event_description: z.string(),
         }),
@@ -348,6 +350,7 @@ async function get_events(location) {
         created_at text DEFAULT (date('now')),
         event_title text,
         main_artist text,
+        main_artist_image_url text,
         sub_artists text,
         event_date text,
         doors_open_time text,
@@ -357,11 +360,14 @@ async function get_events(location) {
         city text,
         state text,
         country_code text,
+        country text,
         price text,
         event_url text,
-        event_genre text,
+        music_genre text,
+        event_category text,
         event_image_url text,
-        event_description text
+        event_description text,
+        featured INTEGER
     )`);
     // Run create table statement
     create_table.run();
@@ -371,9 +377,9 @@ async function get_events(location) {
     const insert_data = db.prepare(
       `INSERT INTO music_concert_events
       (event_title, main_artist, sub_artists, event_date, doors_open_time, event_start_time, event_address, event_venue, city, state,
-      country_code, price, event_url, event_genre, event_image_url, event_description)
+      country_code, country, event_url, music_genre, event_category, event_image_url, event_description)
       VALUES (@event_title, @main_artist, @sub_artists, @event_date, @doors_open_time, @event_start_time,
-      @event_address, @event_venue, @city, @state, @country_code, @price, @event_url, @event_genre, @event_image_url, @event_description)`,
+      @event_address, @event_venue, @city, @state, @country_code, @country, @event_url, @music_genre, @event_category, @event_image_url, @event_description)`,
     );
     // let events = [];
     //Prepare data to insert
@@ -440,13 +446,20 @@ async function extract_pagewise() {
 // ----------------------------------------------------
 
 // Query users table
-const results = db.prepare(
-  "select * from music_concert_events where city = 'Bengaluru'",
-);
-console.log(results.all());
+// const results = db.prepare("select * from music_concert_events");
+// console.log(results.all());
 
-// //Prepare delete data SQL script
-// const delete_data = db.prepare(`delete from events_all_searchapi`);
+//Prepare delete data SQL script
+// const delete_data = db.prepare(`delete from music_concert_events`);
 
 // // Run delete statement
 // delete_data.run();
+
+// Delete table
+// Prepare delete data SQL script
+// const delete_table_stmt = db.prepare(
+//   `DROP table if exists music_concert_events`,
+// );
+
+// // // Run delete statement
+// delete_table_stmt.run();

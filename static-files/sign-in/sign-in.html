@@ -44,18 +44,37 @@
           />
           <!-- Area selector drop-down section  -->
           <section class="area-selector-section">
-            <!-- Select Area -->
-            <select
-              name="area"
-              id="area-selector-1"
-              class="select-area-drop-down"
-            >
-              <option value="HSR, Sector 1">HSR, Sector 1</option>
-              <option value="JP Nagar, 5th phase">JP Nagar, 5th phase</option>
-            </select>
+            <div class="area-selector-drop-down-section">
+              <!-- Select Area -->
+              <select
+                name="area"
+                id="area-selector-1"
+                class="select-area-drop-down"
+              >
+                <!-- <option value="HSR, Sector 1">HSR, Sector 1</option> -->
+                <!-- <option value="JP Nagar, 5th phase">JP Nagar, 5th phase</option> -->
+              </select>
+              <svg
+                class="w-6 h-6 text-gray-800 dark:text-white"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="15"
+                height="15"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m19 9-7 7-7-7"
+                />
+              </svg>
+            </div>
 
             <!-- City and Country display  -->
-            <span class="city-country-display">Bengaluru, India</span>
+            <span class="city-country-display"></span>
           </section>
         </section>
 
@@ -67,19 +86,120 @@
             alt=""
             class="search-icon-image"
           />
+
+          <!-- <section class="search-text-box-section"> -->
           <!-- Search box -->
           <input
-            type="text"
+            type="search"
             placeholder=""
             id="search-bar-1"
             class="search-bar"
           />
+          <!-- </section> -->
+
           <!-- adjustment icon image  -->
           <img
             src="https://media.istockphoto.com/id/1263299116/vector/adjustment-icon-symbol-adjusting-settings-logo-sign-vector-illustration-image-isolated-on.jpg?s=612x612&w=0&k=20&c=TE-lkvs0RGHL2EwdDV4wyGEDIe2YzSbYoeUXq96Puzg="
             alt=""
             class="adjustment-icon-image"
           />
+        </section>
+        <!-- Suggestion box  -->
+        <section id="search-query-suggestions-1"></section>
+
+        <!-- Filter page  -->
+        <section id="filter-page-1" class="hidden">
+          <header id="header-in-filter-page-1">
+            <section id="back-icon-and-heading">
+              <svg
+                class="w-6 h-6 text-gray-800 dark:text-white"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m15 19-7-7 7-7"
+                />
+              </svg>
+              <span id="heading-in-back-icon-and-heading-section">Filter</span>
+            </section>
+          </header>
+          <section id="filter-main-body">
+            <article id="filter-category-list-container-1">
+              <form action="" method="get" id="filter-form-1">
+                <label for="from_date">From: </label>
+                <input
+                  type="date"
+                  id="from_date"
+                  name="from_date"
+                  min="2018-01-01"
+                />
+
+                <label for="to_date">To: </label>
+                <input
+                  type="date"
+                  id="to_date"
+                  name="to_date"
+                  min="2018-01-01"
+                />
+
+                <label for="language">Language: </label>
+                <select name="language" id="language-dropdown-filter-page">
+                  <option value="">--Please choose an option--</option>
+                </select>
+
+                <label for="categories">Categories: </label>
+                <select name="categories" id="categories-dropdown-filter-page">
+                  <option value="">--Please choose an option--</option>
+                </select>
+
+                <label for="music-genres">Music genres: </label>
+                <select
+                  name="music-genres"
+                  id="music-genres-dropdown-filter-page"
+                >
+                  <option value="">--Please choose an option--</option>
+                </select>
+
+                <label for="min-price">Min price: </label>
+                <input
+                  type="text"
+                  name="min-price"
+                  id="min-price-filter-page"
+                  pattern="^\d+(\.\d{1,2})?$"
+                />
+
+                <label for="max-price">Max price: </label>
+                <input
+                  type="text"
+                  name="max-price"
+                  id="max-price-filter-page"
+                  pattern="^\d+(\.\d{1,2})?$"
+                />
+
+                <label for="artist">Artist: </label>
+                <select name="artist" id="artist-dropdown-filter-page">
+                  <option value="">--Please choose an option--</option>
+                </select>
+
+                <label for="venue">Venue: </label>
+                <select name="venue" id="venue-dropdown-filter-page">
+                  <option value="">--Please choose an option--</option>
+                </select>
+              </form>
+            </article>
+            <section id="buttons-in-filter-page">
+              <a id="clear-all-hyperlink-in-filter-page">Clear all</a>
+              <button id="apply-button-in-filter-page">Apply</button>
+            </section>
+          </section>
         </section>
       </header>
 
@@ -234,258 +354,260 @@
           <!-- Header for featured events section  -->
           <article class="header-featured-events-section">
             <p class="title-featured-events-section">Featured Events</p>
-            <p class="view-all-link">View all</p>
+            <!-- <p class="view-all-link">View all</p> -->
           </article>
 
-          <section class="event-cards-section-featured-events">
-            <!-- A HTML block for showing Event details -->
-            <section class="event-details-display-section hidden">
-              <section class="banner-image-in-event-details-section">
-                <!-- Icons section inside banner image display section  -->
-                <section class="icons-section-in-event-details-display-section">
-                  <svg
-                    class="w-6 h-6 text-gray-800 dark:text-white"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="m15 19-7-7 7-7"
-                    />
-                  </svg>
-                  <!-- Heart Icon  -->
-                  <svg
-                    class="w-6 h-6 text-gray-800 dark:text-white heart-icon-inside-icons-section-in-event-details-section"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
-                    />
-                  </svg>
+          <!-- A HTML block for showing Event details -->
+          <section class="event-details-display-section hidden">
+            <section class="banner-image-in-event-details-section">
+              <!-- Icons section inside banner image display section  -->
+              <section class="icons-section-in-event-details-display-section">
+                <svg
+                  class="w-6 h-6 text-gray-800 dark:text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="m15 19-7-7 7-7"
+                  />
+                </svg>
+                <!-- Heart Icon  -->
+                <svg
+                  class="w-6 h-6 text-gray-800 dark:text-white heart-icon-inside-icons-section-in-event-details-section"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
+                  />
+                </svg>
 
-                  <svg
-                    class="w-6 h-6 text-gray-800 dark:text-white"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-width="2"
-                      d="M7.926 10.898 15 7.727m-7.074 5.39L15 16.29M8 12a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm12 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm0-11a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"
-                    />
-                  </svg>
-                </section>
-                <section class="section-for-photo-button">
-                  <!-- Gallery button  -->
-                  <svg
-                    class="w-6 h-6 text-gray-800 dark:text-white photo-icon-in-event-details-section"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke="currentColor"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M4 18V8a1 1 0 0 1 1-1h1.5l1.707-1.707A1 1 0 0 1 8.914 5h6.172a1 1 0 0 1 .707.293L17.5 7H19a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z"
-                    />
-                    <path
-                      stroke="currentColor"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                    />
-                  </svg>
-                </section>
+                <svg
+                  class="w-6 h-6 text-gray-800 dark:text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="2"
+                    d="M7.926 10.898 15 7.727m-7.074 5.39L15 16.29M8 12a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm12 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm0-11a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"
+                  />
+                </svg>
               </section>
-              <!-- --------------- -->
-              <section class="about-event-section-in-event-details-section">
-                <span class="event-title-in-about-event-section"
-                  >Live Concert by Sonu Nigam | Mumbai</span
+              <section class="section-for-photo-button">
+                <!-- Gallery button  -->
+                <svg
+                  class="w-6 h-6 text-gray-800 dark:text-white photo-icon-in-event-details-section"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
                 >
-                <br />
-                <span class="event-time-in-about-event-section"
-                  >Tue, 04 March, 8:00 PM</span
-                >
-                <!-- Event Location Link Card  -->
-                <article class="event-location-link-card">
-                  <svg
-                    class="w-6 h-6 text-gray-800 dark:text-white map-location-icon-in-event-location-link-card"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="75"
-                    height="75"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
-                    />
-                    <path
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z"
-                    />
-                  </svg>
-                  <section class="address-section-in-event-location-link-card">
-                    <span
-                      class="address-in-address-section-in-event-location-link-card"
-                      >TMC Ground, Hiranandani Estate, Thane West, Thane</span
-                    ><br />
-                    <span
-                      class="km-distance-in-address-section-in-event-location-link-card"
-                      >(26 km away)</span
-                    >
-                  </section>
-                  <svg
-                    class="w-6 h-6 text-gray-800 dark:text-white right-arrow-icon-in-event-location-link-card"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="m9 5 7 7-7 7"
-                    />
-                  </svg>
-
-                  <!-- ---  -->
-                </article>
-                <!-- --------  -->
-                <!-- Event Schedule Link Card  -->
-                <article class="event-schedule-link-card">
-                  <svg
-                    class="w-6 h-6 text-gray-800 dark:text-white map-location-icon-in-event-location-link-card"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="45"
-                    height="45"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
-                    />
-                    <path
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z"
-                    />
-                  </svg>
-                  <section
-                    class="gates-open-time-section-in-event-schedule-link-card"
-                  >
-                    <span class="gates-open-time-in-event-schedule-link-card"
-                      >Gates open at 6 PM</span
-                    ><br />
-                    <span
-                      class="full-schedule-timeline-in-event-schedule-link-card"
-                      >Check full schedule and timeline</span
-                    >
-                  </section>
-                  <svg
-                    class="w-6 h-6 text-gray-800 dark:text-white right-arrow-icon-in-event-location-link-card"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="33"
-                    height="33"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="m9 5 7 7-7 7"
-                    />
-                  </svg>
-
-                  <!-- ---  -->
-                </article>
-              </section>
-              <!-- -----  -->
-              <section class="who-is-taking-the-stage-section">
-                <span class="title-for-who-is-taking-the-stage-section"
-                  >Who is taking the stage</span
-                >
-                <br />
-                <!-- Artist Card  -->
-                <article class="artist-card-in-who-is-taking-the-stage-section">
-                  <div class="artist-image-in-artist-card"></div>
-                  <section class="artist-name-title-section">
-                    <span>Sonu Nigam</span> <br />
-                    <span class="artist-title-in-artist-name-title-section"
-                      >Playback singer</span
-                    >
-                    <br />
-                    <span class="know-more-in-artist-name-title-section"
-                      >Know more
-                      <svg
-                        class="w-6 h-6 text-gray-800 dark:text-white"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="10"
-                        height="10"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="m9 5 7 7-7 7"
-                        />
-                      </svg>
-                    </span>
-                  </section>
-                </article>
+                  <path
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 18V8a1 1 0 0 1 1-1h1.5l1.707-1.707A1 1 0 0 1 8.914 5h6.172a1 1 0 0 1 .707.293L17.5 7H19a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z"
+                  />
+                  <path
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                  />
+                </svg>
               </section>
             </section>
+            <!-- --------------- -->
+            <section class="about-event-section-in-event-details-section">
+              <span class="event-title-in-about-event-section"
+                >Live Concert by Sonu Nigam | Mumbai</span
+              >
+              <br />
+              <span class="event-time-in-about-event-section"
+                >Tue, 04 March, 8:00 PM</span
+              >
+              <!-- Event Location Link Card  -->
+              <article class="event-location-link-card">
+                <svg
+                  class="w-6 h-6 text-gray-800 dark:text-white map-location-icon-in-event-location-link-card"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="75"
+                  height="75"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
+                  />
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z"
+                  />
+                </svg>
+                <section class="address-section-in-event-location-link-card">
+                  <span
+                    class="address-in-address-section-in-event-location-link-card"
+                    >TMC Ground, Hiranandani Estate, Thane West, Thane</span
+                  ><br />
+                  <span
+                    class="km-distance-in-address-section-in-event-location-link-card"
+                    >(26 km away)</span
+                  >
+                </section>
+                <svg
+                  class="w-6 h-6 text-gray-800 dark:text-white right-arrow-icon-in-event-location-link-card"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="44"
+                  height="44"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="m9 5 7 7-7 7"
+                  />
+                </svg>
+
+                <!-- ---  -->
+              </article>
+              <!-- --------  -->
+              <!-- Event Schedule Link Card  -->
+              <article class="event-schedule-link-card">
+                <svg
+                  class="w-6 h-6 text-gray-800 dark:text-white map-location-icon-in-event-location-link-card"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="45"
+                  height="45"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
+                  />
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z"
+                  />
+                </svg>
+                <section
+                  class="gates-open-time-section-in-event-schedule-link-card"
+                >
+                  <span class="gates-open-time-in-event-schedule-link-card"
+                    >Gates open at 6 PM</span
+                  ><br />
+                  <span
+                    class="full-schedule-timeline-in-event-schedule-link-card"
+                    >Check full schedule and timeline</span
+                  >
+                </section>
+                <svg
+                  class="w-6 h-6 text-gray-800 dark:text-white right-arrow-icon-in-event-location-link-card"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="33"
+                  height="33"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="m9 5 7 7-7 7"
+                  />
+                </svg>
+
+                <!-- ---  -->
+              </article>
+            </section>
+            <!-- -----  -->
+            <section class="who-is-taking-the-stage-section">
+              <span class="title-for-who-is-taking-the-stage-section"
+                >Who is taking the stage</span
+              >
+              <br />
+              <!-- Artist Card  -->
+              <article class="artist-card-in-who-is-taking-the-stage-section">
+                <div class="artist-image-in-artist-card"></div>
+                <section class="artist-name-title-section">
+                  <span>Sonu Nigam</span> <br />
+                  <span class="artist-title-in-artist-name-title-section"
+                    >Playback singer</span
+                  >
+                  <br />
+                  <span class="know-more-in-artist-name-title-section"
+                    >Know more
+                    <svg
+                      class="w-6 h-6 text-gray-800 dark:text-white"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="10"
+                      height="10"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="m9 5 7 7-7 7"
+                      />
+                    </svg>
+                  </span>
+                </section>
+              </article>
+            </section>
+          </section>
+
+          <section class="event-cards-section-featured-events">
             <!-- -------------------------------  -->
+
             <!-- Event card  -->
             <article class="event-card">
               <!-- Event card image  -->
