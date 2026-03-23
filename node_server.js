@@ -92,10 +92,433 @@ try {
           return;
         }
 
+        // if (
+        //   request.method === "GET" &&
+        //   request.url === "/api/get-available-areas"
+        // ) {
+        // }
+
+        // --------------------------------------------------------------------------
+        // ************************** END POINT ********************************
         if (
           request.method === "GET" &&
-          request.url === "/api/get-available-areas"
+          request.url.startsWith("/api/get-cities")
         ) {
+          try {
+            // Get query paramaters as an object
+            const myURL = new URL(`https://example.org/${request.url}`);
+
+            let search_params = {};
+
+            myURL.searchParams.forEach((value, name) => {
+              search_params[name] = value;
+            });
+
+            // Prepare query
+
+            const stmt = db.prepare(
+              `
+              select distinct city
+              from location
+              where state = @state
+              and country = @country
+              `,
+            );
+
+            const cities = stmt.all(search_params);
+            console.log(JSON.stringify(cities));
+
+            // Prepare reply
+            const reply = {
+              data: {
+                cities: cities,
+              },
+              message: "success",
+              error: "none",
+            };
+
+            // Set header
+            response.writeHead(200, {
+              "Content-Type": "application/json",
+            });
+            // Send response
+            response.end(JSON.stringify(reply));
+          } catch (err) {
+            console.log(err);
+
+            // Prepare reply
+            const reply = {
+              data: {
+                cities: [],
+              },
+              message: "fail",
+              error: err,
+            };
+
+            // Set header
+            response.writeHead(200, {
+              "Content-Type": "application/json",
+            });
+            // Send response
+            response.end(JSON.stringify(reply));
+          }
+        }
+
+        // --------------------------------------------------------------------------
+        // ************************** END POINT ********************************
+        if (
+          request.method === "GET" &&
+          request.url.startsWith("/api/get-states")
+        ) {
+          try {
+            // Get query paramaters as an object
+            const myURL = new URL(`https://example.org/${request.url}`);
+
+            let search_params = {};
+
+            myURL.searchParams.forEach((value, name) => {
+              search_params[name] = value;
+            });
+
+            // Prepare query
+
+            const stmt = db.prepare(
+              `
+              select distinct state
+              from location
+              where country = @country
+              `,
+            );
+
+            const states = stmt.all(search_params);
+            console.log(JSON.stringify(states));
+
+            // Prepare reply
+            const reply = {
+              data: {
+                states: states,
+              },
+              message: "success",
+              error: "none",
+            };
+
+            // Set header
+            response.writeHead(200, {
+              "Content-Type": "application/json",
+            });
+            // Send response
+            response.end(JSON.stringify(reply));
+          } catch (err) {
+            console.log(err);
+
+            // Prepare reply
+            const reply = {
+              data: {
+                states: [],
+              },
+              message: "fail",
+              error: err,
+            };
+
+            // Set header
+            response.writeHead(200, {
+              "Content-Type": "application/json",
+            });
+            // Send response
+            response.end(JSON.stringify(reply));
+          }
+        }
+
+        // --------------------------------------------------------------------------
+        // ************************** END POINT ********************************
+        if (request.method === "GET" && request.url === "/api/get-countries") {
+          try {
+            // Query database
+
+            // Prepare query to get available countries
+
+            const stmt = db.prepare(
+              `
+              select distinct country
+              from location
+              `,
+            );
+
+            // Run query
+            const countries = stmt.all();
+            console.log(JSON.stringify(countries));
+
+            // Prepare reply
+            const reply = {
+              data: {
+                countries: countries,
+              },
+              message: "success",
+              error: "None",
+            };
+
+            // Set header
+            response.writeHead(200, {
+              "Content-Type": "application/json",
+            });
+            // Send response
+            response.end(JSON.stringify(reply));
+          } catch (err) {
+            console.log(err);
+            // Prepare reply
+            const reply = {
+              data: {
+                countries: [],
+              },
+              message: "error",
+              error: err,
+            };
+            // Set header
+            response.writeHead(200, {
+              "Content-Type": "application/json",
+            });
+            // Send response
+            response.end(JSON.stringify(reply));
+          }
+        }
+
+        // --------------------------------------------------------------------------
+        // ************************** END POINT ********************************
+        if (request.method === "POST" && request.url === "/api/add-event") {
+          try {
+            // Read body
+            let body = [];
+            request
+              .on("data", (chunk) => {
+                body.push(chunk);
+              })
+              .on("end", () => {
+                // Read request body
+                body = Buffer.concat(body).toString();
+
+                // Create a URL object
+
+                const myURL = new URL(
+                  `https://example.org${request.url}?${body}`,
+                );
+
+                // Extract query parameters as JSON
+                let json_body = {};
+
+                myURL.searchParams.forEach((value, name) => {
+                  json_body[name] = value;
+                });
+
+                // Insert form data into DB
+
+                const insert = db.prepare(
+                  `INSERT INTO music_concert_events (
+                  event_title, main_artist, sub_artists, event_date, doors_open_time, event_start_time, 
+                  event_address, event_venue, city, state, country, price, event_url, genre_id, event_category, 
+                  event_image_url, event_description, language 
+                  ) VALUES (
+                  @event_title, @main_artist, @sub_artists, @event_date, @doors_open_time, @event_start_time, 
+                  @event_address, @event_venue, @city, @state, @country, @price, @event_url, @genre_id, @event_category,
+                  @event_image_url, @event_description, @language)`,
+                );
+
+                insert.run(json_body);
+
+                response.writeHead(200, {
+                  "Content-Type": "application/json",
+                  "Access-Control-Allow-Methods": "POST",
+                  "Access-Control-Allow-Headers": "Content-Type",
+                });
+                response.end(JSON.stringify(json_body));
+              });
+          } catch (error) {
+            // Prepare response
+            const reply = {
+              error: error,
+            };
+            response.writeHead(200, {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Methods": "POST",
+              "Access-Control-Allow-Headers": "Content-Type",
+            });
+            response.end(JSON.stringify(reply));
+          }
+        }
+
+        // --------------------------------------------------------------------------
+        // ************************** END POINT ********************************
+        if (
+          request.method === "GET" &&
+          request.url.startsWith("/api/get-event-details")
+        ) {
+          try {
+            // Extract only music genres
+
+            // Get query parameters.
+
+            const myURL = new URL(`https://example.org${request.url}`);
+            let filterCondition = " WHERE TRUE";
+            let filterInput = {};
+
+            myURL.searchParams.forEach((value, name) => {
+              if (value != "") {
+                console.log(name, value);
+                value = value.toLowerCase();
+                name = name.toLowerCase();
+                const excluded_parameters = [
+                  "from_date",
+                  "to_date",
+                  "min_price",
+                  "max_price",
+                ];
+                if (excluded_parameters.includes(name) === false) {
+                  filterCondition =
+                    filterCondition + ` AND lower(${name}) = @${name}`;
+                } else if (name === "from_date") {
+                  filterCondition =
+                    filterCondition + ` AND mce.event_date >= @${name}`;
+                } else if (name === "to_date") {
+                  filterCondition =
+                    filterCondition + ` AND mce.event_date <= @${name}`;
+                } else if (name === "min_price") {
+                  filterCondition =
+                    filterCondition + ` AND mce.price >= @${name}`;
+                } else if (name === "max_price") {
+                  const max_price = "max_price";
+                  filterCondition =
+                    filterCondition + ` AND mce.price <= @${name}`;
+                }
+                filterInput[name] = value;
+              }
+            });
+
+            console.log(filterCondition);
+            console.log(filterInput);
+
+            // Prepare query
+
+            stmt = db.prepare(
+              `SELECT distinct mg.genre_id, mg.genre_name, mg.genre_image_url, mg.genre_description
+              FROM music_genre mg 
+              left join music_concert_events mce 
+              on mg.genre_id =  mce.genre_id
+              ${filterCondition}`,
+            );
+
+            const genres = stmt.all(filterInput);
+
+            console.log(genres);
+
+            // Extract only featured events
+
+            // Extract only categories
+            stmt = db.prepare(
+              `SELECT distinct event_category 
+              from music_concert_Events mce
+              where mce.event_category is not null`,
+            );
+            const categories = stmt.all();
+
+            // Extract languages
+            // Prepare query
+
+            stmt = db.prepare(
+              `SELECT distinct language 
+              from music_concert_Events mce
+              ${filterCondition}
+               and mce.language is not null`,
+            );
+            const languages = stmt.all(filterInput);
+
+            // Extract only artists
+            stmt = db.prepare(
+              `SELECT distinct main_artist 
+              from music_concert_Events mce
+              ${filterCondition}
+              and mce.main_artist is not null
+              `,
+            );
+            const artists = stmt.all(filterInput);
+
+            // Extract venues
+            stmt = db.prepare(
+              `SELECT distinct mce.event_venue 
+              from music_concert_Events mce
+              ${filterCondition}
+              and mce.event_venue is not null
+              `,
+            );
+            const venues = stmt.all(filterInput);
+
+            // Extract events
+
+            // Prepare query
+
+            const extract_events = db.prepare(
+              `SELECT mce.event_id, mce.event_source, mce.created_at, 
+              mce.event_title, mce.main_artist, mce.main_artist_image_url,
+              mce.sub_artists, mce.event_date, mce.doors_open_time, mce.event_start_time,
+              mce.event_address, mce.event_venue, mce.city, mce.state, mce.country_code,
+              mce.country, mce.price, mce.event_url, mce.genre_id, mce.event_category, mce.event_image_url,
+              mce.event_description, mce.featured
+              , mg.genre_id, mg.genre_name, mg.genre_image_url, mg.genre_description
+              FROM music_genre mg 
+              left join music_concert_events mce 
+              on mg.genre_id =  mce.genre_id
+              ${filterCondition}`,
+            );
+
+            const events = extract_events.all(filterInput);
+
+            console.log(events);
+
+            // Prepare reply
+            const reply = {
+              genres: genres,
+              featured_events: [],
+              categories: categories,
+              artists: artists,
+              events: events,
+              languages: languages,
+              venues: venues,
+              message: "success",
+            };
+
+            // Set headers
+            // Set status code and headers for response
+            response.writeHead(200, {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Methods": "GET",
+              "Access-Control-Allow-Headers": "Content-Type",
+            });
+            // Send response
+            response.write(JSON.stringify(reply));
+            // Finish sending response body
+            response.end();
+
+            return;
+          } catch (error) {
+            // Return events
+            // Prepare reply
+            console.log(error);
+            const reply = {
+              events: "no results",
+              message: "error",
+            };
+            // Set headers
+            // Set status code and headers for response
+            response.writeHead(200, {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Methods": "GET",
+              "Access-Control-Allow-Headers": "Content-Type",
+            });
+            // Send response
+            response.write(JSON.stringify(reply));
+            // Finish sending response body
+            response.end();
+
+            return;
+          }
         }
 
         // --------------------------------------------------------------------------
