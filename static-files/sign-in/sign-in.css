@@ -321,6 +321,7 @@ header.page {
   flex-direction: column;
   align-items: center;
   flex-shrink: 0;
+  padding-top: 10px;
 }
 
 /* <!-- Category Image --> */
@@ -344,7 +345,7 @@ header.page {
     flex-direction: row;
     align-items: center;
     justify-content: start;
-    gap: 150px;
+    /* gap: 150px; */
   }
 }
 
@@ -761,6 +762,8 @@ header.page {
     margin: 7px 7px;
     margin-left: 15px;
     padding-bottom: 25px;
+    row-gap: 30px;
+    column-gap: 10px;
   }
 }
 
@@ -787,6 +790,8 @@ header.page {
   flex-direction: column;
   align-items: center;
   flex-shrink: 0;
+  text-align: center;
+
   /* margin: 10px; */
   /* padding: 5px; */
 }
@@ -821,7 +826,7 @@ header.page {
 .category-card-big {
   width: 150px;
   height: 120px;
-  background-color: grey;
+  background-color: black;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
