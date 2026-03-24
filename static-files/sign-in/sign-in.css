@@ -321,6 +321,7 @@ header.page {
   flex-direction: column;
   align-items: center;
   flex-shrink: 0;
+  padding-top: 10px;
 }
 
 /* <!-- Category Image --> */
@@ -380,9 +381,13 @@ header.page {
   display: flex;
   flex-direction: row;
   align-items: center;
+  overflow-x: auto;
   overflow-y: auto;
   max-width: 95%;
-  max-height: 450px;
+  height: auto;
+  gap: 30px;
+  /* flex-wrap: wrap; */
+  /* height: auto; */
 }
 /* } */
 
@@ -402,11 +407,11 @@ header.page {
 /* <!-- Event card  --> */
 .event-card {
   width: 200px;
-  height: 300px;
+  height: 400px;
   flex-shrink: 0;
   /* border: 1px solid rgb(251, 249, 249); */
   /* background-image: url("https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvcHgxMTY5NTQwLWltYWdlLWpvYjYzMC1hLWwwZzA2OGd0LmpwZw.jpg"); */
-  /* border-radius: 20px; */
+  border-radius: 20px;
 }
 
 /* <!-- Event card icons section  --> */
@@ -761,6 +766,8 @@ header.page {
     margin: 7px 7px;
     margin-left: 15px;
     padding-bottom: 25px;
+    row-gap: 30px;
+    column-gap: 10px;
   }
 }
 
@@ -787,6 +794,8 @@ header.page {
   flex-direction: column;
   align-items: center;
   flex-shrink: 0;
+  text-align: center;
+
   /* margin: 10px; */
   /* padding: 5px; */
 }
@@ -821,7 +830,7 @@ header.page {
 .category-card-big {
   width: 150px;
   height: 120px;
-  background-color: grey;
+  background-color: black;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -887,10 +896,11 @@ header.page {
 .all-events-display-section {
   display: grid;
   grid-template-columns: 180px 180px 180px 180px;
-  grid-template-rows: 300px 300px;
+  grid-template-rows: 380px 380px;
   overflow-x: auto;
   margin: 20px 10px;
   gap: 15px;
+  overflow-y: auto;
   /* margin-left: 15px; */
 }
 /* ----------------------------------------- */

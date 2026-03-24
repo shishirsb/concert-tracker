@@ -33,6 +33,16 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     document.querySelector("#genre_id").appendChild(optionElement);
   });
 
+  // Populate artists in main artist drop down
+  // Loop through artists in event_data
+  event_data.artists.forEach((element) => {
+    // Create option element
+    optionElement = document.createElement("option");
+    optionElement.innerText = element.artist_name;
+    optionElement.value = element.artist_id;
+    document.querySelector("#main_artist-dropdown").appendChild(optionElement);
+  });
+
   // Load countries drop-down options
   // Get list of countries from database
   let response = await call("/api/get-countries", null);

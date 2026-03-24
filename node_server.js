@@ -413,9 +413,12 @@ try {
 
             // Extract only categories
             stmt = db.prepare(
-              `SELECT distinct event_category 
+              `SELECT c.category_id, c.category_name, c.category_image_url, c.category_description, count(*) as number_of_events
               from music_concert_Events mce
-              where mce.event_category is not null`,
+              join category c
+              on mce.category_id = c.category_id
+              where c.category_name is not null
+              group by c.category_id, c.category_name, c.category_image_url, c.category_description`,
             );
             const categories = stmt.all();
 
@@ -425,6 +428,8 @@ try {
             stmt = db.prepare(
               `SELECT distinct language 
               from music_concert_Events mce
+              join music_genre mg 
+              on mce.genre_id = mg.genre_id
               ${filterCondition}
                and mce.language is not null`,
             );
@@ -432,8 +437,12 @@ try {
 
             // Extract only artists
             stmt = db.prepare(
-              `SELECT distinct main_artist 
+              `SELECT distinct a.artist_id, a.artist_name, a.artist_image_url, a.artist_description
               from music_concert_Events mce
+              join music_genre mg 
+              on mce.genre_id = mg.genre_id
+              join artist a
+              on mce.artist_id = a.artist_id
               ${filterCondition}
               and mce.main_artist is not null
               `,
@@ -444,6 +453,8 @@ try {
             stmt = db.prepare(
               `SELECT distinct mce.event_venue 
               from music_concert_Events mce
+              join music_genre mg 
+              on mce.genre_id = mg.genre_id
               ${filterCondition}
               and mce.event_venue is not null
               `,
@@ -465,7 +476,9 @@ try {
               FROM music_genre mg 
               left join music_concert_events mce 
               on mg.genre_id =  mce.genre_id
-              ${filterCondition}`,
+              ${filterCondition}
+              and mce.event_title is not null
+              `,
             );
 
             const events = extract_events.all(filterInput);

@@ -55,9 +55,20 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
     // Retrieve results based on location
 
     // Make a request to get all the events data based on user's neighbourhood
+    // Set today's date and next week's date
+    let today_date = new Date(Date.now());
+    // Convert to YYYY-MM-DD format
+    today_date_ISOformat = today_date.toISOString().slice(0, 10);
+    // Add 7 days
+    today_date.setDate(today_date.getDate() + 7);
+
+    let next_week_date_ISOformat = today_date.toISOString().slice(0, 10);
+    // Set parameters
     parameters = {
       city: user_location.address.city,
       country: user_location.address.country,
+      from_date: today_date_ISOformat,
+      to_date: next_week_date_ISOformat,
     };
     let event_data = await call("/api/get-event-details", parameters);
     console.log(`${JSON.stringify(event_data)}`);
@@ -206,8 +217,9 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
         });
       }
     });
-
+    // --------------------------------------------------------------------
     // Populate the music genres
+
     // Get a clone of the genre card
     let genre_card = document.querySelector(".category-card").cloneNode(true);
     // Clear existing cards.
@@ -229,50 +241,40 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
         .appendChild(clone_genre_card);
     });
 
-    // Populate events
-    // Get a clone of the event card
-    let event_card = document.querySelector(".event-card").cloneNode(true);
-    // Clear existing cards.
-    document.querySelector(".event-cards-section-featured-events").innerHTML =
-      "";
+    // Add event listener to genre icons
+    document.querySelectorAll(".category-card").forEach((element) => {
+      // Add click event listener
+      element.addEventListener("click", async (evt) => {
+        // Remove existing borders
+        document.querySelectorAll(".category-card").forEach((card_element) => {
+          // remove border
+          card_element.style.setProperty("border", `none`);
+        });
 
-    // Loop through events from the event data.
-    event_data.events.forEach((element) => {
-      // Clone an event card
-      let clone_event_card = event_card.cloneNode(true);
-      // Edit the event card with the current event item
-      clone_event_card
-        .querySelector(".card-image")
-        .style.setProperty(
-          "background-image",
-          `url("${element.event_image_url}")`,
-        );
-      clone_event_card
-        .querySelector(".card-image")
-        .style.setProperty("background-size", `contain`);
+        // Add a white border around the genre card
+        element.style.setProperty("border", `1px solid white`);
+        element.style.setProperty("border-radius", `10px`);
 
-      clone_event_card
-        .querySelector(".card-image")
-        .style.setProperty("background-position", `center`);
+        // get the selected genre.
+        const genre = element.querySelector(".category-name").innerText;
 
-      clone_event_card
-        .querySelector(".card-image")
-        .style.setProperty("background-repeat", `no-repeat`);
+        // Filter events based on genre.
+        // Set parameters
+        // Set parameters
+        parameters = {
+          city: user_location.address.city,
+          country: user_location.address.country,
+          genre_name: genre,
+        };
+        let event_data = await call("/api/get-event-details", parameters);
 
-      clone_event_card.querySelector(".event-title").innerText =
-        element.event_title;
-
-      clone_event_card.querySelector(".event-date-time").innerText =
-        `${element.event_date}, ${element.event_start_time}`;
-
-      clone_event_card.querySelector(".event-address").innerText =
-        `${element.event_address}`;
-
-      // Append this element to the events container
-      document
-        .querySelector(".event-cards-section-featured-events")
-        .appendChild(clone_event_card);
+        populate_events(event_data);
+      });
     });
+
+    // --------------------------------------------------------------------
+
+    populate_events(event_data);
     // Populate the languages in the filter section
     // Loop through each language from event_data
     event_data.languages.forEach((element) => {
@@ -292,8 +294,8 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
       // Create a span element and append to the languages filter article.
       // Loop through all the languages
       let optionElement = document.createElement("option");
-      optionElement.innerText = element.event_category;
-      optionElement.value = element.event_category;
+      optionElement.innerText = element.category_name;
+      optionElement.value = element.category_name;
       document
         .querySelector("#categories-dropdown-filter-page")
         .appendChild(optionElement);
@@ -318,8 +320,8 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
       // Create a span element and append to the languages filter article.
       // Loop through all the languages
       let optionElement = document.createElement("option");
-      optionElement.innerText = element.main_artist;
-      optionElement.value = element.main_artist;
+      optionElement.innerText = element.artist_name;
+      optionElement.value = element.artist_name;
       document
         .querySelector("#artist-dropdown-filter-page")
         .appendChild(optionElement);
@@ -336,6 +338,173 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
       document
         .querySelector("#venue-dropdown-filter-page")
         .appendChild(optionElement);
+    });
+
+    // <!-- Duration selector  -->
+    // Add event listener 'change' to the duration selector
+    document
+      .querySelector("#duration-selector-1")
+      .addEventListener("change", async (evt) => {
+        // check selection
+        if (evt.target.value === "month") {
+          // Make a request to get all the events data based on user's selection
+          // Set today's date and next month's date
+          let today_date = new Date(Date.now());
+          // Convert to YYYY-MM-DD format
+          today_date_ISOformat = today_date.toISOString().slice(0, 10);
+          // Add 30 days
+          today_date.setDate(today_date.getDate() + 30);
+
+          let next_week_date_ISOformat = today_date.toISOString().slice(0, 10);
+          // Set parameters
+          parameters = {
+            city: user_location.address.city,
+            country: user_location.address.country,
+            from_date: today_date_ISOformat,
+            to_date: next_week_date_ISOformat,
+          };
+          let event_data = await call("/api/get-event-details", parameters);
+
+          populate_events(event_data);
+        } else if (evt.target.value === "year") {
+          // Make a request to get all the events data based on user's selection
+          // Set today's date and next month's date
+          let today_date = new Date(Date.now());
+          // Convert to YYYY-MM-DD format
+          today_date_ISOformat = today_date.toISOString().slice(0, 10);
+          // Add 30 days
+          today_date.setDate(today_date.getDate() + 365);
+
+          let next_week_date_ISOformat = today_date.toISOString().slice(0, 10);
+          // Set parameters
+          parameters = {
+            city: user_location.address.city,
+            country: user_location.address.country,
+            from_date: today_date_ISOformat,
+            to_date: next_week_date_ISOformat,
+          };
+          let event_data = await call("/api/get-event-details", parameters);
+
+          populate_events(event_data);
+        } else if (evt.target.value === "week") {
+          // Make a request to get all the events data based on user's selection
+          // Set today's date and next month's date
+          let today_date = new Date(Date.now());
+          // Convert to YYYY-MM-DD format
+          today_date_ISOformat = today_date.toISOString().slice(0, 10);
+          // Add 30 days
+          today_date.setDate(today_date.getDate() + 7);
+
+          let next_week_date_ISOformat = today_date.toISOString().slice(0, 10);
+          // Set parameters
+          parameters = {
+            city: user_location.address.city,
+            country: user_location.address.country,
+            from_date: today_date_ISOformat,
+            to_date: next_week_date_ISOformat,
+          };
+          let event_data = await call("/api/get-event-details", parameters);
+
+          populate_events(event_data);
+        }
+      });
+
+    // Populate artists
+    populate_artists(event_data);
+
+    // Populate Categories
+    populate_categories(event_data);
+
+    // Add view all functionality
+    document.querySelectorAll(".view-all-link").forEach((element) => {
+      // Add click event listener
+      element.addEventListener("click", async (evt) => {
+        // fetch all events
+        // Set parameters
+        parameters = {
+          city: user_location.address.city,
+          country: user_location.address.country,
+        };
+        let event_data = await call("/api/get-event-details", parameters);
+
+        // Populate events
+        populate_events(event_data);
+
+        // Populate artists, categories and genres
+        populate_artists(event_data);
+        populate_categories(event_data);
+      });
+    });
+
+    // <!-- Filter cards section  -->
+    document.querySelectorAll(".filter-card").forEach((element) => {
+      // Add click event handler
+      element.addEventListener("click", async (evt) => {
+        // Get the text of the filter card
+        let selected_filter_card = element.querySelector("span").innerText;
+        if (selected_filter_card === "Today") {
+          // Make a request to get all the events data based on user's selection
+          // Set today's date and next month's date
+          let today_date = new Date(Date.now());
+          // Convert to YYYY-MM-DD format
+          let today_date_ISOformat = today_date.toISOString().slice(0, 10);
+
+          // Set parameters
+          parameters = {
+            city: user_location.address.city,
+            country: user_location.address.country,
+            from_date: today_date_ISOformat,
+            to_date: today_date_ISOformat,
+          };
+          let event_data = await call("/api/get-event-details", parameters);
+
+          populate_events(event_data);
+        } else if (selected_filter_card === "Tomorrow") {
+          // Set today's date and next month's date
+          let today_date = new Date(Date.now());
+
+          // Add 1 days
+          today_date.setDate(today_date.getDate() + 1);
+
+          // Convert to YYYY-MM-DD format
+          let today_date_ISOformat = today_date.toISOString().slice(0, 10);
+
+          let next_week_date_ISOformat = today_date.toISOString().slice(0, 10);
+
+          // Set parameters
+          parameters = {
+            city: user_location.address.city,
+            country: user_location.address.country,
+            from_date: today_date_ISOformat,
+            to_date: today_date_ISOformat,
+          };
+          let event_data = await call("/api/get-event-details", parameters);
+
+          populate_events(event_data);
+        } else if (selected_filter_card === "This weekend") {
+          // Set today's date and next month's date
+          let today_date = new Date(Date.now());
+
+          // Convert to YYYY-MM-DD format
+          let today_date_ISOformat = today_date.toISOString().slice(0, 10);
+
+          // Add 1 days
+          today_date.setDate(today_date.getDate() + 7);
+
+          let next_week_date_ISOformat = today_date.toISOString().slice(0, 10);
+
+          // Set parameters
+          parameters = {
+            city: user_location.address.city,
+            country: user_location.address.country,
+            from_date: today_date_ISOformat,
+            to_date: next_week_date_ISOformat,
+          };
+          let event_data = await call("/api/get-event-details", parameters);
+
+          populate_events(event_data);
+        }
+      });
     });
   });
 });
@@ -502,4 +671,161 @@ async function call(endPoint, parameters) {
     );
     return `error while fetching: ${url}`;
   }
+}
+
+// Create a function to populate events
+
+// Get a clone of the event card
+let event_card = document.querySelector(".event-card").cloneNode(true);
+
+function populate_events(event_data) {
+  // Populate events in featured events section
+
+  // Clear existing cards in featured events.
+  document.querySelector(".event-cards-section-featured-events").innerHTML = "";
+  // Clear existing cards all events section.
+  document.querySelector(".all-events-display-section").innerHTML = "";
+
+  // Loop through events from the event data.
+  event_data.events.forEach((element) => {
+    // Clone an event card
+    let clone_event_card = event_card.cloneNode(true);
+    // Edit the event card with the current event item
+    clone_event_card
+      .querySelector(".card-image")
+      .style.setProperty(
+        "background-image",
+        `url("${element.event_image_url}")`,
+      );
+    clone_event_card
+      .querySelector(".card-image")
+      .style.setProperty("background-size", `contain`);
+
+    clone_event_card
+      .querySelector(".card-image")
+      .style.setProperty("background-position", `center`);
+
+    clone_event_card
+      .querySelector(".card-image")
+      .style.setProperty("background-repeat", `no-repeat`);
+
+    clone_event_card.querySelector(".event-title").innerText =
+      element.event_title;
+
+    clone_event_card.querySelector(".event-date-time").innerText =
+      `${element.event_date}, ${element.event_start_time}`;
+
+    clone_event_card.querySelector(".event-address").innerText =
+      `${element.event_address}`;
+
+    // Append this element to the featured event container
+    if (element.featured === 1) {
+      document
+        .querySelector(".event-cards-section-featured-events")
+        .appendChild(clone_event_card);
+    }
+
+    let card_all_events = clone_event_card.cloneNode(true);
+
+    // Clone the same node and append to the all events section
+    document
+      .querySelector(".all-events-display-section")
+      .appendChild(card_all_events);
+  });
+
+  // Add click event listeners for all the event card elements
+  // Loop through featured events
+  document
+    .querySelectorAll(".event-cards-section-featured-events")
+    .forEach((element) => {
+      // Add click event listener
+      element.addEventListener("click", (evt) => {
+        // Show event details display page.
+        let event_details_page = document.querySelector(
+          ".event-details-display-section",
+        );
+        event_details_page.classList.remove("hidden");
+
+        // Edit event-details page.
+
+        // Set banner image
+        let banner_image = document.querySelector(
+          ".banner-image-in-event-details-section",
+        );
+        banner_image.style.setProperty(
+          "background-image",
+          `url("${element.event_image_url}")`,
+        );
+        banner_image.style.setProperty("background-size", `contain`);
+
+        banner_image.style.setProperty("background-position", `center`);
+
+        banner_image.style.setProperty("background-repeat", `no-repeat`);
+      });
+    });
+}
+
+function populate_artists(event_data) {
+  // Get a clone of artist card
+  let artist_card = document.querySelector(".artist-image-div").cloneNode(true);
+
+  // Clear existing artist cards
+  document.querySelector(".artists-display").innerHTML = "";
+
+  // Loop through each artist in event_date
+  event_data.artists.forEach((element) => {
+    // Get a clone of artist card
+    let clone_artist_card = artist_card.cloneNode(true);
+
+    // Edit the artist card with the current event item
+    clone_artist_card.querySelector(".artist-image-artists-display").src =
+      element.artist_image_url;
+
+    clone_artist_card.querySelector(".artist-name").innerText =
+      element.artist_name;
+
+    // Append this element to the events container
+    document.querySelector(".artists-display").appendChild(clone_artist_card);
+  });
+}
+
+// function to populate categories
+function populate_categories(event_data) {
+  // Get a clone of category card
+  let category_card = document
+    .querySelector(".category-card-big")
+    .cloneNode(true);
+
+  // Clear existing category  cards
+  document.querySelector(".display-categories-big-section").innerHTML = "";
+
+  // Loop through each artist in event_date
+  event_data.categories.forEach((element) => {
+    // Get a clone of category card
+    let clone_category_card = category_card.cloneNode(true);
+
+    // Edit the category card with the current event item
+    clone_category_card.querySelector(
+      ".category-name-inside-category-card-big",
+    ).innerText = element.category_name;
+
+    clone_category_card.querySelector(
+      ".number-of-events-in-category",
+    ).innerText = `${element.number_of_events} Events`;
+
+    clone_category_card.style.setProperty(
+      "background-image",
+      `url("${element.category_image_url}")`,
+    );
+    clone_category_card.style.setProperty("background-size", `contain`);
+
+    clone_category_card.style.setProperty("background-position", `center`);
+
+    clone_category_card.style.setProperty("background-repeat", `no-repeat`);
+
+    // Append this element to the events container
+    document
+      .querySelector(".display-categories-big-section")
+      .appendChild(clone_category_card);
+  });
 }
