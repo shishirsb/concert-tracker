@@ -518,7 +518,7 @@ header.page {
 .banner-image-in-event-details-section {
   width: 100vw;
   height: 50vh;
-  background-color: grey;
+  background-color: black;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -620,7 +620,7 @@ header.page {
 .artist-image-in-artist-card {
   width: 60px;
   height: 60px;
-  background-color: rgb(127, 125, 125);
+  background-color: black;
   border-radius: 20px;
 }
 

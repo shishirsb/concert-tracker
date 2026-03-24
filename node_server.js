@@ -472,10 +472,15 @@ try {
               mce.event_address, mce.event_venue, mce.city, mce.state, mce.country_code,
               mce.country, mce.price, mce.event_url, mce.genre_id, mce.event_category, mce.event_image_url,
               mce.event_description, mce.featured
-              , mg.genre_id, mg.genre_name, mg.genre_image_url, mg.genre_description
+              , mg.genre_id, mg.genre_name, mg.genre_image_url, mg.genre_description, a.artist_name, a.artist_image_url, a.artist_position,
+              a.artist_description
               FROM music_genre mg 
-              left join music_concert_events mce 
+              join music_concert_events mce 
               on mg.genre_id =  mce.genre_id
+              join category c
+              on c.category_id = mce.category_id
+              join artist a
+              on a.artist_id = mce.artist_id
               ${filterCondition}
               and mce.event_title is not null
               `,
