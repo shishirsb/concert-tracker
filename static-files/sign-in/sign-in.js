@@ -314,6 +314,14 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
         .appendChild(optionElement);
     });
 
+    // Event data
+    // Set parameters
+    parameters = {
+      city: user_location.address.city,
+      country: user_location.address.country,
+    };
+    event_data = await call("/api/get-event-details", parameters);
+
     // Populate the artists in the filter section
     // Loop through artists from event_data
     event_data.artists.forEach((element) => {
@@ -576,48 +584,7 @@ document
     // Update events section
     // Populate events
     // Get a clone of the event card
-    let event_card = document.querySelector(".event-card").cloneNode(true);
-    // Clear existing cards.
-    document.querySelector(".event-cards-section-featured-events").innerHTML =
-      "";
-
-    // Loop through events from the event data.
-    event_data.events.forEach((element) => {
-      // Clone an event card
-      let clone_event_card = event_card.cloneNode(true);
-      // Edit the event card with the current event item
-      clone_event_card
-        .querySelector(".card-image")
-        .style.setProperty(
-          "background-image",
-          `url("${element.event_image_url}")`,
-        );
-      clone_event_card
-        .querySelector(".card-image")
-        .style.setProperty("background-size", `contain`);
-
-      clone_event_card
-        .querySelector(".card-image")
-        .style.setProperty("background-position", `center`);
-
-      clone_event_card
-        .querySelector(".card-image")
-        .style.setProperty("background-repeat", `no-repeat`);
-
-      clone_event_card.querySelector(".event-title").innerText =
-        element.event_title;
-
-      clone_event_card.querySelector(".event-date-time").innerText =
-        `${element.event_date}, ${element.event_start_time}`;
-
-      clone_event_card.querySelector(".event-address").innerText =
-        `${element.event_address}`;
-
-      // Append this element to the events container
-      document
-        .querySelector(".event-cards-section-featured-events")
-        .appendChild(clone_event_card);
-    });
+    populate_events(event_data);
   });
 
 // <!-- adjustment icon image  -->
@@ -731,15 +698,11 @@ function populate_events(event_data) {
     document
       .querySelector(".all-events-display-section")
       .appendChild(card_all_events);
-  });
 
-  // Add click event listeners for all the event card elements
-  // Loop through featured events
-  document
-    .querySelectorAll(".event-cards-section-featured-events")
-    .forEach((element) => {
+    // Add click event listener to the nodes
+    [clone_event_card, card_all_events].forEach((node) => {
       // Add click event listener
-      element.addEventListener("click", (evt) => {
+      node.addEventListener("click", (evt) => {
         // Show event details display page.
         let event_details_page = document.querySelector(
           ".event-details-display-section",
@@ -761,8 +724,62 @@ function populate_events(event_data) {
         banner_image.style.setProperty("background-position", `center`);
 
         banner_image.style.setProperty("background-repeat", `no-repeat`);
+
+        // Add back button function
+        event_details_page
+          .querySelector(
+            ".back-icon-in-icons-section-in-event-details-display-section",
+          )
+          .addEventListener("click", (evt) => {
+            // Hide the event details page
+            event_details_page.classList.add("hidden");
+          });
+
+        // Add title
+        event_details_page.querySelector(
+          ".event-title-in-about-event-section",
+        ).innerText = element.event_title;
+
+        // Add date and time
+        // Get the date
+        const event_date = new Date(element.event_date);
+
+        event_details_page.querySelector(
+          ".event-time-in-about-event-section",
+        ).innerText =
+          `${event_date.toDateString()}, ${element.event_start_time}`;
+
+        // Add address
+        event_details_page.querySelector(
+          ".address-in-address-section-in-event-location-link-card",
+        ).innerText = element.event_address;
+
+        // Add Gates open time
+        event_details_page.querySelector(
+          ".gates-open-time-in-event-schedule-link-card",
+        ).innerText = `Gates open at ${element.doors_open_time}`;
+
+        // Add Artist details
+        event_details_page.querySelector(
+          "#main-artist-name-in-artist-name-title-section",
+        ).innerText = element.artist_name;
+
+        // Add artist image
+        let image_div = event_details_page.querySelector(
+          ".artist-image-in-artist-card",
+        );
+        image_div.style.setProperty(
+          "background-image",
+          `url("${element.artist_image_url}")`,
+        );
+        image_div.style.setProperty("background-size", `contain`);
+
+        image_div.style.setProperty("background-position", `center`);
+
+        image_div.style.setProperty("background-repeat", `no-repeat`);
       });
     });
+  });
 }
 
 function populate_artists(event_data) {
