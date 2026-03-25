@@ -1,6 +1,8 @@
 // --------------------------------------------------------
 // Add an event listener to the document
 
+let user_location = {};
+
 document.addEventListener("DOMContentLoaded", async (evt) => {
   // Retrieve geo location co-ordinates of the user's device.
   window.navigator.geolocation.getCurrentPosition(async (position) => {
@@ -24,7 +26,7 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
       format: "jsonv2",
     };
     // Make a request to decode the address
-    let user_location = await call(
+    user_location = await call(
       "https://nominatim.openstreetmap.org/reverse",
       parameters,
     );
@@ -777,6 +779,22 @@ function populate_events(event_data) {
         image_div.style.setProperty("background-position", `center`);
 
         image_div.style.setProperty("background-repeat", `no-repeat`);
+
+        // Add click event listener to the artist card
+        event_details_page
+          .querySelector(".artist-card-in-who-is-taking-the-stage-section")
+          .addEventListener("click", (evt) => {
+            // Show the artist details page.
+            document
+              .querySelector(".artist-details-display-page")
+              .classList.remove("hidden");
+
+            // Hide the event details card
+            event_details_page.classList.add("hidden");
+
+            // Edit the artist page.
+            edit_artist_page(element, event_data);
+          });
       });
     });
   });
@@ -803,6 +821,136 @@ function populate_artists(event_data) {
 
     // Append this element to the events container
     document.querySelector(".artists-display").appendChild(clone_artist_card);
+
+    // Add click event listener to the artist card element
+    clone_artist_card.addEventListener("click", (evt) => {
+      // Show the artist details page.
+      let artist_details_page = document.querySelector(
+        ".artist-details-display-page",
+      );
+
+      artist_details_page.classList.remove("hidden");
+
+      // Edit the artist card elements
+      // Add banner image.
+      // Set banner image
+      let artist_banner_image = document.querySelector(
+        ".banner-image-display-section",
+      );
+      artist_banner_image.style.setProperty(
+        "background-image",
+        `url("${element.artist_image_url}")`,
+      );
+      artist_banner_image.style.setProperty("background-size", `contain`);
+
+      artist_banner_image.style.setProperty("background-position", `center`);
+
+      artist_banner_image.style.setProperty("background-repeat", `no-repeat`);
+
+      // Add artist name
+      artist_details_page.querySelector(
+        "#artist_name-in-artist-about-section-in-artist-details-page",
+      ).innerText = element.artist_name;
+
+      // Add description
+      artist_details_page.querySelector(
+        ".artist-description-in-about-section",
+      ).innerText = element.artist_description;
+
+      // Add back button function
+      artist_details_page
+        .querySelector(".left-arrow-in-icons-section-in-artists-display-page")
+        .addEventListener("click", (evt) => {
+          // hide the artist_details display
+          artist_details_page.classList.add("hidden");
+        });
+
+      // Populate associated events in all events section
+      // Get a clone of event card in artist_details page.
+      let event_card_clone = artist_details_page
+        .querySelector(
+          ".event-card-in-all-events-section-in-artist-details-section",
+        )
+        .cloneNode(true);
+
+      // Clear existing event cards
+      artist_details_page.querySelector(
+        ".all-events-section-in-artist-details-section",
+      ).innerHTML = "";
+
+      event_data.events.forEach((event) => {
+        // check whether the main_artist matches
+        if (event.artist_name === element.artist_name) {
+          // Clone event card again
+          let event_card_duplicate = event_card_clone.cloneNode(true);
+
+          // Edit card elements
+          // Event date and time
+          // Add date and time
+          // Get the date
+          const event_date = new Date(event.event_date);
+
+          event_card_duplicate.querySelector(
+            ".time-in-event-card-in-artist-details-section",
+          ).innerText =
+            `${event_date.toDateString()}, ${event.event_start_time}`;
+
+          // Add event title
+          event_card_duplicate.querySelector(
+            ".title-in-event-card-in-artist-details-section",
+          ).innerText = event.event_title;
+
+          // Add venue
+          event_card_duplicate.querySelector(
+            ".location-in-event-card-in-artist-details-section",
+          ).innerText = event.event_venue;
+
+          // Add price
+          event_card_duplicate.querySelector(
+            ".price-in-event-card-in-artist-details-section",
+          ).innerText = `INR ${event.price}`;
+
+          // Add event image
+          let artist_banner_image = event_card_duplicate.querySelector(
+            ".image-in-event-card-in-all-events-section-in-artist-details-section",
+          );
+          artist_banner_image.style.setProperty(
+            "background-image",
+            `url("${event.event_image_url}")`,
+          );
+          artist_banner_image.style.setProperty("background-size", `contain`);
+
+          artist_banner_image.style.setProperty(
+            "background-position",
+            `center`,
+          );
+
+          artist_banner_image.style.setProperty(
+            "background-repeat",
+            `no-repeat`,
+          );
+
+          // Append the event card in all events section
+          artist_details_page
+            .querySelector(".all-events-section-in-artist-details-section")
+            .appendChild(event_card_duplicate);
+
+          // Add click event hander to the event card
+          event_card_duplicate.addEventListener("click", (evt) => {
+            // Show event details page
+            document
+              .querySelector(".event-details-display-section")
+              .classList.remove("hidden");
+
+            // Hide artist details page
+            artist_details_page.classList.add("hidden");
+
+            // edit event details page
+            edit_event_details_page(event, event_data);
+          });
+        }
+      });
+    });
   });
 }
 
@@ -813,10 +961,10 @@ function populate_categories(event_data) {
     .querySelector(".category-card-big")
     .cloneNode(true);
 
-  // Clear existing category  cards
+  // Clear existing category cards
   document.querySelector(".display-categories-big-section").innerHTML = "";
 
-  // Loop through each artist in event_date
+  // Loop through each artist in event_data
   event_data.categories.forEach((element) => {
     // Get a clone of category card
     let clone_category_card = category_card.cloneNode(true);
@@ -844,5 +992,500 @@ function populate_categories(event_data) {
     document
       .querySelector(".display-categories-big-section")
       .appendChild(clone_category_card);
+
+    // Add click event listener to the event card
+    clone_category_card.addEventListener("click", (evt) => {
+      // Display the category details page
+      let category_details_page = document.querySelector(
+        ".category-details-section",
+      );
+      category_details_page.classList.remove("hidden");
+
+      // Add back button function
+      category_details_page
+        .querySelector("#category-name-and-left-arrow-section")
+        .addEventListener("click", (evt) => {
+          // Hide page
+          category_details_page.classList.add("hidden");
+        });
+
+      // Add Category name
+      category_details_page.querySelector(
+        "#category-name-in-category-name-and-left-arrow-section",
+      ).innerText = element.category_name;
+
+      // Add description
+      category_details_page.querySelector(
+        "#category-description-in-category-details-section",
+      ).innerText = element.category_description;
+
+      // Fill the events section for the category
+      populate_events_in_category_details_page(
+        event_data,
+        element.category_name,
+      );
+
+      // Add filter cards function
+      // Loop through all the cards.
+
+      category_details_page
+        .querySelectorAll(
+          ".filter-card-in-filter-cards-section-in-category-details-section",
+        )
+        .forEach((filter_card) => {
+          // Add click event listener
+          filter_card.addEventListener("click", async (evt) => {
+            if (filter_card.querySelector("span").innerText === "Today") {
+              // Make a request to get all the events data based on user's selection
+              // Set today's date and next month's date
+              let today_date = new Date(Date.now());
+              // Convert to YYYY-MM-DD format
+              let today_date_ISOformat = today_date.toISOString().slice(0, 10);
+
+              // Set parameters
+              parameters = {
+                city: user_location.address.city,
+                country: user_location.address.country,
+                from_date: today_date_ISOformat,
+                to_date: today_date_ISOformat,
+              };
+              let event_data = await call("/api/get-event-details", parameters);
+
+              // populate_events(event_data);
+              // Populate events in category details page
+              populate_events_in_category_details_page(
+                event_data,
+                element.category_name,
+              );
+            } else if (
+              filter_card.querySelector("span").innerText === "Tomorrow"
+            ) {
+              // Set today's date and next month's date
+              let today_date = new Date(Date.now());
+
+              // Add 1 days
+              today_date.setDate(today_date.getDate() + 1);
+
+              // Convert to YYYY-MM-DD format
+              let today_date_ISOformat = today_date.toISOString().slice(0, 10);
+
+              let next_week_date_ISOformat = today_date
+                .toISOString()
+                .slice(0, 10);
+
+              // Set parameters
+              parameters = {
+                city: user_location.address.city,
+                country: user_location.address.country,
+                from_date: today_date_ISOformat,
+                to_date: today_date_ISOformat,
+              };
+              let event_data = await call("/api/get-event-details", parameters);
+
+              populate_events_in_category_details_page(
+                event_data,
+                element.category_name,
+              );
+            } else if (
+              filter_card.querySelector("span").innerText === "This weekend"
+            ) {
+              // Set today's date and next month's date
+              let today_date = new Date(Date.now());
+
+              // Convert to YYYY-MM-DD format
+              let today_date_ISOformat = today_date.toISOString().slice(0, 10);
+
+              // Add 1 days
+              today_date.setDate(today_date.getDate() + 7);
+
+              let next_week_date_ISOformat = today_date
+                .toISOString()
+                .slice(0, 10);
+
+              // Set parameters
+              parameters = {
+                city: user_location.address.city,
+                country: user_location.address.country,
+                from_date: today_date_ISOformat,
+                to_date: next_week_date_ISOformat,
+              };
+              let event_data = await call("/api/get-event-details", parameters);
+
+              populate_events_in_category_details_page(
+                event_data,
+                element.category_name,
+              );
+            }
+          });
+        });
+
+      // Populate artists section
+      // populate_artists_in_category_details_page(event_data);
+    });
+  });
+}
+
+// -----
+// Function to add events in category details page
+function populate_events_in_category_details_page(event_data, category_name) {
+  // Populate events in featured events section
+
+  // Clear existing cards in featured events.
+  // document.querySelector(".event-cards-section-featured-events").innerHTML = "";
+  // Clear existing cards all events section.
+  // document.querySelector(".all-events-display-section").innerHTML = "";
+
+  // Clear existing cards in category details page.
+  document.querySelector(
+    "#events-section-in-category-details-section",
+  ).innerHTML = "";
+
+  // Loop through events from the event data.
+  event_data.events.forEach((element) => {
+    // Check event if it matches the category
+    if (element.category_name === category_name) {
+      // Clone an event card
+      let clone_event_card = event_card.cloneNode(true);
+      // Edit the event card with the current event item
+      clone_event_card
+        .querySelector(".card-image")
+        .style.setProperty(
+          "background-image",
+          `url("${element.event_image_url}")`,
+        );
+      clone_event_card
+        .querySelector(".card-image")
+        .style.setProperty("background-size", `contain`);
+
+      clone_event_card
+        .querySelector(".card-image")
+        .style.setProperty("background-position", `center`);
+
+      clone_event_card
+        .querySelector(".card-image")
+        .style.setProperty("background-repeat", `no-repeat`);
+
+      clone_event_card.querySelector(".event-title").innerText =
+        element.event_title;
+
+      clone_event_card.querySelector(".event-date-time").innerText =
+        `${element.event_date}, ${element.event_start_time}`;
+
+      clone_event_card.querySelector(".event-address").innerText =
+        `${element.event_address}`;
+
+      // Append this element to the events container
+      document
+        .querySelector("#events-section-in-category-details-section")
+        .appendChild(clone_event_card);
+
+      // Add click event listener to the nodes
+      [clone_event_card].forEach((node) => {
+        // Add click event listener
+        node.addEventListener("click", (evt) => {
+          // Show event details display page.
+          let event_details_page = document.querySelector(
+            ".event-details-display-section",
+          );
+          event_details_page.classList.remove("hidden");
+
+          // Hide the category_details page
+          document
+            .querySelector(".category-details-section")
+            .classList.add("hidden");
+
+          // Edit event-details page.
+
+          // Set banner image
+          let banner_image = document.querySelector(
+            ".banner-image-in-event-details-section",
+          );
+          banner_image.style.setProperty(
+            "background-image",
+            `url("${element.event_image_url}")`,
+          );
+          banner_image.style.setProperty("background-size", `contain`);
+
+          banner_image.style.setProperty("background-position", `center`);
+
+          banner_image.style.setProperty("background-repeat", `no-repeat`);
+
+          // Add back button function
+          event_details_page
+            .querySelector(
+              ".back-icon-in-icons-section-in-event-details-display-section",
+            )
+            .addEventListener("click", (evt) => {
+              // Hide the event details page
+              event_details_page.classList.add("hidden");
+            });
+
+          // Add title
+          event_details_page.querySelector(
+            ".event-title-in-about-event-section",
+          ).innerText = element.event_title;
+
+          // Add date and time
+          // Get the date
+          const event_date = new Date(element.event_date);
+
+          event_details_page.querySelector(
+            ".event-time-in-about-event-section",
+          ).innerText =
+            `${event_date.toDateString()}, ${element.event_start_time}`;
+
+          // Add address
+          event_details_page.querySelector(
+            ".address-in-address-section-in-event-location-link-card",
+          ).innerText = element.event_address;
+
+          // Add Gates open time
+          event_details_page.querySelector(
+            ".gates-open-time-in-event-schedule-link-card",
+          ).innerText = `Gates open at ${element.doors_open_time}`;
+
+          // Add Artist details
+          event_details_page.querySelector(
+            "#main-artist-name-in-artist-name-title-section",
+          ).innerText = element.artist_name;
+
+          // Add artist image
+          let image_div = event_details_page.querySelector(
+            ".artist-image-in-artist-card",
+          );
+          image_div.style.setProperty(
+            "background-image",
+            `url("${element.artist_image_url}")`,
+          );
+          image_div.style.setProperty("background-size", `contain`);
+
+          image_div.style.setProperty("background-position", `center`);
+
+          image_div.style.setProperty("background-repeat", `no-repeat`);
+
+          // Add click event listener to the artist card
+          event_details_page
+            .querySelector(".artist-card-in-who-is-taking-the-stage-section")
+            .addEventListener("click", (evt) => {
+              // hide the event details page
+              event_details_page.classList.add("hidden");
+
+              // Show artist details page
+              document
+                .querySelector(".artist-details-display-page")
+                .classList.remove("hidden");
+
+              // Edit artist page
+              edit_artist_page(element, event_data);
+            });
+        });
+      });
+    }
+  });
+}
+
+// ----
+// Function to display artists in category details page
+function populate_artists_in_category_details_page(event_data) {
+  //
+}
+
+// -----
+// Function to edit events page
+function edit_event_details_page(element, event_data) {
+  // Edit event-details page.
+
+  // Set banner image
+  let banner_image = document.querySelector(
+    ".banner-image-in-event-details-section",
+  );
+  banner_image.style.setProperty(
+    "background-image",
+    `url("${element.event_image_url}")`,
+  );
+  banner_image.style.setProperty("background-size", `contain`);
+
+  banner_image.style.setProperty("background-position", `center`);
+
+  banner_image.style.setProperty("background-repeat", `no-repeat`);
+
+  let event_details_page = document.querySelector(
+    ".event-details-display-section",
+  );
+
+  // Add back button function
+  event_details_page
+    .querySelector(
+      ".back-icon-in-icons-section-in-event-details-display-section",
+    )
+    .addEventListener("click", (evt) => {
+      // Hide the event details page
+      event_details_page.classList.add("hidden");
+    });
+
+  // Add title
+  event_details_page.querySelector(
+    ".event-title-in-about-event-section",
+  ).innerText = element.event_title;
+
+  // Add date and time
+  // Get the date
+  const event_date = new Date(element.event_date);
+
+  event_details_page.querySelector(
+    ".event-time-in-about-event-section",
+  ).innerText = `${event_date.toDateString()}, ${element.event_start_time}`;
+
+  // Add address
+  event_details_page.querySelector(
+    ".address-in-address-section-in-event-location-link-card",
+  ).innerText = element.event_address;
+
+  // Add Gates open time
+  event_details_page.querySelector(
+    ".gates-open-time-in-event-schedule-link-card",
+  ).innerText = `Gates open at ${element.doors_open_time}`;
+
+  // Add Artist details
+  event_details_page.querySelector(
+    "#main-artist-name-in-artist-name-title-section",
+  ).innerText = element.artist_name;
+
+  // Add artist image
+  let image_div = event_details_page.querySelector(
+    ".artist-image-in-artist-card",
+  );
+  image_div.style.setProperty(
+    "background-image",
+    `url("${element.artist_image_url}")`,
+  );
+  image_div.style.setProperty("background-size", `contain`);
+
+  image_div.style.setProperty("background-position", `center`);
+
+  image_div.style.setProperty("background-repeat", `no-repeat`);
+
+  // Add click event listener to the artist card
+  event_details_page
+    .querySelector(".artist-card-in-who-is-taking-the-stage-section")
+    .addEventListener("click", (evt) => {
+      // Show the artist details page.
+      document
+        .querySelector(".artist-details-display-page")
+        .classList.remove("hidden");
+
+      // Hide the event details card
+      event_details_page.classList.add("hidden");
+
+      // Edit the artist page.
+      edit_artist_page(element, event_data);
+    });
+}
+
+// ----
+// Function to edit artist page
+function edit_artist_page(element, event_data) {
+  // Edit artist page.
+
+  // Edit the artist card elements
+  // Add banner image.
+  // Set banner image
+  let artist_banner_image = document.querySelector(
+    ".banner-image-display-section",
+  );
+  artist_banner_image.style.setProperty(
+    "background-image",
+    `url("${element.artist_image_url}")`,
+  );
+  artist_banner_image.style.setProperty("background-size", `contain`);
+
+  artist_banner_image.style.setProperty("background-position", `center`);
+
+  artist_banner_image.style.setProperty("background-repeat", `no-repeat`);
+
+  // Add artist name
+  let artist_details_page = document.querySelector(
+    ".artist-details-display-page",
+  );
+  artist_details_page.querySelector(
+    "#artist_name-in-artist-about-section-in-artist-details-page",
+  ).innerText = element.artist_name;
+
+  // Add description
+  artist_details_page.querySelector(
+    ".artist-description-in-about-section",
+  ).innerText = element.artist_description;
+
+  // Add back button function
+  artist_details_page
+    .querySelector(".left-arrow-in-icons-section-in-artists-display-page")
+    .addEventListener("click", (evt) => {
+      // hide the artist_details display
+      artist_details_page.classList.add("hidden");
+    });
+
+  // Populate associated events in all events section
+  // Get a clone of event card in artist_details page.
+  let event_card_clone = artist_details_page
+    .querySelector(
+      ".event-card-in-all-events-section-in-artist-details-section",
+    )
+    .cloneNode(true);
+
+  // Clear existing event cards
+  artist_details_page.querySelector(
+    ".all-events-section-in-artist-details-section",
+  ).innerHTML = "";
+
+  event_data.events.forEach((event) => {
+    // check whether the main_artist matches
+    if (event.artist_name === element.artist_name) {
+      // Clone event card again
+      let event_card_duplicate = event_card_clone.cloneNode(true);
+
+      // Edit card elements
+      // Event date and time
+      // Add date and time
+      // Get the date
+      const event_date = new Date(event.event_date);
+
+      event_card_duplicate.querySelector(
+        ".time-in-event-card-in-artist-details-section",
+      ).innerText = `${event_date.toDateString()}, ${event.event_start_time}`;
+
+      // Add event title
+      event_card_duplicate.querySelector(
+        ".title-in-event-card-in-artist-details-section",
+      ).innerText = event.event_title;
+
+      // Add venue
+      event_card_duplicate.querySelector(
+        ".location-in-event-card-in-artist-details-section",
+      ).innerText = event.event_venue;
+
+      // Add price
+      event_card_duplicate.querySelector(
+        ".price-in-event-card-in-artist-details-section",
+      ).innerText = `INR ${event.price}`;
+
+      // Add artist image
+      let artist_banner_image = event_card_duplicate.querySelector(
+        ".image-in-event-card-in-all-events-section-in-artist-details-section",
+      );
+      artist_banner_image.style.setProperty(
+        "background-image",
+        `url("${event.event_image_url}")`,
+      );
+      artist_banner_image.style.setProperty("background-size", `contain`);
+
+      artist_banner_image.style.setProperty("background-position", `center`);
+
+      artist_banner_image.style.setProperty("background-repeat", `no-repeat`);
+
+      // Append the event card in all events section
+      artist_details_page
+        .querySelector(".all-events-section-in-artist-details-section")
+        .appendChild(event_card_duplicate);
+    }
   });
 }
