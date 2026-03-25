@@ -473,7 +473,7 @@ try {
               mce.country, mce.price, mce.event_url, mce.genre_id, mce.event_category, mce.event_image_url,
               mce.event_description, mce.featured
               , mg.genre_id, mg.genre_name, mg.genre_image_url, mg.genre_description, a.artist_name, a.artist_image_url, a.artist_position,
-              a.artist_description
+              a.artist_description, c.category_id, c.category_name, c.category_image_url, c.category_description
               FROM music_genre mg 
               join music_concert_events mce 
               on mg.genre_id =  mce.genre_id
