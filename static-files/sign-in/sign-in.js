@@ -614,6 +614,9 @@ document
     // Populate events
     // Get a clone of the event card
     populate_events(event_data);
+
+    // populate genres
+    populate_music_genres(event_data);
   });
 
 // <!-- adjustment icon image  -->
@@ -1568,3 +1571,67 @@ document
       .querySelector(".show-more-button-in-about-artist-section")
       .classList.add("hidden");
   });
+
+// Get a genre card
+let genre_card = document.querySelector(".category-card");
+
+// Function to populate music genres
+function populate_music_genres(event_data) {
+  // Populate music genres
+
+  // Clear existing cards.
+  document.querySelector(".display-event-categories-section").innerHTML = "";
+
+  if (event_data.genres.length > 0) {
+    // Loop through genres from the event data.
+    event_data.genres.forEach((element) => {
+      let clone_genre_card = genre_card.cloneNode(true);
+      clone_genre_card
+        .querySelector(".category-image")
+        .setAttribute("src", element.genre_image_url);
+
+      clone_genre_card.querySelector(".category-name").innerText =
+        element.genre_name;
+
+      // Add element to the container
+      document
+        .querySelector(".display-event-categories-section")
+        .appendChild(clone_genre_card);
+    });
+
+    // Add event listener to genre icons
+    document.querySelectorAll(".category-card").forEach((element) => {
+      // Add click event listener
+      element.addEventListener("click", async (evt) => {
+        // Remove existing borders
+        document.querySelectorAll(".category-card").forEach((card_element) => {
+          // remove border
+          card_element.style.setProperty("border", `none`);
+        });
+
+        // Add a white border around the genre card
+        element.style.setProperty("border", `1px solid white`);
+        element.style.setProperty("border-radius", `10px`);
+
+        // get the selected genre.
+        const genre = element.querySelector(".category-name").innerText;
+
+        // Filter events based on genre.
+        // Set parameters
+        // Set parameters
+        parameters = {
+          city: user_location.address.city,
+          country: user_location.address.country,
+          genre_name: genre,
+        };
+        let event_data = await call("/api/get-event-details", parameters);
+
+        populate_events(event_data);
+      });
+    });
+  } else {
+    // Add no genres message
+    document.querySelector(".display-event-categories-section").innerHTML =
+      "<span style='font-size:medium'>No genres found for the selected filters.</span>";
+  }
+}
