@@ -374,21 +374,26 @@ try {
                 if (excluded_parameters.includes(name) === false) {
                   filterCondition =
                     filterCondition + ` AND lower(${name}) = @${name}`;
+                  filterInput[name] = value;
                 } else if (name === "from_date") {
                   filterCondition =
                     filterCondition + ` AND mce.event_date >= @${name}`;
+                  filterInput[name] = value;
                 } else if (name === "to_date") {
                   filterCondition =
                     filterCondition + ` AND mce.event_date <= @${name}`;
+                  filterInput[name] = value;
                 } else if (name === "min_price") {
                   filterCondition =
-                    filterCondition + ` AND mce.price >= @${name}`;
+                    filterCondition +
+                    ` AND CAST(mce.price AS integer) >= @${name}`;
+                  filterInput[name] = parseInt(value);
                 } else if (name === "max_price") {
-                  const max_price = "max_price";
                   filterCondition =
-                    filterCondition + ` AND mce.price <= @${name}`;
+                    filterCondition +
+                    ` AND CAST(mce.price AS integer) <= @${name}`;
+                  filterInput[name] = parseInt(value);
                 }
-                filterInput[name] = value;
               }
             });
 
@@ -397,17 +402,21 @@ try {
 
             // Prepare query
 
+            // Extract genres
+
             stmt = db.prepare(
               `SELECT distinct mg.genre_id, mg.genre_name, mg.genre_image_url, mg.genre_description
               FROM music_genre mg 
-              left join music_concert_events mce 
+              join music_concert_events mce 
               on mg.genre_id =  mce.genre_id
+              join category c
+              on c.category_id = mce.category_id
               ${filterCondition}`,
             );
 
             const genres = stmt.all(filterInput);
 
-            console.log(genres);
+            // console.log(genres);
 
             // Extract only featured events
 
@@ -417,10 +426,11 @@ try {
               from music_concert_Events mce
               join category c
               on mce.category_id = c.category_id
-              where c.category_name is not null
+              ${filterCondition}
+              and c.category_name is not null
               group by c.category_id, c.category_name, c.category_image_url, c.category_description`,
             );
-            const categories = stmt.all();
+            const categories = stmt.all(filterInput);
 
             // Extract languages
             // Prepare query
@@ -430,6 +440,8 @@ try {
               from music_concert_Events mce
               join music_genre mg 
               on mce.genre_id = mg.genre_id
+              join category c
+              on c.category_id = mce.category_id
               ${filterCondition}
                and mce.language is not null`,
             );
@@ -443,6 +455,8 @@ try {
               on mce.genre_id = mg.genre_id
               join artist a
               on mce.artist_id = a.artist_id
+              join category c
+              on c.category_id = mce.category_id
               ${filterCondition}
               and mce.main_artist is not null
               `,
@@ -455,6 +469,8 @@ try {
               from music_concert_Events mce
               join music_genre mg 
               on mce.genre_id = mg.genre_id
+              join category c
+              on c.category_id = mce.category_id
               ${filterCondition}
               and mce.event_venue is not null
               `,

@@ -1,5 +1,10 @@
 /* ================================================================ */
 /* HTML tag */
+
+/* * {
+  outline: 1px solid red;
+} */
+
 html {
   scroll-behavior: smooth;
 }
@@ -20,8 +25,8 @@ body {
 /* ================================================================ */
 
 /* <!-- Site header --> */
-header.site {
-  padding-right: 20px;
+/* header.site { */
+/* padding-right: 20px;
   padding-left: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -29,8 +34,8 @@ header.site {
   display: flex;
   flex-direction: row;
   align-items: center;
-  color: rgb(255, 255, 255);
-}
+  color: rgb(255, 255, 255); */
+/* } */
 
 header.site span.logo img {
   width: 60px;
@@ -76,10 +81,11 @@ button#sign-out {
 /* -------------------------------------------------------- */
 /* <!-- Main content --> */
 main {
-  width: 100%;
+  /* width: 100%; */
+  width: 95vw;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   /* padding: 15px; */
 }
 /* -------------------------------------------------------- */
@@ -346,6 +352,7 @@ header.page {
     align-items: center;
     justify-content: start;
     gap: 150px;
+    width: 100%;
   }
 }
 
@@ -367,7 +374,7 @@ header.page {
   flex-direction: column;
   align-items: center;
   /* width: 100%; */
-  width: 100vw;
+  width: 100%;
 }
 
 .view-all-link {
@@ -385,9 +392,9 @@ header.page {
   overflow-x: auto;
   overflow-y: auto;
   /* max-width: 95%; */
-  max-width: 100vw;
+  max-width: 100%;
   /* height: auto; */
-  gap: 30px;
+  /* gap: 30px; */
   /* flex-wrap: wrap; */
   /* height: auto; */
 }
@@ -414,6 +421,7 @@ header.page {
   /* border: 1px solid rgb(251, 249, 249); */
   /* background-image: url("https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvcHgxMTY5NTQwLWltYWdlLWpvYjYzMC1hLWwwZzA2OGd0LmpwZw.jpg"); */
   border-radius: 20px;
+  margin-left: 15px;
 }
 
 /* <!-- Event card icons section  --> */
@@ -468,13 +476,13 @@ header.page {
 .event-date-time {
   font-size: 12px;
   width: 80%;
-  color: #5a5757;
+  color: #999494;
 }
 
 .event-address {
   font-size: 12px;
   width: 80%;
-  color: #5a5757;
+  color: #999494;
 }
 
 /* ----------------------------------------------------- */
@@ -487,8 +495,8 @@ header.page {
     align-items: center;
     justify-content: start;
     gap: 130px;
-    margin-left: 15px;
-    margin-right: 15px;
+    /* margin-left: 15px; */
+    /* margin-right: 15px; */
   }
 }
 
@@ -569,16 +577,18 @@ header.page {
   flex-direction: row;
   align-items: center;
   /* justify-content: center; */
-  padding: 5px;
+  padding: 15px 5px;
 }
 
 .title-for-who-is-taking-the-stage-section {
   margin: 10px;
+  padding-bottom: 10px;
 }
 
 .event-time-in-about-event-section {
   font-size: small;
   color: grey;
+  padding-top: 10px;
 }
 
 .about-event-section-in-event-details-section {
@@ -618,7 +628,7 @@ header.page {
   flex-direction: row;
   align-items: center;
   /* justify-content: center; */
-  padding: 5px;
+  padding: 15px 5px;
 }
 
 /* <!-- Artist Card  --> */
@@ -628,7 +638,7 @@ header.page {
   align-items: center;
   background-color: rgb(43, 42, 42);
   gap: 5px;
-  padding: 5px;
+  padding: 15px 5px;
   width: auto;
   border-radius: 20px;
   margin: 10px;
@@ -666,7 +676,7 @@ header.page {
 
 /* <!-- A structured element for displaying artist details.  --> */
 .artist-details-display-page {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background-color: black;
   position: fixed;
@@ -678,12 +688,12 @@ header.page {
 
 /* <!-- Banner image display section  --> */
 .banner-image-display-section {
-  width: 100vw;
+  width: 100%;
   height: 50vh;
   background-color: rgb(0, 0, 0);
-  padding-top: 40px;
-  padding-left: 20px;
-  padding-right: 20px;
+  /* padding-top: 40px; */
+  /* padding-left: 20px; */
+  /* padding-right: 20px; */
 }
 
 /* <!-- Icons section inside banner image display section  -->  */
@@ -691,7 +701,8 @@ header.page {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding-right: 40px;
+  /* padding-right: 40px; */
+  padding: 20px;
   gap: 5px;
   /* margin-top: 20px; */
 }
@@ -707,6 +718,8 @@ header.page {
 .artist-description-in-about-section {
   height: 10vh;
   overflow-y: hidden;
+  color: rgb(184, 179, 179);
+  font-size: medium;
 }
 /* <!-- Heart Icon  -->  */
 .heart-icon-inside-icons-section-in-artists-display-page {
@@ -719,8 +732,15 @@ header.page {
 
 .all-events-section-in-artist-details-section {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  overflow-x: auto;
+  gap: 10px;
+  padding: 20px;
   /* padding: 10px; */
+}
+
+.title-in-artist-details-display-page {
+  padding-left: 20px;
 }
 
 /* <!-- Event Card  -->  */
@@ -862,10 +882,11 @@ header.page {
   display: flex;
   flex-direction: row;
   gap: 10px;
-  flex-wrap: wrap;
-  width: 100vw;
+  /* flex-wrap: wrap; */
+  width: 100%;
   overflow-x: auto;
   padding: 10px;
+  box-sizing: border-box;
 }
 
 .view-all-link-in-header-browse-by-category-section {
@@ -899,7 +920,7 @@ header.page {
 .all-events-section {
   display: flex;
   flex-direction: column;
-  width: 100vw;
+  width: 100%;
 }
 
 /* <!-- Title in All events section  -->  */
@@ -915,7 +936,7 @@ header.page {
   justify-content: space-around;
   /* gap: 30px; */
   overflow: auto;
-  min-width: 95vw;
+  max-width: 95%;
   flex-shrink: 0;
   flex-grow: 0;
   min-height: 50px;
