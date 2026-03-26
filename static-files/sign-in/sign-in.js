@@ -2,521 +2,546 @@
 // Add an event listener to the document
 
 let user_location = {};
+let lat;
+let long;
 
 document.addEventListener("DOMContentLoaded", async (evt) => {
   // Retrieve geo location co-ordinates of the user's device.
-  window.navigator.geolocation.getCurrentPosition(async (position) => {
-    const lat = position.coords.latitude;
-    const long = position.coords.longitude;
-    // print coordinates to log
-    console.log(`Lat: ${lat}, Long: ${long}`);
+  window.navigator.geolocation.getCurrentPosition(
+    async (position) => {
+      lat = position.coords.latitude;
+      long = position.coords.longitude;
 
-    // Send GET request
-    // Set query parameters
-    const params = new URLSearchParams();
-    params.set("lat", lat);
-    params.set("long", long);
+      // Send GET request
+      // Set query parameters
+      const params = new URLSearchParams();
+      params.set("lat", lat);
+      params.set("long", long);
 
-    // Make a GET request to get all the matching events
-    // Prepare parameter list
-    let parameters = {
-      lat: lat,
-      lon: long,
-      zoom: 18,
-      format: "jsonv2",
-    };
-    // Make a request to decode the address
-    user_location = await call(
-      "https://nominatim.openstreetmap.org/reverse",
-      parameters,
-    );
-
-    let address = `${user_location.address.neighbourhood}, ${user_location.address.suburb}`;
-
-    console.log(
-      `${user_location.address.neighbourhood}, ${user_location.address.suburb}, ${user_location.address.city_district}`,
-    );
-
-    // Populate current address in the drop-down.
-    // Create an option element
-    const optionElement = document.createElement("option");
-
-    // Set the text display and value of the option
-    optionElement.text = address;
-    optionElement.value = address;
-
-    // Add the option to the select drop-down element.
-    // Get the <select> element.
-    const selectCityDropDown = document.querySelector("#area-selector-1");
-    selectCityDropDown.add(optionElement);
-
-    // Add city, country
-    document.querySelector(".city-country-display").textContent =
-      `${user_location.address.city}, ${user_location.address.country}`;
-
-    // Retrieve results based on location
-
-    // Make a request to get all the events data based on user's neighbourhood
-    // Set today's date and next week's date
-    let today_date = new Date(Date.now());
-    // Convert to YYYY-MM-DD format
-    today_date_ISOformat = today_date.toISOString().slice(0, 10);
-    // Add 7 days
-    today_date.setDate(today_date.getDate() + 7);
-
-    let next_week_date_ISOformat = today_date.toISOString().slice(0, 10);
-    // Set parameters
-    parameters = {
-      city: user_location.address.city,
-      country: user_location.address.country,
-      from_date: today_date_ISOformat,
-      to_date: next_week_date_ISOformat,
-    };
-    let event_data = await call("/api/get-event-details", parameters);
-    console.log(`${JSON.stringify(event_data)}`);
-
-    // <!-- Search box -->
-    // Add input event lister around the search box
-    document.querySelector("#search-bar-1").addEventListener("input", (e) => {
-      // Clear search box
-      document.querySelector("#search-query-suggestions-1").innerHTML = "";
-      // Get the search value from the search box
-      const search_value = document.querySelector("#search-bar-1").value;
-      event_data.genres.forEach((element) => {
-        if (
-          element.genre_name.toLowerCase().includes(search_value.toLowerCase())
-        ) {
-          let p_tag = document.createElement("p");
-          p_tag.innerText = element.genre_name;
-          document
-            .querySelector("#search-query-suggestions-1")
-            .appendChild(p_tag);
-        }
-      });
-
-      // Get all the suggested items
-      let suggested_items = document.querySelectorAll(
-        "#search-query-suggestions-1 p",
+      // Make a GET request to get all the matching events
+      // Prepare parameter list
+      let parameters = {
+        lat: lat,
+        lon: long,
+        zoom: 18,
+        format: "jsonv2",
+      };
+      // Make a request to decode the address
+      user_location = await call(
+        "https://nominatim.openstreetmap.org/reverse",
+        parameters,
       );
-      for (const item of suggested_items) {
-        item.addEventListener("click", (e) => {
-          // Clear the events sections
-          document.querySelector(
-            ".event-cards-section-featured-events",
-          ).innerHTML = "";
 
-          // clear search suggestions
-          document.querySelector("#search-query-suggestions-1").innerHTML = "";
+      let address = `${user_location.address.neighbourhood}, ${user_location.address.suburb}`;
 
-          // Get the selected value.
-          let selected_value = e.target.innerText;
-          event_data.events.forEach((element) => {
-            if (
-              element.genre_name
-                .toLowerCase()
-                .includes(selected_value.toLowerCase())
-            ) {
-              // Clone Event card
-              let clone_event_card = document
-                .querySelector(".event-card")
-                .cloneNode(true);
-              // Edit the event card with the current event item
-              clone_event_card
-                .querySelector(".card-image")
-                .style.setProperty(
-                  "background-image",
-                  `url("${element.event_image_url}")`,
-                );
-              clone_event_card
-                .querySelector(".card-image")
-                .style.setProperty("background-size", `contain`);
+      // console.log(
+      //   `${user_location.address.neighbourhood}, ${user_location.address.suburb}, ${user_location.address.city_district}`,
+      // );
 
-              clone_event_card
-                .querySelector(".card-image")
-                .style.setProperty("background-position", `center`);
+      // Populate current address in the drop-down.
+      // Create an option element
+      const optionElement = document.createElement("option");
 
-              clone_event_card
-                .querySelector(".card-image")
-                .style.setProperty("background-repeat", `no-repeat`);
+      // Set the text display and value of the option
+      optionElement.text = address;
+      optionElement.value = address;
 
-              clone_event_card.querySelector(".event-title").innerText =
-                element.event_title;
+      // Add the option to the select drop-down element.
+      // Get the <select> element.
+      const selectCityDropDown = document.querySelector("#area-selector-1");
+      selectCityDropDown.add(optionElement);
 
-              clone_event_card.querySelector(".event-date-time").innerText =
-                `${element.event_date}, ${element.event_start_time}`;
+      // Add city, country
+      document.querySelector(".city-country-display").textContent =
+        `${user_location.address.city}, ${user_location.address.country}`;
 
-              clone_event_card.querySelector(".event-address").innerText =
-                `${element.event_address}`;
+      // Retrieve results based on location
 
-              // Append this element to the events container
-              document
-                .querySelector(".event-cards-section-featured-events")
-                .appendChild(clone_event_card);
-            }
-          });
-        });
-      }
-    });
+      // Make a request to get all the events data based on user's neighbourhood
+      // Set today's date and next week's date
+      let today_date = new Date(Date.now());
+      // Convert to YYYY-MM-DD format
+      today_date_ISOformat = today_date.toISOString().slice(0, 10);
+      // Add 7 days
+      today_date.setDate(today_date.getDate() + 7);
 
-    // Add event listener to the search text box.
-    document.querySelector("#search-bar-1").addEventListener("keyup", (evt) => {
-      // Check if the key pressed is Enter
-      if (evt.key === "Enter") {
-        // Clear the events sections
-        document.querySelector(
-          ".event-cards-section-featured-events",
-        ).innerHTML = "";
+      let next_week_date_ISOformat = today_date.toISOString().slice(0, 10);
+      // Set parameters
+      parameters = {
+        city: user_location.address.city,
+        country: user_location.address.country,
+        from_date: today_date_ISOformat,
+        to_date: next_week_date_ISOformat,
+      };
+      let event_data = await call("/api/get-event-details", parameters);
+      console.log(`${JSON.stringify(event_data)}`);
 
-        // clear search suggestions
+      // <!-- Search box -->
+      // Add input event lister around the search box
+      document.querySelector("#search-bar-1").addEventListener("input", (e) => {
+        // Clear search box
         document.querySelector("#search-query-suggestions-1").innerHTML = "";
-        // Get the search value from the search box.
+        // Get the search value from the search box
         const search_value = document.querySelector("#search-bar-1").value;
-
-        // Search through events data and get matching events by genre
-        event_data.events.forEach((element) => {
+        event_data.genres.forEach((element) => {
           if (
             element.genre_name
               .toLowerCase()
               .includes(search_value.toLowerCase())
           ) {
-            // Clone Event card
-            let clone_event_card = document
-              .querySelector(".event-card")
-              .cloneNode(true);
-            // Edit the event card with the current event item
-            clone_event_card
-              .querySelector(".card-image")
-              .style.setProperty(
-                "background-image",
-                `url("${element.event_image_url}")`,
-              );
-            clone_event_card
-              .querySelector(".card-image")
-              .style.setProperty("background-size", `contain`);
-
-            clone_event_card
-              .querySelector(".card-image")
-              .style.setProperty("background-position", `center`);
-
-            clone_event_card
-              .querySelector(".card-image")
-              .style.setProperty("background-repeat", `no-repeat`);
-
-            clone_event_card.querySelector(".event-title").innerText =
-              element.event_title;
-
-            clone_event_card.querySelector(".event-date-time").innerText =
-              `${element.event_date}, ${element.event_start_time}`;
-
-            clone_event_card.querySelector(".event-address").innerText =
-              `${element.event_address}`;
-
-            // Append this element to the events container
+            let p_tag = document.createElement("p");
+            p_tag.innerText = element.genre_name;
             document
-              .querySelector(".event-cards-section-featured-events")
-              .appendChild(clone_event_card);
+              .querySelector("#search-query-suggestions-1")
+              .appendChild(p_tag);
           }
         });
-      }
-    });
-    // --------------------------------------------------------------------
-    // Populate the music genres
 
-    // Get a clone of the genre card
-    let genre_card = document.querySelector(".category-card").cloneNode(true);
-    // Clear existing cards.
-    document.querySelector(".display-event-categories-section").innerHTML = "";
+        // Get all the suggested items
+        let suggested_items = document.querySelectorAll(
+          "#search-query-suggestions-1 p",
+        );
+        for (const item of suggested_items) {
+          item.addEventListener("click", (e) => {
+            // Clear the events sections
+            document.querySelector(
+              ".event-cards-section-featured-events",
+            ).innerHTML = "";
 
-    // Loop through genres from the event data.
-    event_data.genres.forEach((element) => {
-      let clone_genre_card = genre_card.cloneNode(true);
-      clone_genre_card
-        .querySelector(".category-image")
-        .setAttribute("src", element.genre_image_url);
+            // clear search suggestions
+            document.querySelector("#search-query-suggestions-1").innerHTML =
+              "";
 
-      clone_genre_card.querySelector(".category-name").innerText =
-        element.genre_name;
+            // Get the selected value.
+            let selected_value = e.target.innerText;
+            event_data.events.forEach((element) => {
+              if (
+                element.genre_name
+                  .toLowerCase()
+                  .includes(selected_value.toLowerCase())
+              ) {
+                // Clone Event card
+                let clone_event_card = document
+                  .querySelector(".event-card")
+                  .cloneNode(true);
+                // Edit the event card with the current event item
+                clone_event_card
+                  .querySelector(".card-image")
+                  .style.setProperty(
+                    "background-image",
+                    `url("${element.event_image_url}")`,
+                  );
+                clone_event_card
+                  .querySelector(".card-image")
+                  .style.setProperty("background-size", `contain`);
 
-      // Add element to the container
+                clone_event_card
+                  .querySelector(".card-image")
+                  .style.setProperty("background-position", `center`);
+
+                clone_event_card
+                  .querySelector(".card-image")
+                  .style.setProperty("background-repeat", `no-repeat`);
+
+                clone_event_card.querySelector(".event-title").innerText =
+                  element.event_title;
+
+                clone_event_card.querySelector(".event-date-time").innerText =
+                  `${element.event_date}, ${element.event_start_time}`;
+
+                clone_event_card.querySelector(".event-address").innerText =
+                  `${element.event_address}`;
+
+                // Append this element to the events container
+                document
+                  .querySelector(".event-cards-section-featured-events")
+                  .appendChild(clone_event_card);
+              }
+            });
+          });
+        }
+      });
+
+      // Add event listener to the search text box.
       document
-        .querySelector(".display-event-categories-section")
-        .appendChild(clone_genre_card);
-    });
+        .querySelector("#search-bar-1")
+        .addEventListener("keyup", (evt) => {
+          // Check if the key pressed is Enter
+          if (evt.key === "Enter") {
+            // Clear the events sections
+            document.querySelector(
+              ".event-cards-section-featured-events",
+            ).innerHTML = "";
 
-    // Add event listener to genre icons
-    document.querySelectorAll(".category-card").forEach((element) => {
-      // Add click event listener
-      element.addEventListener("click", async (evt) => {
-        // Remove existing borders
-        document.querySelectorAll(".category-card").forEach((card_element) => {
-          // remove border
-          card_element.style.setProperty("border", `none`);
+            // clear search suggestions
+            document.querySelector("#search-query-suggestions-1").innerHTML =
+              "";
+            // Get the search value from the search box.
+            const search_value = document.querySelector("#search-bar-1").value;
+
+            // Search through events data and get matching events by genre
+            event_data.events.forEach((element) => {
+              if (
+                element.genre_name
+                  .toLowerCase()
+                  .includes(search_value.toLowerCase())
+              ) {
+                // Clone Event card
+                let clone_event_card = document
+                  .querySelector(".event-card")
+                  .cloneNode(true);
+                // Edit the event card with the current event item
+                clone_event_card
+                  .querySelector(".card-image")
+                  .style.setProperty(
+                    "background-image",
+                    `url("${element.event_image_url}")`,
+                  );
+                clone_event_card
+                  .querySelector(".card-image")
+                  .style.setProperty("background-size", `contain`);
+
+                clone_event_card
+                  .querySelector(".card-image")
+                  .style.setProperty("background-position", `center`);
+
+                clone_event_card
+                  .querySelector(".card-image")
+                  .style.setProperty("background-repeat", `no-repeat`);
+
+                clone_event_card.querySelector(".event-title").innerText =
+                  element.event_title;
+
+                clone_event_card.querySelector(".event-date-time").innerText =
+                  `${element.event_date}, ${element.event_start_time}`;
+
+                clone_event_card.querySelector(".event-address").innerText =
+                  `${element.event_address}`;
+
+                // Append this element to the events container
+                document
+                  .querySelector(".event-cards-section-featured-events")
+                  .appendChild(clone_event_card);
+              }
+            });
+          }
+        });
+      // --------------------------------------------------------------------
+      // Populate the music genres
+
+      // Get a clone of the genre card
+      let genre_card = document.querySelector(".category-card").cloneNode(true);
+      // Clear existing cards.
+      document.querySelector(".display-event-categories-section").innerHTML =
+        "";
+
+      // Loop through genres from the event data.
+      event_data.genres.forEach((element) => {
+        let clone_genre_card = genre_card.cloneNode(true);
+        clone_genre_card
+          .querySelector(".category-image")
+          .setAttribute("src", element.genre_image_url);
+
+        clone_genre_card.querySelector(".category-name").innerText =
+          element.genre_name;
+
+        // Add element to the container
+        document
+          .querySelector(".display-event-categories-section")
+          .appendChild(clone_genre_card);
+      });
+
+      // Add event listener to genre icons
+      document.querySelectorAll(".category-card").forEach((element) => {
+        // Add click event listener
+        element.addEventListener("click", async (evt) => {
+          // Remove existing borders
+          document
+            .querySelectorAll(".category-card")
+            .forEach((card_element) => {
+              // remove border
+              card_element.style.setProperty("border", `none`);
+            });
+
+          // Add a white border around the genre card
+          element.style.setProperty("border", `1px solid white`);
+          element.style.setProperty("border-radius", `10px`);
+
+          // get the selected genre.
+          const genre = element.querySelector(".category-name").innerText;
+
+          // Filter events based on genre.
+          // Set parameters
+          // Set parameters
+          parameters = {
+            city: user_location.address.city,
+            country: user_location.address.country,
+            genre_name: genre,
+          };
+          let event_data = await call("/api/get-event-details", parameters);
+
+          populate_events(event_data);
+        });
+      });
+
+      // --------------------------------------------------------------------
+
+      populate_events(event_data);
+      // Populate the languages in the filter section
+      // Loop through each language from event_data
+      event_data.languages.forEach((element) => {
+        // Create a span element and append to the languages filter article.
+        // Loop through all the languages
+        let optionElement = document.createElement("option");
+        optionElement.innerText = element.language;
+        optionElement.value = element.language;
+        document
+          .querySelector("#language-dropdown-filter-page")
+          .appendChild(optionElement);
+      });
+
+      // Populate the categories in the filter section
+      // Loop through categories from event_data
+      event_data.categories.forEach((element) => {
+        // Create a span element and append to the languages filter article.
+        // Loop through all the languages
+        let optionElement = document.createElement("option");
+        optionElement.innerText = element.category_name;
+        optionElement.value = element.category_name;
+        document
+          .querySelector("#categories-dropdown-filter-page")
+          .appendChild(optionElement);
+      });
+
+      // Populate the genres in the filter section
+      // Loop through genres from event_data
+      event_data.genres.forEach((element) => {
+        // Create a span element and append to the languages filter article.
+        // Loop through all the languages
+        let optionElement = document.createElement("option");
+        optionElement.innerText = element.genre_name;
+        optionElement.value = element.genre_name;
+        document
+          .querySelector("#music-genres-dropdown-filter-page")
+          .appendChild(optionElement);
+      });
+
+      // Event data
+      // Set parameters
+      parameters = {
+        city: user_location.address.city,
+        country: user_location.address.country,
+      };
+      event_data = await call("/api/get-event-details", parameters);
+
+      // Populate the artists in the filter section
+      // Loop through artists from event_data
+      event_data.artists.forEach((element) => {
+        // Create a span element and append to the languages filter article.
+        // Loop through all the languages
+        let optionElement = document.createElement("option");
+        optionElement.innerText = element.artist_name;
+        optionElement.value = element.artist_name;
+        document
+          .querySelector("#artist-dropdown-filter-page")
+          .appendChild(optionElement);
+      });
+
+      // Populate the venues in the filter section
+      // Loop through venues from event_data
+      event_data.venues.forEach((element) => {
+        // Create a span element and append to the languages filter article.
+        // Loop through all the languages
+        let optionElement = document.createElement("option");
+        optionElement.innerText = element.event_venue;
+        optionElement.value = element.event_venue;
+        document
+          .querySelector("#venue-dropdown-filter-page")
+          .appendChild(optionElement);
+      });
+
+      // <!-- Duration selector  -->
+      // Add event listener 'change' to the duration selector
+      document
+        .querySelector("#duration-selector-1")
+        .addEventListener("change", async (evt) => {
+          // check selection
+          if (evt.target.value === "month") {
+            // Make a request to get all the events data based on user's selection
+            // Set today's date and next month's date
+            let today_date = new Date(Date.now());
+            // Convert to YYYY-MM-DD format
+            today_date_ISOformat = today_date.toISOString().slice(0, 10);
+            // Add 30 days
+            today_date.setDate(today_date.getDate() + 30);
+
+            let next_week_date_ISOformat = today_date
+              .toISOString()
+              .slice(0, 10);
+            // Set parameters
+            parameters = {
+              city: user_location.address.city,
+              country: user_location.address.country,
+              from_date: today_date_ISOformat,
+              to_date: next_week_date_ISOformat,
+            };
+            let event_data = await call("/api/get-event-details", parameters);
+
+            populate_events(event_data);
+          } else if (evt.target.value === "year") {
+            // Make a request to get all the events data based on user's selection
+            // Set today's date and next month's date
+            let today_date = new Date(Date.now());
+            // Convert to YYYY-MM-DD format
+            today_date_ISOformat = today_date.toISOString().slice(0, 10);
+            // Add 30 days
+            today_date.setDate(today_date.getDate() + 365);
+
+            let next_week_date_ISOformat = today_date
+              .toISOString()
+              .slice(0, 10);
+            // Set parameters
+            parameters = {
+              city: user_location.address.city,
+              country: user_location.address.country,
+              from_date: today_date_ISOformat,
+              to_date: next_week_date_ISOformat,
+            };
+            let event_data = await call("/api/get-event-details", parameters);
+
+            populate_events(event_data);
+          } else if (evt.target.value === "week") {
+            // Make a request to get all the events data based on user's selection
+            // Set today's date and next month's date
+            let today_date = new Date(Date.now());
+            // Convert to YYYY-MM-DD format
+            today_date_ISOformat = today_date.toISOString().slice(0, 10);
+            // Add 30 days
+            today_date.setDate(today_date.getDate() + 7);
+
+            let next_week_date_ISOformat = today_date
+              .toISOString()
+              .slice(0, 10);
+            // Set parameters
+            parameters = {
+              city: user_location.address.city,
+              country: user_location.address.country,
+              from_date: today_date_ISOformat,
+              to_date: next_week_date_ISOformat,
+            };
+            let event_data = await call("/api/get-event-details", parameters);
+
+            populate_events(event_data);
+          }
         });
 
-        // Add a white border around the genre card
-        element.style.setProperty("border", `1px solid white`);
-        element.style.setProperty("border-radius", `10px`);
+      // Populate artists
+      populate_artists(event_data);
 
-        // get the selected genre.
-        const genre = element.querySelector(".category-name").innerText;
+      // Populate Categories
+      populate_categories(event_data);
 
-        // Filter events based on genre.
-        // Set parameters
-        // Set parameters
-        parameters = {
-          city: user_location.address.city,
-          country: user_location.address.country,
-          genre_name: genre,
-        };
-        let event_data = await call("/api/get-event-details", parameters);
-
-        populate_events(event_data);
-      });
-    });
-
-    // --------------------------------------------------------------------
-
-    populate_events(event_data);
-    // Populate the languages in the filter section
-    // Loop through each language from event_data
-    event_data.languages.forEach((element) => {
-      // Create a span element and append to the languages filter article.
-      // Loop through all the languages
-      let optionElement = document.createElement("option");
-      optionElement.innerText = element.language;
-      optionElement.value = element.language;
-      document
-        .querySelector("#language-dropdown-filter-page")
-        .appendChild(optionElement);
-    });
-
-    // Populate the categories in the filter section
-    // Loop through categories from event_data
-    event_data.categories.forEach((element) => {
-      // Create a span element and append to the languages filter article.
-      // Loop through all the languages
-      let optionElement = document.createElement("option");
-      optionElement.innerText = element.category_name;
-      optionElement.value = element.category_name;
-      document
-        .querySelector("#categories-dropdown-filter-page")
-        .appendChild(optionElement);
-    });
-
-    // Populate the genres in the filter section
-    // Loop through genres from event_data
-    event_data.genres.forEach((element) => {
-      // Create a span element and append to the languages filter article.
-      // Loop through all the languages
-      let optionElement = document.createElement("option");
-      optionElement.innerText = element.genre_name;
-      optionElement.value = element.genre_name;
-      document
-        .querySelector("#music-genres-dropdown-filter-page")
-        .appendChild(optionElement);
-    });
-
-    // Event data
-    // Set parameters
-    parameters = {
-      city: user_location.address.city,
-      country: user_location.address.country,
-    };
-    event_data = await call("/api/get-event-details", parameters);
-
-    // Populate the artists in the filter section
-    // Loop through artists from event_data
-    event_data.artists.forEach((element) => {
-      // Create a span element and append to the languages filter article.
-      // Loop through all the languages
-      let optionElement = document.createElement("option");
-      optionElement.innerText = element.artist_name;
-      optionElement.value = element.artist_name;
-      document
-        .querySelector("#artist-dropdown-filter-page")
-        .appendChild(optionElement);
-    });
-
-    // Populate the venues in the filter section
-    // Loop through venues from event_data
-    event_data.venues.forEach((element) => {
-      // Create a span element and append to the languages filter article.
-      // Loop through all the languages
-      let optionElement = document.createElement("option");
-      optionElement.innerText = element.event_venue;
-      optionElement.value = element.event_venue;
-      document
-        .querySelector("#venue-dropdown-filter-page")
-        .appendChild(optionElement);
-    });
-
-    // <!-- Duration selector  -->
-    // Add event listener 'change' to the duration selector
-    document
-      .querySelector("#duration-selector-1")
-      .addEventListener("change", async (evt) => {
-        // check selection
-        if (evt.target.value === "month") {
-          // Make a request to get all the events data based on user's selection
-          // Set today's date and next month's date
-          let today_date = new Date(Date.now());
-          // Convert to YYYY-MM-DD format
-          today_date_ISOformat = today_date.toISOString().slice(0, 10);
-          // Add 30 days
-          today_date.setDate(today_date.getDate() + 30);
-
-          let next_week_date_ISOformat = today_date.toISOString().slice(0, 10);
+      // Add view all functionality
+      document.querySelectorAll(".view-all-link").forEach((element) => {
+        // Add click event listener
+        element.addEventListener("click", async (evt) => {
+          // fetch all events
           // Set parameters
           parameters = {
             city: user_location.address.city,
             country: user_location.address.country,
-            from_date: today_date_ISOformat,
-            to_date: next_week_date_ISOformat,
           };
           let event_data = await call("/api/get-event-details", parameters);
 
+          // Populate events
           populate_events(event_data);
-        } else if (evt.target.value === "year") {
-          // Make a request to get all the events data based on user's selection
-          // Set today's date and next month's date
-          let today_date = new Date(Date.now());
-          // Convert to YYYY-MM-DD format
-          today_date_ISOformat = today_date.toISOString().slice(0, 10);
-          // Add 30 days
-          today_date.setDate(today_date.getDate() + 365);
 
-          let next_week_date_ISOformat = today_date.toISOString().slice(0, 10);
-          // Set parameters
-          parameters = {
-            city: user_location.address.city,
-            country: user_location.address.country,
-            from_date: today_date_ISOformat,
-            to_date: next_week_date_ISOformat,
-          };
-          let event_data = await call("/api/get-event-details", parameters);
-
-          populate_events(event_data);
-        } else if (evt.target.value === "week") {
-          // Make a request to get all the events data based on user's selection
-          // Set today's date and next month's date
-          let today_date = new Date(Date.now());
-          // Convert to YYYY-MM-DD format
-          today_date_ISOformat = today_date.toISOString().slice(0, 10);
-          // Add 30 days
-          today_date.setDate(today_date.getDate() + 7);
-
-          let next_week_date_ISOformat = today_date.toISOString().slice(0, 10);
-          // Set parameters
-          parameters = {
-            city: user_location.address.city,
-            country: user_location.address.country,
-            from_date: today_date_ISOformat,
-            to_date: next_week_date_ISOformat,
-          };
-          let event_data = await call("/api/get-event-details", parameters);
-
-          populate_events(event_data);
-        }
+          // Populate artists, categories and genres
+          populate_artists(event_data);
+          populate_categories(event_data);
+        });
       });
 
-    // Populate artists
-    populate_artists(event_data);
+      // <!-- Filter cards section  -->
+      document.querySelectorAll(".filter-card").forEach((element) => {
+        // Add click event handler
+        element.addEventListener("click", async (evt) => {
+          // Get the text of the filter card
+          let selected_filter_card = element.querySelector("span").innerText;
+          if (selected_filter_card === "Today") {
+            // Make a request to get all the events data based on user's selection
+            // Set today's date and next month's date
+            let today_date = new Date(Date.now());
+            // Convert to YYYY-MM-DD format
+            let today_date_ISOformat = today_date.toISOString().slice(0, 10);
 
-    // Populate Categories
-    populate_categories(event_data);
+            // Set parameters
+            parameters = {
+              city: user_location.address.city,
+              country: user_location.address.country,
+              from_date: today_date_ISOformat,
+              to_date: today_date_ISOformat,
+            };
+            let event_data = await call("/api/get-event-details", parameters);
 
-    // Add view all functionality
-    document.querySelectorAll(".view-all-link").forEach((element) => {
-      // Add click event listener
-      element.addEventListener("click", async (evt) => {
-        // fetch all events
-        // Set parameters
-        parameters = {
-          city: user_location.address.city,
-          country: user_location.address.country,
-        };
-        let event_data = await call("/api/get-event-details", parameters);
+            populate_events(event_data);
+          } else if (selected_filter_card === "Tomorrow") {
+            // Set today's date and next month's date
+            let today_date = new Date(Date.now());
 
-        // Populate events
-        populate_events(event_data);
+            // Add 1 days
+            today_date.setDate(today_date.getDate() + 1);
 
-        // Populate artists, categories and genres
-        populate_artists(event_data);
-        populate_categories(event_data);
+            // Convert to YYYY-MM-DD format
+            let today_date_ISOformat = today_date.toISOString().slice(0, 10);
+
+            let next_week_date_ISOformat = today_date
+              .toISOString()
+              .slice(0, 10);
+
+            // Set parameters
+            parameters = {
+              city: user_location.address.city,
+              country: user_location.address.country,
+              from_date: today_date_ISOformat,
+              to_date: today_date_ISOformat,
+            };
+            let event_data = await call("/api/get-event-details", parameters);
+
+            populate_events(event_data);
+          } else if (selected_filter_card === "This weekend") {
+            // Set today's date and next month's date
+            let today_date = new Date(Date.now());
+
+            // Convert to YYYY-MM-DD format
+            let today_date_ISOformat = today_date.toISOString().slice(0, 10);
+
+            // Add 1 days
+            today_date.setDate(today_date.getDate() + 7);
+
+            let next_week_date_ISOformat = today_date
+              .toISOString()
+              .slice(0, 10);
+
+            // Set parameters
+            parameters = {
+              city: user_location.address.city,
+              country: user_location.address.country,
+              from_date: today_date_ISOformat,
+              to_date: next_week_date_ISOformat,
+            };
+            let event_data = await call("/api/get-event-details", parameters);
+
+            populate_events(event_data);
+          }
+        });
       });
-    });
-
-    // <!-- Filter cards section  -->
-    document.querySelectorAll(".filter-card").forEach((element) => {
-      // Add click event handler
-      element.addEventListener("click", async (evt) => {
-        // Get the text of the filter card
-        let selected_filter_card = element.querySelector("span").innerText;
-        if (selected_filter_card === "Today") {
-          // Make a request to get all the events data based on user's selection
-          // Set today's date and next month's date
-          let today_date = new Date(Date.now());
-          // Convert to YYYY-MM-DD format
-          let today_date_ISOformat = today_date.toISOString().slice(0, 10);
-
-          // Set parameters
-          parameters = {
-            city: user_location.address.city,
-            country: user_location.address.country,
-            from_date: today_date_ISOformat,
-            to_date: today_date_ISOformat,
-          };
-          let event_data = await call("/api/get-event-details", parameters);
-
-          populate_events(event_data);
-        } else if (selected_filter_card === "Tomorrow") {
-          // Set today's date and next month's date
-          let today_date = new Date(Date.now());
-
-          // Add 1 days
-          today_date.setDate(today_date.getDate() + 1);
-
-          // Convert to YYYY-MM-DD format
-          let today_date_ISOformat = today_date.toISOString().slice(0, 10);
-
-          let next_week_date_ISOformat = today_date.toISOString().slice(0, 10);
-
-          // Set parameters
-          parameters = {
-            city: user_location.address.city,
-            country: user_location.address.country,
-            from_date: today_date_ISOformat,
-            to_date: today_date_ISOformat,
-          };
-          let event_data = await call("/api/get-event-details", parameters);
-
-          populate_events(event_data);
-        } else if (selected_filter_card === "This weekend") {
-          // Set today's date and next month's date
-          let today_date = new Date(Date.now());
-
-          // Convert to YYYY-MM-DD format
-          let today_date_ISOformat = today_date.toISOString().slice(0, 10);
-
-          // Add 1 days
-          today_date.setDate(today_date.getDate() + 7);
-
-          let next_week_date_ISOformat = today_date.toISOString().slice(0, 10);
-
-          // Set parameters
-          parameters = {
-            city: user_location.address.city,
-            country: user_location.address.country,
-            from_date: today_date_ISOformat,
-            to_date: next_week_date_ISOformat,
-          };
-          let event_data = await call("/api/get-event-details", parameters);
-
-          populate_events(event_data);
-        }
-      });
-    });
-  });
+    },
+    (error) => {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    },
+    { maximumAge: 172800000, enableHighAccuracy: false },
+  );
 });
 
 // Reset form
