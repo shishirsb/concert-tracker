@@ -92,11 +92,392 @@ try {
           return;
         }
 
-        // if (
-        //   request.method === "GET" &&
-        //   request.url === "/api/get-available-areas"
-        // ) {
-        // }
+        // --------------------------------------------------------------------------
+        // ************************** END POINT ********************************
+        if (
+          request.method === "GET" &&
+          request.url.startsWith("/api/delete-event")
+        ) {
+          try {
+            // Get query parameters
+            const myURL = new URL(`https://example.org/${request.url}`);
+
+            let search_params = {};
+
+            myURL.searchParams.forEach((value, name) => {
+              search_params[name] = value;
+            });
+
+            search_params["event_id"] = parseInt(search_params["event_id"]);
+
+            // Update record with new value
+
+            const stmt = db.prepare(
+              `delete from music_concert_events
+              where event_id = @event_id`,
+            );
+
+            stmt.run(search_params);
+
+            // Prepare response and send
+            const reply = {
+              message: "success",
+            };
+            // set headers
+            response.writeHead(200, {
+              "Content-Type": "application/json",
+            });
+
+            // send response
+            response.end(JSON.stringify(reply));
+            return;
+          } catch (err) {
+            console.log(err);
+            // Prepare response and send
+            const reply = {
+              message: "fail",
+            };
+            // set headers
+            response.writeHead(401, {
+              "Content-Type": "application/json",
+            });
+
+            // send response
+            response.end(JSON.stringify(reply));
+            return;
+          }
+        }
+
+        // --------------------------------------------------------------------------
+        // ************************** END POINT ********************************
+        if (
+          request.method === "GET" &&
+          request.url.startsWith("/api/update-event")
+        ) {
+          try {
+            // Get query parameters
+            const myURL = new URL(`https://example.org/${request.url}`);
+
+            let search_params = {};
+
+            myURL.searchParams.forEach((value, name) => {
+              search_params[name] = value;
+            });
+
+            // check if search params has feature
+            if (search_params.column_name === "featured") {
+              // Parse text to integer
+              search_params["new_value"] = parseInt(search_params["new_value"]);
+            }
+
+            search_params["event_id"] = parseInt(search_params["event_id"]);
+
+            // Update record with new value
+
+            const stmt = db.prepare(
+              `update music_concert_events
+              set ${search_params.column_name} = @new_value
+              where event_id = @event_id`,
+            );
+
+            stmt.run(search_params);
+
+            // Prepare response and send
+            const reply = {
+              message: "success",
+            };
+            // set headers
+            response.writeHead(200, {
+              "Content-Type": "application/json",
+            });
+
+            // send response
+            response.end(JSON.stringify(reply));
+            return;
+          } catch (err) {
+            console.log(err);
+            // Prepare response and send
+            const reply = {
+              message: "fail",
+            };
+            // set headers
+            response.writeHead(401, {
+              "Content-Type": "application/json",
+            });
+
+            // send response
+            response.end(JSON.stringify(reply));
+            return;
+          }
+        }
+
+        // --------------------------------------------------------------------------
+        // ************************** END POINT ********************************
+        if (
+          request.method === "GET" &&
+          request.url.startsWith("/api/add-category")
+        ) {
+          try {
+            // Get query parameters
+
+            const myURL = new URL(`https://example.org/${request.url}`);
+
+            let search_params = {};
+
+            myURL.searchParams.forEach((value, name) => {
+              search_params[name] = value;
+            });
+
+            // Insert artist
+            // Prepare insert query
+            stmt = db.prepare(
+              `Insert into category (category_name, category_image_url, category_description) 
+              values (@category_name, @category_image_url, @category_description)`,
+            );
+
+            const info = stmt.run(search_params);
+
+            // Retrieve the inserted record (using lastInsertRowid)
+
+            // Get the row
+            stmt = db.prepare(
+              `select c.category_id, c.category_name 
+              from category c
+              where c.category_id = ?`,
+            );
+
+            const category_added = stmt.get(info.lastInsertRowid);
+
+            // Prepare reply
+            const reply = {
+              message: "success",
+              category_added: category_added,
+            };
+
+            // Set headers
+            response.writeHead(200, {
+              "Content-Type": "application/json",
+            });
+
+            // Send response
+            response.end(JSON.stringify(reply));
+            return;
+          } catch (err) {
+            // send error response
+            console.log(`Error: ${err}`);
+
+            const reply = {
+              message: "fail",
+              error: err,
+              category_added: {},
+            };
+
+            // Set header
+            response.writeHead(200, {
+              "Content-Type": "application/json",
+            });
+
+            // Send response
+            response.end(JSON.stringify(reply));
+            return;
+          }
+        }
+
+        // --------------------------------------------------------------------------
+        // ************************** END POINT ********************************
+        if (
+          request.method === "GET" &&
+          request.url.startsWith("/api/add-genre")
+        ) {
+          try {
+            // Get query parameters
+
+            const myURL = new URL(`https://example.org/${request.url}`);
+
+            let search_params = {};
+
+            myURL.searchParams.forEach((value, name) => {
+              search_params[name] = value;
+            });
+
+            // Insert artist
+            // Prepare insert query
+            stmt = db.prepare(
+              `Insert into music_genre (genre_name, genre_image_url, genre_description) 
+              values (@genre_name, @genre_image_url, @genre_description)`,
+            );
+
+            const info = stmt.run(search_params);
+
+            // Retrieve the inserted record (using lastInsertRowid)
+
+            // Get the row
+            stmt = db.prepare(
+              `select a.genre_id, a.genre_name 
+              from music_genre a
+              where a.genre_id = ?`,
+            );
+
+            const genre_added = stmt.get(info.lastInsertRowid);
+
+            // Prepare reply
+            const reply = {
+              message: "success",
+              genre_added: genre_added,
+            };
+
+            // Set headers
+            response.writeHead(200, {
+              "Content-Type": "application/json",
+            });
+
+            // Send response
+            response.end(JSON.stringify(reply));
+            return;
+          } catch (err) {
+            // send error response
+            console.log(`Error: ${err}`);
+
+            const reply = {
+              message: "fail",
+              error: err,
+              genre_added: {},
+            };
+
+            // Set header
+            response.writeHead(200, {
+              "Content-Type": "application/json",
+            });
+
+            // Send response
+            response.end(JSON.stringify(reply));
+            return;
+          }
+        }
+
+        // --------------------------------------------------------------------------
+        // ************************** END POINT ********************************
+        if (
+          request.method === "GET" &&
+          request.url.startsWith("/api/add-artist")
+        ) {
+          try {
+            // Get query parameters as an object
+            // Get query paramaters as an object
+            const myURL = new URL(`https://example.org/${request.url}`);
+
+            let search_params = {};
+
+            myURL.searchParams.forEach((value, name) => {
+              search_params[name] = value;
+            });
+
+            // Insert artist
+            // Prepare insert query
+            stmt = db.prepare(
+              `Insert into artist (artist_name, artist_image_url, artist_description, artist_position) 
+              values (@artist_name, @artist_image_url, @artist_description, @artist_position)`,
+            );
+
+            const info = stmt.run(search_params);
+
+            // Retrieve the inserted record (using lastInsertRowid)
+
+            // Get the row
+            stmt = db.prepare(
+              `select a.artist_id, a.artist_name 
+              from artist a
+              where a.artist_id = ?`,
+            );
+
+            const artist_added = stmt.get(info.lastInsertRowid);
+
+            // Prepare reply
+            const reply = {
+              message: "success",
+              artist_added: artist_added,
+            };
+
+            // Set headers
+            response.writeHead(200, {
+              "Content-Type": "application/json",
+            });
+
+            // Send response
+            response.end(JSON.stringify(reply));
+            return;
+          } catch (err) {
+            // send error response
+            console.log(`Error: ${err}`);
+
+            const reply = {
+              message: "fail",
+              error: err,
+              artist_added: {},
+            };
+
+            // Set header
+            response.writeHead(200, {
+              "Content-Type": "application/json",
+            });
+
+            // Send response
+            response.end(JSON.stringify(reply));
+            return;
+          }
+        }
+
+        // --------------------------------------------------------------------------
+        // ************************** END POINT ********************************
+        if (
+          request.method === "GET" &&
+          request.url === "/api/get-all-event-details"
+        ) {
+          try {
+            // Get all genres
+
+            stmt = db.prepare(
+              `SELECT mg.genre_id, mg.genre_name, mg.genre_image_url, mg.genre_description
+              FROM music_genre mg`,
+            );
+
+            const genres = stmt.all();
+
+            // Get all artists
+
+            stmt = db.prepare(
+              `SELECT a.artist_id, a.artist_name, a.artist_image_url, a.artist_description, a.artist_position
+              FROM artist a`,
+            );
+
+            const artists = stmt.all();
+
+            // Get all categories available
+
+            stmt = db.prepare(
+              `SELECT c.category_id, c.category_name, c.category_image_url, c.category_description
+              FROM category c`,
+            );
+
+            const categories = stmt.all();
+
+            // prepare response
+            const reply = {
+              genres: genres,
+              artists: artists,
+              categories: categories,
+            };
+
+            // Set headers
+            response.writeHead(200, {
+              "Content-Type": "application/json",
+            });
+            // Send response
+            response.end(JSON.stringify(reply));
+          } catch (err) {
+            console.log(`Error inside ${request.url} block: ${err}`);
+          }
+        }
 
         // --------------------------------------------------------------------------
         // ************************** END POINT ********************************
@@ -284,53 +665,45 @@ try {
 
         // --------------------------------------------------------------------------
         // ************************** END POINT ********************************
-        if (request.method === "POST" && request.url === "/api/add-event") {
+        if (
+          request.method === "GET" &&
+          request.url.startsWith("/api/add-event")
+        ) {
           try {
-            // Read body
-            let body = [];
-            request
-              .on("data", (chunk) => {
-                body.push(chunk);
-              })
-              .on("end", () => {
-                // Read request body
-                body = Buffer.concat(body).toString();
+            // Create a URL object
 
-                // Create a URL object
+            const myURL = new URL(`https://example.org${request.url}`);
 
-                const myURL = new URL(
-                  `https://example.org${request.url}?${body}`,
-                );
+            const search_params = {};
 
-                // Extract query parameters as JSON
-                let json_body = {};
+            myURL.searchParams.forEach((value, name) => {
+              search_params[name] = value;
+            });
 
-                myURL.searchParams.forEach((value, name) => {
-                  json_body[name] = value;
-                });
+            // Insert form data into DB
 
-                // Insert form data into DB
-
-                const insert = db.prepare(
-                  `INSERT INTO music_concert_events (
-                  event_title, main_artist, sub_artists, event_date, doors_open_time, event_start_time, 
-                  event_address, event_venue, city, state, country, price, event_url, genre_id, event_category, 
-                  event_image_url, event_description, language 
+            const insert = db.prepare(
+              `INSERT INTO music_concert_events (
+                  event_title, artist_id, sub_artists, event_date, doors_open_time, event_start_time, 
+                  event_address, event_venue, city, state, country, price, event_url, genre_id, category_id, 
+                  event_image_url, event_description, language, featured
                   ) VALUES (
-                  @event_title, @main_artist, @sub_artists, @event_date, @doors_open_time, @event_start_time, 
-                  @event_address, @event_venue, @city, @state, @country, @price, @event_url, @genre_id, @event_category,
-                  @event_image_url, @event_description, @language)`,
-                );
+                  @event_title, @artist_id, @sub_artists, @event_date, @doors_open_time, @event_start_time, 
+                  @event_address, @event_venue, @city, @state, @country, @price, @event_url, @genre_id, @category_id,
+                  @event_image_url, @event_description, @language, @featured)`,
+            );
 
-                insert.run(json_body);
+            insert.run(search_params);
+            // Prepare response
+            const reply = {
+              message: "success",
+            };
 
-                response.writeHead(200, {
-                  "Content-Type": "application/json",
-                  "Access-Control-Allow-Methods": "POST",
-                  "Access-Control-Allow-Headers": "Content-Type",
-                });
-                response.end(JSON.stringify(json_body));
-              });
+            response.writeHead(200, {
+              "Content-Type": "application/json",
+            });
+            response.end(JSON.stringify(reply));
+            return;
           } catch (error) {
             // Prepare response
             const reply = {
@@ -342,6 +715,7 @@ try {
               "Access-Control-Allow-Headers": "Content-Type",
             });
             response.end(JSON.stringify(reply));
+            return;
           }
         }
 
@@ -426,6 +800,8 @@ try {
               from music_concert_Events mce
               join category c
               on mce.category_id = c.category_id
+              join music_genre mg
+              on mg.genre_id = mce.genre_id
               ${filterCondition}
               and c.category_name is not null
               group by c.category_id, c.category_name, c.category_image_url, c.category_description`,
@@ -458,7 +834,7 @@ try {
               join category c
               on c.category_id = mce.category_id
               ${filterCondition}
-              and mce.main_artist is not null
+              and a.artist_name is not null
               `,
             );
             const artists = stmt.all(filterInput);

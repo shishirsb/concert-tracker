@@ -76,91 +76,214 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
       let event_data = await call("/api/get-event-details", parameters);
       console.log(`${JSON.stringify(event_data)}`);
 
-      // <!-- Search box -->
-      // Add input event lister around the search box
-      document.querySelector("#search-bar-1").addEventListener("input", (e) => {
-        // Clear search box
-        document.querySelector("#search-query-suggestions-1").innerHTML = "";
-        // Get the search value from the search box
-        const search_value = document.querySelector("#search-bar-1").value;
-        event_data.genres.forEach((element) => {
-          if (
-            element.genre_name
-              .toLowerCase()
-              .includes(search_value.toLowerCase())
-          ) {
-            let p_tag = document.createElement("p");
-            p_tag.innerText = element.genre_name;
-            document
-              .querySelector("#search-query-suggestions-1")
-              .appendChild(p_tag);
-          }
-        });
-
-        // Get all the suggested items
-        let suggested_items = document.querySelectorAll(
-          "#search-query-suggestions-1 p",
-        );
-        for (const item of suggested_items) {
-          item.addEventListener("click", (e) => {
-            // Clear the events sections
-            document.querySelector(
-              ".event-cards-section-featured-events",
-            ).innerHTML = "";
-
-            // clear search suggestions
-            document.querySelector("#search-query-suggestions-1").innerHTML =
-              "";
-
-            // Get the selected value.
-            let selected_value = e.target.innerText;
-            event_data.events.forEach((element) => {
-              if (
-                element.genre_name
-                  .toLowerCase()
-                  .includes(selected_value.toLowerCase())
-              ) {
-                // Clone Event card
-                let clone_event_card = document
-                  .querySelector(".event-card")
-                  .cloneNode(true);
-                // Edit the event card with the current event item
-                clone_event_card
-                  .querySelector(".card-image")
-                  .style.setProperty(
-                    "background-image",
-                    `url("${element.event_image_url}")`,
-                  );
-                clone_event_card
-                  .querySelector(".card-image")
-                  .style.setProperty("background-size", `contain`);
-
-                clone_event_card
-                  .querySelector(".card-image")
-                  .style.setProperty("background-position", `center`);
-
-                clone_event_card
-                  .querySelector(".card-image")
-                  .style.setProperty("background-repeat", `no-repeat`);
-
-                clone_event_card.querySelector(".event-title").innerText =
-                  element.event_title;
-
-                clone_event_card.querySelector(".event-date-time").innerText =
-                  `${element.event_date}, ${element.event_start_time}`;
-
-                clone_event_card.querySelector(".event-address").innerText =
-                  `${element.event_address}`;
-
-                // Append this element to the events container
-                document
-                  .querySelector(".event-cards-section-featured-events")
-                  .appendChild(clone_event_card);
-              }
-            });
-          });
+      // Add click event listener to any area outside the search box
+      document.addEventListener("click", (evt) => {
+        // Check if user clicked on the search box
+        if (
+          !document
+            .querySelector(".search-section-with-suggestions-drop-down")
+            .contains(evt.target)
+        ) {
+          // Clear suggestion box
+          document.querySelector("#search-query-suggestions-1").innerHTML = "";
         }
       });
+
+      // Get events display section containers
+      // Featured events section
+      let featured_events_section = document.querySelector(
+        ".event-cards-section-featured-events",
+      );
+
+      // Events all section
+      let events_all_section = document.querySelector(
+        ".all-events-display-section",
+      );
+
+      // Get the search suggestions box
+      let search_suggestion_box = document.querySelector(
+        "#search-query-suggestions-1",
+      );
+
+      // Get all events data in current city
+
+      // Set parameters
+      parameters = {
+        city: user_location.address.city,
+        country: user_location.address.country,
+      };
+      event_data = await call("/api/get-event-details", parameters);
+      // <!-- Suggestion box  -->
+      // <!-- Search box -->
+      // Add input event lister around the search box
+      document
+        .querySelector("#search-bar-1")
+        .addEventListener("input", async (e) => {
+          // Clear search box
+          search_suggestion_box.innerHTML = "";
+          // Get the search value from the search box
+          const search_value = document.querySelector("#search-bar-1").value;
+
+          // Loop through all genres
+          event_data.genres.forEach((element) => {
+            // Check whether search query matches any genre
+            if (
+              element.genre_name
+                .toLowerCase()
+                .includes(search_value.toLowerCase())
+            ) {
+              let p_tag = document.createElement("p");
+              p_tag.innerText = element.genre_name;
+              document
+                .querySelector("#search-query-suggestions-1")
+                .appendChild(p_tag);
+
+              // Add a click event listener
+              p_tag.addEventListener("click", (evt) => {
+                // Clear search box
+                search_suggestion_box.innerHTML = "";
+
+                // Clear events sections
+                featured_events_section.innerHTML = "";
+                events_all_section.innerHTML = "";
+
+                // Get the matching events by genre_name
+                event_data.events.forEach((event) => {
+                  // check if genre name matches
+                  if (
+                    element.genre_name.toLowerCase() ===
+                    event.genre_name.toLowerCase()
+                  ) {
+                    // Add the event_card
+                    add_event(event, event_data);
+                  }
+                });
+              });
+            }
+          });
+
+          // Loop through all categories
+          event_data.categories.forEach((element) => {
+            // Check whether search query matches any category
+            if (
+              element.category_name
+                .toLowerCase()
+                .includes(search_value.toLowerCase())
+            ) {
+              // Add the category to the suggestions list
+              let p_tag = document.createElement("p");
+              p_tag.innerText = element.category_name;
+              document
+                .querySelector("#search-query-suggestions-1")
+                .appendChild(p_tag);
+
+              // Add a click event listener to the suggestion element
+              p_tag.addEventListener("click", (evt) => {
+                // Clear suggestions list
+                search_suggestion_box.innerHTML = "";
+
+                // Clear events in events sections
+
+                featured_events_section.innerHTML = "";
+                events_all_section.innerHTML = "";
+
+                // Find event based on the search query
+                event_data.events.forEach((event) => {
+                  // check if search q is inside category name
+                  if (
+                    element.category_name.toLowerCase() ===
+                    event.category_name.toLowerCase()
+                  ) {
+                    // Add event to event sections
+                    // populate_events({ events: [event] });
+                    add_event(event, event_data);
+                  }
+                });
+              });
+            }
+          });
+
+          // Get all the suggested items
+          // let suggested_items = document.querySelectorAll(
+          //   "#search-query-suggestions-1 p",
+          // );
+
+          // for (const item of suggested_items) {
+          //   // Add click event listener to each item
+          //   item.addEventListener("click", (e) => {
+          //     // Clear the featured events sections
+          //     document.querySelector(
+          //       ".event-cards-section-featured-events",
+          //     ).innerHTML = "";
+
+          //     let event_card = document.querySelector(".event-card");
+
+          //     // Clear all events section
+          //     document.querySelector(".all-events-display-section").innerHTML =
+          //       "";
+
+          //     // clear search suggestions
+          //     document.querySelector("#search-query-suggestions-1").innerHTML =
+          //       "";
+
+          //     // Get the selected value.
+          //     let selected_value = e.target.innerText;
+          //     event_data.events.forEach((element) => {
+          //       if (
+          //         element.genre_name
+          //           .toLowerCase()
+          //           .includes(selected_value.toLowerCase())
+          //       ) {
+          //         // Display event card
+          //         // Clone Event card
+          //         let clone_event_card = event_card.cloneNode(true);
+          //         // Edit the event card with the current event item
+          //         clone_event_card
+          //           .querySelector(".card-image")
+          //           .style.setProperty(
+          //             "background-image",
+          //             `url("${element.event_image_url}")`,
+          //           );
+          //         clone_event_card
+          //           .querySelector(".card-image")
+          //           .style.setProperty("background-size", `contain`);
+
+          //         clone_event_card
+          //           .querySelector(".card-image")
+          //           .style.setProperty("background-position", `center`);
+
+          //         clone_event_card
+          //           .querySelector(".card-image")
+          //           .style.setProperty("background-repeat", `no-repeat`);
+
+          //         clone_event_card.querySelector(".event-title").innerText =
+          //           element.event_title;
+
+          //         clone_event_card.querySelector(".event-date-time").innerText =
+          //           `${element.event_date}, ${element.event_start_time}`;
+
+          //         clone_event_card.querySelector(".event-address").innerText =
+          //           `${element.event_address}`;
+
+          //         // Append this element to the events container
+          //         // Check if event is featured
+          //         if (element.featured === 1) {
+          //           document
+          //             .querySelector(".event-cards-section-featured-events")
+          //             .appendChild(clone_event_card);
+          //         }
+
+          //         // Clone node and append to all events container.
+          //         clone_event_card_all_events =
+          //           clone_event_card.cloneNode(true);
+          //         document
+          //           .querySelector(".all-events-display-section")
+          //           .appendChild(clone_event_card_all_events);
+          //       }
+          //     });
+          //   });
+          // }
+        });
 
       // Add event listener to the search text box.
       document
@@ -511,7 +634,7 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
             let event_data = await call("/api/get-event-details", parameters);
 
             populate_events(event_data);
-          } else if (selected_filter_card === "This weekend") {
+          } else if (selected_filter_card === "This week") {
             // Set today's date and next month's date
             let today_date = new Date(Date.now());
 
@@ -1040,12 +1163,12 @@ function populate_categories(event_data) {
 
     clone_category_card.style.setProperty("background-repeat", `no-repeat`);
 
-    // Append this element to the events container
+    // Append this element to the category display container
     document
       .querySelector(".display-categories-big-section")
       .appendChild(clone_category_card);
 
-    // Add click event listener to the event card
+    // Add click event listener to the category card
     clone_category_card.addEventListener("click", (evt) => {
       // Display the category details page
       let category_details_page = document.querySelector(
@@ -1139,7 +1262,7 @@ function populate_categories(event_data) {
                 element.category_name,
               );
             } else if (
-              filter_card.querySelector("span").innerText === "This weekend"
+              filter_card.querySelector("span").innerText === "This week"
             ) {
               // Set today's date and next month's date
               let today_date = new Date(Date.now());
@@ -1618,7 +1741,7 @@ function populate_music_genres(event_data) {
 
         // Filter events based on genre.
         // Set parameters
-        // Set parameters
+
         parameters = {
           city: user_location.address.city,
           country: user_location.address.country,
@@ -1634,4 +1757,72 @@ function populate_music_genres(event_data) {
     document.querySelector(".display-event-categories-section").innerHTML =
       "<span style='font-size:medium'>No genres found for the selected filters.</span>";
   }
+}
+
+// Function to add/apend an event to the event display sections
+function add_event(event, event_data) {
+  // Add event
+  // Clone an event card
+  let clone_event_card = event_card.cloneNode(true);
+
+  // Edit event card clone
+  edit_event_card(clone_event_card, event);
+
+  // Append this event card to the featured event container
+  if (event.featured === 1) {
+    document
+      .querySelector(".event-cards-section-featured-events")
+      .appendChild(clone_event_card);
+  }
+
+  let card_all_events = clone_event_card.cloneNode(true);
+
+  // Clone the same node and append to the all events section
+  document
+    .querySelector(".all-events-display-section")
+    .appendChild(card_all_events);
+
+  // Add click event listener to the nodes
+  [clone_event_card, card_all_events].forEach((node) => {
+    // Add click event listener
+    node.addEventListener("click", (evt) => {
+      // Show event details display page.
+      let event_details_page = document.querySelector(
+        ".event-details-display-section",
+      );
+      event_details_page.classList.remove("hidden");
+
+      // Edit event-details page.
+      edit_event_details_page(event, event_data);
+    });
+  });
+}
+
+// Function to edit an event_card before adding it to display section
+function edit_event_card(event_card, event) {
+  // Edit event card
+  // Edit the event card with the current event item
+  event_card
+    .querySelector(".card-image")
+    .style.setProperty("background-image", `url("${event.event_image_url}")`);
+  event_card
+    .querySelector(".card-image")
+    .style.setProperty("background-size", `contain`);
+
+  event_card
+    .querySelector(".card-image")
+    .style.setProperty("background-position", `center`);
+
+  event_card
+    .querySelector(".card-image")
+    .style.setProperty("background-repeat", `no-repeat`);
+
+  event_card.querySelector(".event-title").innerText = event.event_title;
+
+  event_card.querySelector(".event-date-time").innerText =
+    `${event.event_date}, ${event.event_start_time}`;
+
+  event_card.querySelector(".event-address").innerText =
+    `${event.event_address}`;
+  // -----
 }

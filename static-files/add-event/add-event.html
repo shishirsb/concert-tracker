@@ -9,17 +9,23 @@
   </head>
   <body>
     <!-- Add event form  -->
-    <form
-      action="/api/add-event"
-      class="add_event_form"
-      id="add_event_form_1"
-      method="POST"
-    >
+    <form class="add_event_form" id="add_event_form_1">
       <label for="event_title">Event Title: </label>
-      <input type="text" name="event_title" id="event_title" required />
+      <input
+        type="text"
+        name="event_title"
+        id="event_title"
+        class="event_title-in-add_event_form"
+        required
+      />
 
       <label for="language">Language: </label>
-      <select name="language" id="language">
+      <select
+        name="language"
+        id="language"
+        class="language-in-add_event_form"
+        required
+      >
         <option value="">--Please choose an option--</option>
         <option value="English">English</option>
         <option value="Kannada">Kannada</option>
@@ -30,13 +36,29 @@
         <option value="Marathi">Marathi</option>
       </select>
 
-      <label for="main_artist">Main artist: </label>
-      <select name="main_artist" id="main_artist-dropdown">
-        <option value="">--Please choose an option--</option>
-      </select>
+      <!-- // Main artist add/remove secction -->
+
+      <label for="artist_id">Main artist: </label>
+      <section class="choose-or-add-artist-section">
+        <select
+          name="artist_id"
+          id="artist_id"
+          class="artist_id-in-choose-or-add-artist-section"
+        >
+          <option value="">--Please choose an option--</option>
+        </select>
+        <div class="add-artist-button-in-choose-or-add-artist-section">
+          <span>Add artist</span>
+        </div>
+      </section>
 
       <label for="sub_artists">Sub artists: </label>
-      <input type="text" name="sub_artists" id="sub_artists" />
+      <input
+        type="text"
+        name="sub_artists"
+        id="sub_artists"
+        class="sub_artists-in-add_event_form"
+      />
 
       <label for="event_date">Event date: </label>
       <input
@@ -44,38 +66,62 @@
         id="event_date"
         name="event_date"
         min="2018-01-01"
+        class="event_date-in-add_event_form"
         required
       />
 
       <label for="doors_open_time">Doors open time:</label>
-      <input type="time" id="doors_open_time" name="doors_open_time" required />
+      <input
+        type="time"
+        id="doors_open_time"
+        name="doors_open_time"
+        class="doors_open_time-in-add_event_form"
+        required
+      />
 
       <label for="event_start_time">Event start time:</label>
       <input
         type="time"
         id="event_start_time"
         name="event_start_time"
+        class="event_start_time-in-add_event_form"
         required
       />
 
       <label for="event_address">Event address: </label>
-      <input type="text" name="event_address" id="event_address" required />
+      <input
+        type="text"
+        name="event_address"
+        id="event_address"
+        class="event_address-in-add_event_form"
+        required
+      />
 
       <label for="event_venue">Event venue: </label>
-      <input type="text" name="event_venue" id="event_venue" required />
+      <input
+        type="text"
+        name="event_venue"
+        id="event_venue"
+        class="event_venue-in-add_event_form"
+        required
+      />
 
       <label for="country">Country: </label>
-      <select name="country" id="country-dropdown">
+      <select
+        name="country"
+        id="country-dropdown"
+        class="country-in-add_event_form"
+      >
         <option value="">--Please choose an option--</option>
       </select>
 
       <label for="state">State: </label>
-      <select name="state" id="state-dropdown">
+      <select name="state" id="state-dropdown" class="state-in-add_event_form">
         <option value="">--Please choose an option--</option>
       </select>
 
       <label for="city">City: </label>
-      <select name="city" id="city-dropdown">
+      <select name="city" id="city-dropdown" class="city-in-add_event_form">
         <option value="">--Please choose an option--</option>
       </select>
 
@@ -85,23 +131,59 @@
         name="price"
         id="price"
         pattern="^\d+(\.\d{1,2})?$"
+        class="price-in-add_event_form"
         required
       />
 
       <label for="event_url">Event URL: </label>
-      <input type="url" name="event_url" id="event_url" required />
+      <input
+        type="url"
+        name="event_url"
+        id="event_url"
+        class="event_url-in-add_event_form"
+      />
 
       <!-- Select genre  -->
       <label for="genre_id">Choose a genre:</label>
-      <select name="genre_id" id="genre_id">
-        <option value="">--Please choose an option--</option>
-      </select>
+      <section class="select-or-add-genre-section">
+        <select
+          name="genre_id"
+          id="genre_id"
+          class="genre_id-in-add_event_form"
+        >
+          <option value="">--Please choose an option--</option>
+        </select>
+        <!-- Add genre button  -->
+        <div class="add-genre-button-in-select-or-add-genre-section">
+          <span>Add genre</span>
+        </div>
+      </section>
 
-      <label for="event_category">Event Category: </label>
-      <input type="text" name="event_category" id="event_category" required />
+      <!-- Select category  -->
+      <label for="category_id">Event Category: </label>
+      <!-- Section for selecting category or adding new category   -->
+      <section class="select-or-add-category-section">
+        <select
+          name="category_id"
+          id="category_id"
+          class="category_id-in-add_event_form"
+        >
+          <option value="">--Please choose an option--</option>
+        </select>
+        <!-- Button for adding new category  -->
+        <div class="add-category-button-in-select-or-add-category-section">
+          <span>Add category</span>
+        </div>
+      </section>
 
       <label for="event_image_url">Add a url for event image: </label>
-      <input type="url" name="event_image_url" id="event_image_url" required />
+      <input
+        type="url"
+        name="event_image_url"
+        id="event_image_url"
+        class="event_image_url-in-add_event_form"
+        required
+      />
 
       <label for="event_description">Event description:</label>
       <textarea
@@ -109,10 +191,155 @@
         name="event_description"
         rows="5"
         cols="33"
+        class="event_description-in-add_event_form"
       ></textarea>
 
+      <label for="featured">Featured flag: </label>
+      <input
+        type="text"
+        name="featured"
+        id="featured"
+        class="featured-in-add_event_form"
+        pattern="^(0|1)$"
+        required
+      />
+
       <!-- Submit button inside add event form -->
-      <button form="add_event_form_1">Submit event</button>
+      <section class="add-event-button-section-in-add_event_form">
+        <button form="add_event_form_1">Submit event</button>
+      </section>
+    </form>
+    <!-- ------------------------------------------------------  -->
+    <!-- A section for adding new main artist -->
+    <form class="add-artist-form-section hidden">
+      <div class="close-button-in-add-artist-form-section">
+        <span>X</span>
+      </div>
+
+      <label for="artist_name">Artist name: </label>
+      <input
+        type="text"
+        name="artist_name"
+        id="artist_name"
+        required
+        class="artist-name-in-add-artist-form-section"
+      />
+
+      <label for="artist_image_url">Artist Image URL: </label>
+      <input
+        type="url"
+        name="artist_image_url"
+        id="artist_image_url"
+        required
+        class="artist_image_url-in-add-artist-form-section"
+      />
+
+      <label for="artist_description">Artist Description: </label>
+      <textarea
+        name="artist_description"
+        id="artist_description"
+        rows="5"
+        cols="33"
+        class="artist_description-in-add-artist-form-section"
+        required
+      ></textarea>
+
+      <label for="artist_position">Artist title: </label>
+      <input
+        type="text"
+        name="artist_position"
+        id="artist_position"
+        class="artist_position-in-add-artist-form-section"
+        required
+      />
+
+      <!-- Submit button  -->
+      <button class="submit-button-in-add-artist-form-section">
+        <span>Submit artist</span>
+      </button>
+    </form>
+    <!-- ---------------------------------------------  -->
+
+    <!-- A section for adding new genre -->
+    <form class="add-genre-form-section hidden">
+      <div class="close-button-in-add-genre-form-section">
+        <span>X</span>
+      </div>
+
+      <label for="genre_name">Genre name: </label>
+      <input
+        type="text"
+        name="genre_name"
+        id="genre_name"
+        required
+        class="genre_name-in-add-artist-form-section"
+      />
+
+      <label for="genre_image_url">Genre Image URL: </label>
+      <input
+        type="url"
+        name="genre_image_url"
+        id="genre_image_url"
+        required
+        class="genre_image_url-in-add-artist-form-section"
+      />
+
+      <label for="genre_description">Genre Description: </label>
+      <textarea
+        name="genre_description"
+        id="genre_description"
+        rows="5"
+        cols="33"
+        class="genre_description-in-add-artist-form-section"
+        required
+      ></textarea>
+
+      <!-- Submit button  -->
+      <button class="add-genre-button-in-add-genre-form-section">
+        <span>Submit Genre</span>
+      </button>
+    </form>
+
+    <!-- ---------------------------------------------  -->
+
+    <!-- Form for adding new category -->
+    <form class="add-category-form-section hidden">
+      <div class="close-button-in-add-category-form-section">
+        <span>X</span>
+      </div>
+
+      <label for="category_name">Category name: </label>
+      <input
+        type="text"
+        name="category_name"
+        id="category_name"
+        required
+        class="category_name-in-add-category-form-section"
+      />
+
+      <label for="category_image_url">Category Image URL: </label>
+      <input
+        type="url"
+        name="category_image_url"
+        id="category_image_url"
+        required
+        class="category_image_url-in-add-category-form-section"
+      />
+
+      <label for="category_description">Category Description: </label>
+      <textarea
+        name="category_description"
+        id="category_description"
+        rows="5"
+        cols="33"
+        class="category_description-in-add-category-form-section"
+        required
+      ></textarea>
+
+      <!-- Submit button in add new category form -->
+      <button class="add-category-button-in-add-category-form-section">
+        <span>Submit Category</span>
+      </button>
     </form>
   </body>
 </html>

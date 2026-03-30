@@ -1,0 +1,23 @@
+/* <!-- Form for editing an event  --> */
+
+.edit-event-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 300px;
+}
+
+/* <!-- Delete event button  --> */
+.delete-event-in-edit-event-form {
+  padding: 5px;
+  border: 1px solid black;
+  margin: 5px;
+  width: 100px;
+  text-align: center;
+}
+
+.update-event-button-section-in-edit-event-form {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
