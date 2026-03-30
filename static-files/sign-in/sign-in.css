@@ -1608,3 +1608,29 @@ button.cta-sign-up {
   overflow-x: auto;
   align-items: center;
 }
+
+/* <!-- Main navigation bar --> */
+.main-navigation-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  border: 1px solid white;
+  border-radius: 20px;
+  min-width: 200px;
+  /* align-self: center; */
+  position: sticky;
+  bottom: 30px;
+  height: 50px;
+  color: white;
+  padding: 10px;
+  background-color: rgb(213, 211, 211);
+}
+
+/* <!-- buttons in Main navigation bar --> */
+.main-navigation-bar div {
+  border: 1px solid white;
+  border-radius: 50px;
+  padding: 10px;
+  background-color: rgb(153, 149, 149);
+}

@@ -14,6 +14,6 @@ data_sample_2_feb_9.log
 event_extraction_job.js
 example_openai.mjs
 headlines_1.txt
-search_API_extract.js
+seach_API_extract.js
 semantic_search.js
 testJob.js
