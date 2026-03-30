@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Event Page</title>
+    <link rel="stylesheet" href="/static-files/edit-event/edit-event.css" />
+    <script
+      src="/static-files/edit-event/edit-event.js"
+      type="module"
+      defer
+    ></script>
+  </head>
+  <body>
+    <!-- // -->
+    <p>This is an Edit event page</p>
+
+    <!-- Form for editing an event  -->
+    <form action="" class="edit-event-form">
+      <!-- Choose Country  -->
+      <label for="country">Choose country: </label>
+      <select
+        name="country"
+        id="country"
+        class="country-in-edit-event-form"
+        required
+      >
+        <option value="">--Please choose an option--</option>
+      </select>
+
+      <!-- Choose state  -->
+      <label for="state">Choose state: </label>
+      <select name="state" id="state" class="state-in-edit-event-form" required>
+        <option value="">--Please choose an option--</option>
+      </select>
+
+      <!-- Choose city  -->
+      <label for="city">Choose city: </label>
+      <select name="city" id="city" class="city-in-edit-event-form" required>
+        <option value="">--Please choose an option--</option>
+      </select>
+
+      <!-- Choose event  -->
+      <label for="event_id">Choose event: </label>
+      <select
+        name="event_id"
+        id="event_id"
+        class="event_id-in-edit-event-form"
+        required
+      >
+        <option value="">--Please choose an option--</option>
+      </select>
+
+      <!-- Choose event detail -->
+      <label for="column_name">Choose event detail to edit: </label>
+      <select
+        name="column_name"
+        id="column_name"
+        class="column_name-in-edit-event-form"
+        required
+      >
+        <option value="">--Please choose an option--</option>
+        <option value="event_title">event_title</option>
+        <option value="sub_artists">sub_artists</option>
+        <option value="event_date">event_date</option>
+        <option value="doors_open_time">doors_open_time</option>
+        <option value="event_start_time">event_start_time</option>
+        <option value="event_address">event_address</option>
+        <option value="event_venue">event_venue</option>
+        <option value="city">city</option>
+        <option value="state">state</option>
+        <option value="country">country</option>
+        <option value="price">price</option>
+        <option value="event_url">event_url</option>
+        <option value="event_image_url">event_image_url</option>
+        <option value="event_description">event_description</option>
+        <option value="featured">featured</option>
+        <option value="language">language</option>
+      </select>
+
+      <label for="new_value">Enter a new value: </label>
+      <input
+        type="text"
+        name="new_value"
+        id="new_value"
+        class="new_value-in-edit-event-form"
+        required
+      />
+
+      <section class="update-event-button-section-in-edit-event-form">
+        <!-- Update event button  -->
+        <button class="update-event-button-in-edit-event-form">
+          Update event
+        </button>
+
+        <!-- Delete event button  -->
+        <div class="delete-event-in-edit-event-form">
+          <span>Delete event</span>
+        </div>
+      </section>
+    </form>
+  </body>
+</html>

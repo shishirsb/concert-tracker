@@ -78,34 +78,36 @@
           </section>
         </section>
 
-        <!-- Search box section -->
-        <section class="search-bar-section">
-          <!-- Search icon image  -->
-          <img
-            src="https://cdn-icons-png.flaticon.com/256/54/54481.png"
-            alt=""
-            class="search-icon-image"
-          />
+        <section class="search-section-with-suggestions-drop-down">
+          <!-- Search box section -->
+          <section class="search-bar-section">
+            <!-- Search icon image  -->
+            <img
+              src="https://cdn-icons-png.flaticon.com/256/54/54481.png"
+              alt=""
+              class="search-icon-image"
+            />
 
-          <!-- <section class="search-text-box-section"> -->
-          <!-- Search box -->
-          <input
-            type="search"
-            placeholder=""
-            id="search-bar-1"
-            class="search-bar"
-          />
-          <!-- </section> -->
+            <!-- <section class="search-text-box-section"> -->
+            <!-- Search box -->
+            <input
+              type="search"
+              placeholder=""
+              id="search-bar-1"
+              class="search-bar"
+            />
+            <!-- </section> -->
 
-          <!-- adjustment icon image  -->
-          <img
-            src="https://media.istockphoto.com/id/1263299116/vector/adjustment-icon-symbol-adjusting-settings-logo-sign-vector-illustration-image-isolated-on.jpg?s=612x612&w=0&k=20&c=TE-lkvs0RGHL2EwdDV4wyGEDIe2YzSbYoeUXq96Puzg="
-            alt=""
-            class="adjustment-icon-image"
-          />
+            <!-- adjustment icon image  -->
+            <img
+              src="https://media.istockphoto.com/id/1263299116/vector/adjustment-icon-symbol-adjusting-settings-logo-sign-vector-illustration-image-isolated-on.jpg?s=612x612&w=0&k=20&c=TE-lkvs0RGHL2EwdDV4wyGEDIe2YzSbYoeUXq96Puzg="
+              alt=""
+              class="adjustment-icon-image"
+            />
+          </section>
+          <!-- Suggestion box  -->
+          <section id="search-query-suggestions-1"></section>
         </section>
-        <!-- Suggestion box  -->
-        <section id="search-query-suggestions-1"></section>
 
         <!-- Filter page  -->
         <section id="filter-page-1" class="hidden">
@@ -207,7 +209,7 @@
       <section class="display-artists-and-events">
         <!-- Main title -->
         <p class="main-title">
-          What's happening this
+          <label for="duration-selector-1">What's happening this</label>
           <!-- Duration selector  -->
           <select
             name="duration"
@@ -218,6 +220,24 @@
             <option value="month">month</option>
             <option value="year">year</option>
           </select>
+          <svg
+            class="w-6 h-6 text-gray-800 dark:text-white down-arrow-in-main-title"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m19 9-7 7-7-7"
+            />
+          </svg>
+
           <!-- <span
             ><img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFtsZlXX4D2jCImf_qiTfwcQL7O7gZi6T0MQ&s"
@@ -1073,7 +1093,7 @@
             <div
               class="filter-card-in-filter-cards-section-in-category-details-section"
             >
-              <span>This weekend</span>
+              <span>This week</span>
             </div>
             <!-- --  -->
             <!-- Filter Card  -->
@@ -1198,6 +1218,7 @@
           <header class="header-for-all-events-section">
             <!-- Title in All events section  -->
             <p class="title-header-for-all-events-section">All Events</p>
+            <p class="view-all-link">View all</p>
           </header>
           <!-- Filter cards section -->
           <section class="filter-cards-section">
@@ -1216,7 +1237,7 @@
             <!-- ---  -->
             <!-- Filter Card  -->
             <div class="filter-card">
-              <span>This weekend</span>
+              <span>This week</span>
             </div>
             <!-- --  -->
             <!-- Filter Card  -->

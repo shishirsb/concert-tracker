@@ -32,3 +32,181 @@ form#add_event_form_1 button {
   width: 150px;
   padding: 5px;
 }
+
+/* // Main artist add/remove secction */
+.add-artist-button-in-choose-or-add-artist-section {
+  padding: 5px;
+  margin: 5px;
+  width: 70px;
+  border: 1px solid black;
+  border-radius: 5px;
+  position: relative;
+}
+
+.choose-or-add-artist-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+/* <!-- A section for adding new main artist --> */
+.add-artist-form-in-add-artist-form-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.submit-button-in-add-artist-form-section {
+  padding: 5px;
+  margin: 5px;
+  width: 100px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+/* <!-- A section for adding new main artist --> */
+.add-artist-form-section {
+  border: 1px solid black;
+  padding: 10px;
+  display: inline flex;
+  flex-direction: column;
+  /* width: auto; */
+  gap: 20px;
+  /* align-self: center; */
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  z-index: 999;
+  background-color: white;
+}
+
+.add-artist-form-section input {
+  width: 200px;
+  padding: 5px;
+  margin: 5px;
+  width: 400px;
+  border-radius: 5px;
+}
+
+.close-button-in-add-artist-form-section {
+  align-self: flex-end;
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid black;
+}
+
+/* -------------------------------  */
+/* <!-- A section for adding new genre --> */
+.add-genre-form-section {
+  border: 1px solid black;
+  padding: 10px;
+  display: inline flex;
+  flex-direction: column;
+  /* width: auto; */
+  gap: 20px;
+  /* align-self: center; */
+  /* position: absolute; */
+  position: absolute;
+  top: 100vh;
+  left: 50px;
+  z-index: 999;
+  background-color: white;
+}
+
+.add-genre-form-section input {
+  width: 200px;
+  padding: 5px;
+  margin: 5px;
+  width: 400px;
+  border-radius: 5px;
+}
+
+.close-button-in-add-genre-form-section {
+  align-self: flex-end;
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid black;
+}
+
+.add-genre-button-in-add-genre-form-section {
+  padding: 5px;
+  margin: 5px;
+  width: 100px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.add-genre-button-in-select-or-add-genre-section {
+  padding: 5px;
+  margin: 5px;
+  width: 70px;
+  border: 1px solid black;
+  border-radius: 5px;
+  position: relative;
+}
+
+.select-or-add-genre-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+/* ---------------------------------------  */
+
+/* <!-- Form for adding new category --> */
+.add-category-form-section {
+  border: 1px solid black;
+  padding: 10px;
+  display: inline flex;
+  flex-direction: column;
+  /* width: auto; */
+  gap: 20px;
+  /* align-self: center; */
+  /* position: absolute; */
+  position: absolute;
+  top: 100vh;
+  left: 50px;
+  z-index: 999;
+  background-color: white;
+}
+
+.add-category-form-section input {
+  width: 200px;
+  padding: 5px;
+  margin: 5px;
+  width: 400px;
+  border-radius: 5px;
+}
+
+.close-button-in-add-category-form-section {
+  align-self: flex-end;
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid black;
+}
+
+.add-category-button-in-add-category-form-section {
+  padding: 5px;
+  margin: 5px;
+  width: 100px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.add-category-button-in-select-or-add-category-section {
+  padding: 5px;
+  margin: 5px;
+  width: 100px;
+  border: 1px solid black;
+  border-radius: 5px;
+  position: relative;
+}
+
+.select-or-add-category-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+/* --------- */
+.hidden {
+  display: none;
+}
