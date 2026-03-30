@@ -4,6 +4,7 @@
 let user_location = {};
 let lat;
 let long;
+let today_date_ISOformat;
 
 document.addEventListener("DOMContentLoaded", async (evt) => {
   // Retrieve geo location co-ordinates of the user's device.
@@ -74,7 +75,7 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
         to_date: next_week_date_ISOformat,
       };
       let event_data = await call("/api/get-event-details", parameters);
-      console.log(`${JSON.stringify(event_data)}`);
+      // console.log(`${JSON.stringify(event_data)}`);
 
       // Add click event listener to any area outside the search box
       document.addEventListener("click", (evt) => {
@@ -111,6 +112,7 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
       parameters = {
         city: user_location.address.city,
         country: user_location.address.country,
+        from_date: today_date_ISOformat,
       };
       event_data = await call("/api/get-event-details", parameters);
       // <!-- Suggestion box  -->
@@ -402,6 +404,7 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
             city: user_location.address.city,
             country: user_location.address.country,
             genre_name: genre,
+            from_date: today_date_ISOformat,
           };
           let event_data = await call("/api/get-event-details", parameters);
 
@@ -456,6 +459,7 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
       parameters = {
         city: user_location.address.city,
         country: user_location.address.country,
+        from_date: today_date_ISOformat,
       };
       event_data = await call("/api/get-event-details", parameters);
 
@@ -575,6 +579,7 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
           parameters = {
             city: user_location.address.city,
             country: user_location.address.country,
+            from_date: today_date_ISOformat,
           };
           let event_data = await call("/api/get-event-details", parameters);
 
@@ -586,7 +591,7 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
           populate_categories(event_data);
         });
       });
-
+      // <!-- All events section  -->
       // <!-- Filter cards section  -->
       document.querySelectorAll(".filter-card").forEach((element) => {
         // Add click event handler
@@ -1316,9 +1321,12 @@ function populate_events_in_category_details_page(event_data, category_name) {
   ).innerHTML = "";
 
   // Loop through events from the event data.
+  let event_count = 0;
   event_data.events.forEach((element) => {
     // Check event if it matches the category
     if (element.category_name === category_name) {
+      // Increment event count
+      event_count = event_count + 1;
       // Clone an event card
       let clone_event_card = event_card.cloneNode(true);
       // Edit the event card with the current event item
@@ -1457,6 +1465,17 @@ function populate_events_in_category_details_page(event_data, category_name) {
       });
     }
   });
+
+  // Print no events message if no events were found.
+  if (event_count === 0) {
+    // Print no events message
+    let spanElement = document.createElement("span");
+    spanElement.innerText = "No events found!";
+    // Append this element to the events container
+    document
+      .querySelector("#events-section-in-category-details-section")
+      .appendChild(spanElement);
+  }
 }
 
 // ----
