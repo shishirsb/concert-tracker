@@ -5,6 +5,7 @@ let user_location = {};
 let lat;
 let long;
 let today_date_ISOformat;
+let event_data_all = [];
 
 document.addEventListener("DOMContentLoaded", async (evt) => {
   // Retrieve geo location co-ordinates of the user's device.
@@ -115,6 +116,9 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
         from_date: today_date_ISOformat,
       };
       event_data = await call("/api/get-event-details", parameters);
+      event_data_all = event_data;
+      // Send event_data to the backend to form a narrative of all the events available
+
       // <!-- Suggestion box  -->
       // <!-- Search box -->
       // Add input event lister around the search box
@@ -413,7 +417,24 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
       });
 
       // --------------------------------------------------------------------
+      // Make a request to get all the events data based on user's neighbourhood
+      // Set today's date and next week's date
+      today_date = new Date(Date.now());
+      // Convert to YYYY-MM-DD format
+      today_date_ISOformat = today_date.toISOString().slice(0, 10);
+      // Add 7 days
+      today_date.setDate(today_date.getDate() + 7);
 
+      next_week_date_ISOformat = today_date.toISOString().slice(0, 10);
+      // Set parameters
+      parameters = {
+        city: user_location.address.city,
+        country: user_location.address.country,
+        from_date: today_date_ISOformat,
+        to_date: next_week_date_ISOformat,
+      };
+
+      event_data = await call("/api/get-event-details", parameters);
       populate_events(event_data);
       // Populate the languages in the filter section
       // Loop through each language from event_data
@@ -666,6 +687,25 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
           }
         });
       });
+
+      // Send event_data to the backend to form a narrative of all the events available
+      // Call API to form a narrative of all the events available so far.
+      // Set parameters
+      parameters = {
+        event_data: JSON.stringify(event_data_all),
+      };
+      // await call("/api/create-chunks", parameters);
+
+      await fetch("/api/create-chunks", {
+        method: "POST",
+        headers: {
+          "User-Agent": "undici-stream-example",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(parameters),
+      });
+
+      // Add new functions here (just before this comment) which are dependant on the user location parameters.
     },
     (error) => {
       console.warn(`ERROR(${err.code}): ${err.message}`);
@@ -920,6 +960,11 @@ function populate_events(event_data) {
           event_details_page.querySelector(
             ".gates-open-time-in-event-schedule-link-card",
           ).innerText = `Gates open at ${element.doors_open_time}`;
+
+          // Add Event URL
+          event_details_page
+            .querySelector(".event-url-in-event-schedule-link-card")
+            .setAttribute("href", `${element.event_url}`);
 
           // Add Artist details
           event_details_page.querySelector(
@@ -1427,6 +1472,11 @@ function populate_events_in_category_details_page(event_data, category_name) {
             ".gates-open-time-in-event-schedule-link-card",
           ).innerText = `Gates open at ${element.doors_open_time}`;
 
+          // Add Event URL
+          event_details_page
+            .querySelector(".event-url-in-event-schedule-link-card")
+            .setAttribute("href", `${element.event_url}`);
+
           // Add Artist details
           event_details_page.querySelector(
             "#main-artist-name-in-artist-name-title-section",
@@ -1539,6 +1589,11 @@ function edit_event_details_page(element, event_data) {
   event_details_page.querySelector(
     ".gates-open-time-in-event-schedule-link-card",
   ).innerText = `Gates open at ${element.doors_open_time}`;
+
+  // Add Event URL
+  event_details_page
+    .querySelector(".event-url-in-event-schedule-link-card")
+    .setAttribute("href", `${element.event_url}`);
 
   // Add Artist details
   event_details_page.querySelector(
@@ -1823,7 +1878,15 @@ function edit_event_card(event_card, event) {
   // Edit the event card with the current event item
   event_card
     .querySelector(".card-image")
+    .style.setProperty("background-color", `black`);
+
+  event_card.querySelector(".card-image").style.setProperty("border", `none`);
+  event_card.querySelector(".card-image").style.setProperty("color", `black`);
+
+  event_card
+    .querySelector(".card-image")
     .style.setProperty("background-image", `url("${event.event_image_url}")`);
+
   event_card
     .querySelector(".card-image")
     .style.setProperty("background-size", `contain`);
@@ -1845,3 +1908,129 @@ function edit_event_card(event_card, event) {
     `${event.event_address}`;
   // -----
 }
+
+// Function to add/apend an event to the ai chat box output container
+// let event_card_in_ai_chat_box = document.querySelector(
+//   ".event-card-in-ai-output-container",
+// );
+function add_event_to_ai_output_container(event, event_data) {
+  // Add event
+  // Clone an event card
+  let clone_event_card = event_card.cloneNode(true);
+
+  // Edit event card clone
+  edit_event_card(clone_event_card, event);
+
+  // Append this event card to the featured event container
+  document.querySelector(".ai-output-container").appendChild(clone_event_card);
+
+  // Add click event listener to the nodes
+  [clone_event_card].forEach((node) => {
+    // Add click event listener
+    node.addEventListener("click", (evt) => {
+      // Show event details display page.
+      let event_details_page = document.querySelector(
+        ".event-details-display-section",
+      );
+      event_details_page.classList.remove("hidden");
+
+      // Edit event-details page.
+      edit_event_details_page(event, event_data);
+    });
+  });
+}
+
+/* <!-- Main navigation bar --> */
+document
+  .querySelector(".home-button-div")
+  .style.setProperty("background-color", "rgb(31, 31, 31)");
+
+// <!-- #anchor Chat button div  -->
+document.querySelector(".chat-button-div").addEventListener("click", (evt) => {
+  // Open a chat box
+  // Reveal the chat box
+  // Check if the chat box is hidden
+  if (
+    document.querySelector(".ai-chat-box-section").classList.contains("hidden")
+  ) {
+    document.querySelector(".ai-chat-box-section").classList.remove("hidden");
+  } else {
+    document.querySelector(".ai-chat-box-section").classList.add("hidden");
+  }
+});
+
+// <!-- #anchor play button in AI chat box -->
+// Listen for click event on the play button
+const play_button = document.querySelector(
+  ".play-button-in-ai-prompt-form-in-ai-prompt-container",
+);
+
+const prompt_input_box = document.querySelector(
+  ".ai-prompt-input-in-ai-prompt-form-in-ai-prompt-container",
+);
+
+let prompt_output_element = document.querySelector(
+  ".prompt-output-element-in-ai-output-container",
+);
+
+let ai_output_container = document.querySelector(".ai-output-container");
+
+document
+  .querySelector(".ai-prompt-input-in-ai-prompt-form-in-ai-prompt-container")
+  .addEventListener("keydown", async (evt) => {
+    if (evt.key === "Enter") {
+      // Add a loading message
+      let loading_message = document.createElement("span");
+      loading_message.innerText = "Loading ...";
+      ai_output_container.appendChild(loading_message);
+
+      //
+
+      // Get the prompt
+      const prompt = prompt_input_box.value.trim();
+
+      // Clear the prompt input box
+      prompt_input_box.value = "";
+
+      // Set parameters
+      const parameters = {
+        prompt: prompt,
+        event_data_all: JSON.stringify(event_data_all),
+      };
+
+      // Call API to get the output data (events matching the prompt)
+      // const response = await call("/api/ask-ai", parameters);
+      const response = await fetch("/api/ask-ai", {
+        method: "POST",
+        headers: {
+          "User-Agent": "undici-stream-example",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(parameters),
+      });
+
+      const data = await response.json();
+
+      // Display the matching event in the AI output container
+      // <!-- #anchor Ai output container inside chat box  -->
+      // Clear the previous output
+      ai_output_container.innerHTML = "";
+
+      let prompt_output_element_clone = prompt_output_element.cloneNode(true);
+      prompt_output_element_clone.innerText = prompt;
+      // Unhide the prompt box
+      prompt_output_element_clone.classList.remove("hidden");
+
+      // Add the prompt to the ai output container
+      ai_output_container.appendChild(prompt_output_element_clone);
+
+      // Add Here is an event recommendation for you message
+      let p_tag = document.createElement("p");
+      p_tag.innerText = "Here is an event recommendation for you";
+      ai_output_container.appendChild(p_tag);
+
+      add_event_to_ai_output_container(data.event, event_data_all);
+
+      loading_message.classList.add("hidden");
+    }
+  });
