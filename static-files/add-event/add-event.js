@@ -2,6 +2,8 @@
 
 // Add an event listener around document loaded event
 document.addEventListener("DOMContentLoaded", async (e) => {
+  // Clear all form inputs
+  document.querySelector(".add_event_form").reset();
   // Make a request to get all the events data based on user's neighbourhood
   // Set parameters
   let event_data = await call("/api/get-all-event-details", null);
@@ -39,7 +41,10 @@ document.addEventListener("DOMContentLoaded", async (e) => {
   // Get list of countries from database
   let response = await call("/api/get-countries", null);
 
-  // Loop through all the countries
+  // Clear existing options
+  // document.querySelector("#country-dropdown").innerHTML = "";
+
+  // Loop through all the countries and add country to drop-down
   response.data.countries.forEach((element) => {
     optionElement = document.createElement("option");
     optionElement.innerText = element.country;
@@ -58,6 +63,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       };
       let response = await call("/api/get-states", parameters);
       console.log(JSON.stringify(response.data.states));
+
       // Loop through all the states
       response.data.states.forEach((element) => {
         optionElement = document.createElement("option");
@@ -79,7 +85,8 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       };
       let response = await call("/api/get-cities", parameters);
       console.log(JSON.stringify(response.data.cities));
-      // Loop through all the states
+
+      // Loop through all the cities
       response.data.cities.forEach((element) => {
         optionElement = document.createElement("option");
         optionElement.innerText = element.city;

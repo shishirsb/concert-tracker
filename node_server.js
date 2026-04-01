@@ -1,3 +1,7 @@
+const { messageToOpenAIRole } = require("@langchain/openai");
+const { OpenAIEmbeddings } = require("@langchain/openai");
+const { MemoryVectorStore } = require("@langchain/classic/vectorstores/memory");
+
 try {
   // Backend operations
   // ------------------------------------------------------------------------------
@@ -75,9 +79,11 @@ try {
   const PORT = process.env.PORT || 10000;
 
   // --------------------------------------------------------------------------
+  // Define a variable to store event chunks for semantic search
+  event_chunks_for_semantic_search = [];
   // Create a server
   const server = http
-    .createServer((request, response) => {
+    .createServer(async (request, response) => {
       try {
         // -------------------------------------------------------------------------
         //Handling pre-flight request OPTIONS
@@ -90,6 +96,181 @@ try {
           });
           response.end();
           return;
+        }
+
+        // --------------------------------------------------------------------------
+        // ************************** END POINT ********************************
+        if (
+          request.method === "POST" &&
+          request.url.startsWith("/api/create-chunks")
+        ) {
+          try {
+            let body = [];
+            // -----------------------------------------------------------------
+            // Catching error on the request
+            request
+              // -----------------------------------------------------
+              // Reading data and push to body list.
+              .on("data", (chunk) => {
+                body.push(chunk);
+              })
+              // -----------------------------------------------------
+              // Finish reading data
+              .on("end", async () => {
+                // ---------------------------------------------------
+                // Define what happens after reading the body from request.
+                // Combine all the elements of the body list.
+                body = Buffer.concat(body).toString();
+                // ---------------------------------------------------
+
+                //Convert body from string to JSON value.
+                body_json = JSON.parse(body);
+                // Get event data from the query parameter
+                // const myURL = new URL(`https://example.org/${request.url}`);
+
+                // let search_params = {};
+
+                // myURL.searchParams.forEach((value, name) => {
+                //   search_params[name] = value;
+                // });
+
+                // Form chunks
+                const event_data_all = JSON.parse(body_json.event_data);
+                event_chunks_for_semantic_search = [];
+
+                event_data_all.events.forEach((event) => {
+                  // Store each event as an element in an array.
+                  event_chunks_for_semantic_search.push({
+                    pageContent: `
+                    ${event.event_id}-${event.category_name}, ${event.genre_name} called ${event.event_title} by ${event.artist_name} at ${event.event_address} on ${event.event_date}. ${event.event_description}
+                    `,
+                  });
+                });
+
+                // Set reply
+                const reply = {
+                  message: "success",
+                };
+
+                // Set header
+                response.writeHead(200, {
+                  "Content-Type": "application/json",
+                });
+
+                // send response
+                response.end(JSON.stringify(reply));
+
+                return;
+              });
+          } catch (err) {
+            // Prepare reply and send response
+            const reply = {
+              message: "fail",
+              error: err,
+            };
+
+            // Set header
+            response.writeHead(401, {
+              "Content-Type": "application/json",
+            });
+
+            // send response
+            response.end(JSON.stringify(reply));
+            return;
+          }
+        }
+
+        // --------------------------------------------------------------------------
+        // ************************** END POINT ********************************
+        if (
+          request.method === "POST" &&
+          request.url.startsWith("/api/ask-ai")
+        ) {
+          try {
+            let body = [];
+            // -----------------------------------------------------------------
+            // Catching error on the request
+            request
+              // -----------------------------------------------------
+              // Reading data and push to body list.
+              .on("data", (chunk) => {
+                body.push(chunk);
+              })
+              // -----------------------------------------------------
+              // Finish reading data
+              .on("end", async () => {
+                // ---------------------------------------------------
+                // Define what happens after reading the body from request.
+                // Combine all the elements of the body list.
+                body = Buffer.concat(body).toString();
+                // ---------------------------------------------------
+
+                //Convert body from string to JSON value.
+                body_json = JSON.parse(body);
+
+                event_data_all = JSON.parse(body_json.event_data_all);
+
+                // Get relevant chunks
+                // Do semantic search
+                // Create vector store
+                // Get vector embeddings from OpenAI
+                const embeddings = new OpenAIEmbeddings({
+                  model: "text-embedding-3-large",
+                });
+
+                // Instantiate vector store
+                const vectorStore = new MemoryVectorStore(embeddings);
+                await vectorStore.addDocuments(
+                  event_chunks_for_semantic_search,
+                );
+
+                // Get relevant chunks based by doing similarity search
+                const relevant_docs = await vectorStore.similaritySearch(
+                  body_json["prompt"],
+                  1,
+                );
+
+                // Log all the matches to console.
+                // for (const doc of relevant_docs) {
+                //   console.log(`${JSON.stringify(doc)} \n -----------------`);
+                // }
+
+                let event_id;
+                for (const doc of relevant_docs) {
+                  // Get the event for the corresponding id.
+                  // Get the id from the page content.
+                  let firstOccurrence = doc.pageContent.indexOf("-");
+                  event_id = parseInt(
+                    doc.pageContent.slice(0, firstOccurrence).trim(),
+                  );
+                  break;
+                }
+
+                let matching_event = event_data_all.events.find(
+                  (event) => event.event_id === event_id,
+                );
+
+                // Prepare response
+                const reply = {
+                  message: "success",
+                  event: matching_event,
+                };
+
+                // Set headers
+                response.writeHead(200, {
+                  "Content-Type": "application/json",
+                });
+
+                // send response
+                response.end(JSON.stringify(reply));
+
+                return;
+              });
+          } catch (err) {
+            //
+            console.log(err);
+            return;
+          }
         }
 
         // --------------------------------------------------------------------------
