@@ -230,11 +230,6 @@ try {
                   1,
                 );
 
-                // Log all the matches to console.
-                // for (const doc of relevant_docs) {
-                //   console.log(`${JSON.stringify(doc)} \n -----------------`);
-                // }
-
                 let event_id;
                 for (const doc of relevant_docs) {
                   // Get the event for the corresponding id.
