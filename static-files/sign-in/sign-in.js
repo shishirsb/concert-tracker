@@ -1,6 +1,8 @@
 // --------------------------------------------------------
 // Add an event listener to the document
 
+// const { BodyMixin } = require("undici");
+
 let user_location = {};
 let lat;
 let long;
@@ -696,14 +698,15 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
       };
       // await call("/api/create-chunks", parameters);
 
-      await fetch("/api/create-chunks", {
-        method: "POST",
-        headers: {
-          "User-Agent": "undici-stream-example",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(parameters),
-      });
+      // await fetch("/api/create-chunks", {
+      //   method: "POST",
+      //   headers: {
+      //     "User-Agent": "undici-stream-example",
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(parameters),
+      // });
+      create_vector_store(parameters);
 
       // Add new functions here (just before this comment) which are dependant on the user location parameters.
     },
@@ -2034,3 +2037,16 @@ document
       loading_message.classList.add("hidden");
     }
   });
+
+// Function to create chunks and vector store needed for AI chat Box
+
+async function create_vector_store(parameters) {
+  await fetch("/api/create-chunks", {
+    method: "POST",
+    headers: {
+      "User-Agent": "undici-stream-example",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(parameters),
+  });
+}

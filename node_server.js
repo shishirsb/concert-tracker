@@ -79,8 +79,35 @@ try {
   const PORT = process.env.PORT || 10000;
 
   // --------------------------------------------------------------------------
-  // Define a variable to store event chunks for semantic search
-  event_chunks_for_semantic_search = [];
+  let event_chunks_for_semantic_search = [];
+  let vectorStore;
+  async function create_vector_store(event_data_all) {
+    // --------------------------------------
+    // Define a variable to store event chunks for semantic search
+    event_data_all.events.forEach((event) => {
+      // Store each event as an element in an array.
+      event_chunks_for_semantic_search.push({
+        pageContent: `
+                    ${event.event_id}-${event.category_name}, ${event.genre_name} called ${event.event_title} by ${event.artist_name} at ${event.event_address} on ${event.event_date}. ${event.event_description}
+                    `,
+      });
+    });
+
+    // Get relevant chunks
+    // Do semantic search
+    // Create vector store
+    // Get vector embeddings from OpenAI
+    const embeddings = new OpenAIEmbeddings({
+      model: "text-embedding-3-large",
+    });
+
+    // Instantiate vector store
+    vectorStore = new MemoryVectorStore(embeddings);
+    await vectorStore.addDocuments(event_chunks_for_semantic_search);
+  }
+
+  // create_vector_store();
+
   // Create a server
   const server = http
     .createServer(async (request, response) => {
@@ -135,17 +162,19 @@ try {
                 // });
 
                 // Form chunks
-                const event_data_all = JSON.parse(body_json.event_data);
-                event_chunks_for_semantic_search = [];
+                // event_data_all = JSON.parse(body_json.event_data);
+                // event_chunks_for_semantic_search = [];
 
-                event_data_all.events.forEach((event) => {
-                  // Store each event as an element in an array.
-                  event_chunks_for_semantic_search.push({
-                    pageContent: `
-                    ${event.event_id}-${event.category_name}, ${event.genre_name} called ${event.event_title} by ${event.artist_name} at ${event.event_address} on ${event.event_date}. ${event.event_description}
-                    `,
-                  });
-                });
+                // event_data_all.events.forEach((event) => {
+                //   // Store each event as an element in an array.
+                //   event_chunks_for_semantic_search.push({
+                //     pageContent: `
+                //     ${event.event_id}-${event.category_name}, ${event.genre_name} called ${event.event_title} by ${event.artist_name} at ${event.event_address} on ${event.event_date}. ${event.event_description}
+                //     `,
+                //   });
+                // });
+                event_data_all = JSON.parse(body_json.event_data);
+                create_vector_store(event_data_all);
 
                 // Set reply
                 const reply = {
@@ -208,21 +237,20 @@ try {
                 //Convert body from string to JSON value.
                 body_json = JSON.parse(body);
 
-                event_data_all = JSON.parse(body_json.event_data_all);
-
+                // event_data_all = JSON.parse(body_json.event_data_all);
                 // Get relevant chunks
                 // Do semantic search
                 // Create vector store
                 // Get vector embeddings from OpenAI
-                const embeddings = new OpenAIEmbeddings({
-                  model: "text-embedding-3-large",
-                });
+                // const embeddings = new OpenAIEmbeddings({
+                //   model: "text-embedding-3-large",
+                // });
 
                 // Instantiate vector store
-                const vectorStore = new MemoryVectorStore(embeddings);
-                await vectorStore.addDocuments(
-                  event_chunks_for_semantic_search,
-                );
+                // vectorStore = new MemoryVectorStore(embeddings);
+                // await vectorStore.addDocuments(
+                //   event_chunks_for_semantic_search,
+                // );
 
                 // Get relevant chunks based by doing similarity search
                 const relevant_docs = await vectorStore.similaritySearch(
@@ -949,6 +977,8 @@ try {
 
             console.log(filterCondition);
             console.log(filterInput);
+            city = filterInput["city"];
+            country = filterInput["country"];
 
             // Prepare query
 
