@@ -8,10 +8,17 @@
     <link rel="stylesheet" href="/static-files/sign-in/sign-in.css" />
 
     <!-- // Google Fonts -->
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com" /> -->
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> -->
+    <!-- <link
+      href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,200..800;1,200..800&display=swap"
+      rel="stylesheet"
+    /> -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,200..800;1,200..800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,200..800;1,200..800&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
       rel="stylesheet"
     />
 
@@ -207,43 +214,7 @@
 
       <!-- Display all the relevant artists and events. -->
       <section class="display-artists-and-events">
-        <!-- Main title -->
-        <p class="main-title">
-          <label for="duration-selector-1">What's happening this</label>
-          <!-- Duration selector  -->
-          <select
-            name="duration"
-            id="duration-selector-1"
-            class="duration-selector"
-          >
-            <option value="week">week</option>
-            <option value="month">month</option>
-            <option value="year">year</option>
-          </select>
-          <svg
-            class="w-6 h-6 text-gray-800 dark:text-white down-arrow-in-main-title"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="24"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="m19 9-7 7-7-7"
-            />
-          </svg>
-
-          <!-- <span
-            ><img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFtsZlXX4D2jCImf_qiTfwcQL7O7gZi6T0MQ&s"
-              alt=""
-          /></span> -->
-        </p>
+        <p class="heading-for-music-genres-displpay">Genres</p>
         <!-- // Populate the music genres -->
         <!-- Show list of categories -->
         <section class="display-event-categories-section">
@@ -367,6 +338,44 @@
             <p class="category-name">Indie Music</p>
           </div>
         </section>
+
+        <!-- Main title -->
+        <p class="main-title">
+          <label for="duration-selector-1">What's happening this</label>
+          <!-- Duration selector  -->
+          <select
+            name="duration"
+            id="duration-selector-1"
+            class="duration-selector"
+          >
+            <option value="week">week</option>
+            <option value="month">month</option>
+            <option value="year">year</option>
+          </select>
+          <svg
+            class="w-6 h-6 text-gray-800 dark:text-white down-arrow-in-main-title"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m19 9-7 7-7-7"
+            />
+          </svg>
+
+          <!-- <span
+            ><img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFtsZlXX4D2jCImf_qiTfwcQL7O7gZi6T0MQ&s"
+              alt=""
+          /></span> -->
+        </p>
 
         <!-- ------------------------------- -->
         <!-- Featured events section  -->
