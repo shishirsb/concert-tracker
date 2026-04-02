@@ -16,6 +16,10 @@ body {
   align-items: center;
   padding-bottom: 30px;
   background: black;
+  font-family: "Nunito Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
   /* background: linear-gradient(45deg, rgb(0, 0, 0), rgb(58, 57, 57)); */
   /* url("/static-files/sign-in/images/bg-image-4-portrait.png"); */
   /* background-size: cover; */
@@ -112,6 +116,10 @@ header.page {
 .area-selector-section {
   display: flex;
   flex-direction: column;
+  font-family: "Nunito Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
   /* width: 95%; */
 }
 
@@ -144,9 +152,13 @@ header.page {
 
 /* <!-- City and Country display  --> */
 .city-country-display {
-  font:
+  /* font:
     0.8rem "Fira Sans",
-    serif;
+    serif; */
+  font-family: "Nunito Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .search-text-box-section {
@@ -243,9 +255,13 @@ header.page {
     flex-direction: column;
     /* align-items: center; */
     /* flex-direction: column; */
-    font:
+    /* font:
       1.2rem "Fira Sans",
-      serif;
+      serif; */
+    font-family: "Nunito Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
     color: white;
     width: 100%;
     /* padding: 15px; */

@@ -938,6 +938,43 @@ try {
             let filterCondition = " WHERE TRUE";
             let filterInput = {};
 
+            // myURL.searchParams.forEach((value, name) => {
+            //   if (value != "") {
+            //     console.log(name, value);
+            //     value = value.toLowerCase();
+            //     name = name.toLowerCase();
+            //     const excluded_parameters = [
+            //       "from_date",
+            //       "to_date",
+            //       "min_price",
+            //       "max_price",
+            //     ];
+            //     if (excluded_parameters.includes(name) === false) {
+            //       filterCondition =
+            //         filterCondition + ` AND lower(${name}) = @${name}`;
+            //       filterInput[name] = value;
+            //     } else if (name === "from_date") {
+            //       filterCondition =
+            //         filterCondition + ` AND mce.event_date >= @${name}`;
+            //       filterInput[name] = value;
+            //     } else if (name === "to_date") {
+            //       filterCondition =
+            //         filterCondition + ` AND mce.event_date <= @${name}`;
+            //       filterInput[name] = value;
+            //     } else if (name === "min_price") {
+            //       filterCondition =
+            //         filterCondition +
+            //         ` AND CAST(mce.price AS integer) >= @${name}`;
+            //       filterInput[name] = parseInt(value);
+            //     } else if (name === "max_price") {
+            //       filterCondition =
+            //         filterCondition +
+            //         ` AND CAST(mce.price AS integer) <= @${name}`;
+            //       filterInput[name] = parseInt(value);
+            //     }
+            //   }
+            // });
+
             myURL.searchParams.forEach((value, name) => {
               if (value != "") {
                 console.log(name, value);
@@ -950,9 +987,23 @@ try {
                   "max_price",
                 ];
                 if (excluded_parameters.includes(name) === false) {
-                  filterCondition =
-                    filterCondition + ` AND lower(${name}) = @${name}`;
-                  filterInput[name] = value;
+                  // Add an if condition to look for artist_id, category_id, and genre_id
+                  if (
+                    [
+                      "genre_id",
+                      "category_id",
+                      "genre_id",
+                      "artist_id",
+                    ].includes(name)
+                  ) {
+                    filterCondition =
+                      filterCondition + ` AND lower(mce.${name}) = @${name}`;
+                    filterInput[name] = value;
+                  } else {
+                    filterCondition =
+                      filterCondition + ` AND lower(${name}) = @${name}`;
+                    filterInput[name] = value;
+                  }
                 } else if (name === "from_date") {
                   filterCondition =
                     filterCondition + ` AND mce.event_date >= @${name}`;
@@ -1062,6 +1113,7 @@ try {
             // Extract events
 
             // Prepare query
+            // Looping through search params again to adjust column names
 
             const extract_events = db.prepare(
               `SELECT mce.event_id, mce.event_source, mce.created_at, 

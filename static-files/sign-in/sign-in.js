@@ -438,6 +438,8 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
 
       event_data = await call("/api/get-event-details", parameters);
       populate_events(event_data);
+
+      // <!-- Filter page  -->
       // Populate the languages in the filter section
       // Loop through each language from event_data
       event_data.languages.forEach((element) => {
@@ -458,7 +460,7 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
         // Loop through all the languages
         let optionElement = document.createElement("option");
         optionElement.innerText = element.category_name;
-        optionElement.value = element.category_name;
+        optionElement.value = element.category_id;
         document
           .querySelector("#categories-dropdown-filter-page")
           .appendChild(optionElement);
@@ -471,7 +473,7 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
         // Loop through all the languages
         let optionElement = document.createElement("option");
         optionElement.innerText = element.genre_name;
-        optionElement.value = element.genre_name;
+        optionElement.value = element.genre_id;
         document
           .querySelector("#music-genres-dropdown-filter-page")
           .appendChild(optionElement);
@@ -493,7 +495,7 @@ document.addEventListener("DOMContentLoaded", async (evt) => {
         // Loop through all the languages
         let optionElement = document.createElement("option");
         optionElement.innerText = element.artist_name;
-        optionElement.value = element.artist_name;
+        optionElement.value = element.artist_id;
         document
           .querySelector("#artist-dropdown-filter-page")
           .appendChild(optionElement);
@@ -738,11 +740,11 @@ document
       "select#language-dropdown-filter-page",
     ).value;
 
-    const event_category = document.querySelector(
+    const category_id = document.querySelector(
       "select#categories-dropdown-filter-page",
     ).value;
 
-    const music_genre = document.querySelector(
+    const genre_id = document.querySelector(
       "select#music-genres-dropdown-filter-page",
     ).value;
 
@@ -754,11 +756,11 @@ document
       "input#max-price-filter-page",
     ).value;
 
-    const main_artist = document.querySelector(
+    const artist_id = document.querySelector(
       "select#artist-dropdown-filter-page",
     ).value;
 
-    const content_venue = document.querySelector(
+    const event_venue = document.querySelector(
       "select#venue-dropdown-filter-page",
     ).value;
 
@@ -766,12 +768,12 @@ document
       from_date: from_date,
       to_date: to_date,
       language: language,
-      category_name: event_category,
-      music_genre: music_genre,
+      category_id: category_id,
+      genre_id: genre_id,
       min_price: min_price,
       max_price: max_price,
-      main_artist: main_artist,
-      content_venue: content_venue,
+      artist_id: artist_id,
+      event_venue: event_venue,
     };
 
     // Send a GET request
