@@ -72,7 +72,6 @@ try {
   // const select_users = db.prepare("select * from users");
   // console.log(select_users.all());
   // --------------------------------------------------------------------------
-  // Create a node server and define API endpoints.
 
   // --------------------------------------------------------------------------
   // Getting the PORT number if it is defined.
@@ -107,6 +106,7 @@ try {
   }
 
   // create_vector_store();
+  // Create a node server and define API endpoints.
 
   // Create a server
   const server = http
