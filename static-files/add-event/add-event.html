@@ -44,6 +44,7 @@
           name="artist_id"
           id="artist_id"
           class="artist_id-in-choose-or-add-artist-section"
+          required
         >
           <option value="">--Please choose an option--</option>
         </select>
@@ -111,17 +112,28 @@
         name="country"
         id="country-dropdown"
         class="country-in-add_event_form"
+        required
       >
         <option value="">--Please choose an option--</option>
       </select>
 
       <label for="state">State: </label>
-      <select name="state" id="state-dropdown" class="state-in-add_event_form">
+      <select
+        name="state"
+        id="state-dropdown"
+        class="state-in-add_event_form"
+        required
+      >
         <option value="">--Please choose an option--</option>
       </select>
 
       <label for="city">City: </label>
-      <select name="city" id="city-dropdown" class="city-in-add_event_form">
+      <select
+        name="city"
+        id="city-dropdown"
+        class="city-in-add_event_form"
+        required
+      >
         <option value="">--Please choose an option--</option>
       </select>
 
@@ -141,6 +153,7 @@
         name="event_url"
         id="event_url"
         class="event_url-in-add_event_form"
+        required
       />
 
       <!-- Select genre  -->
@@ -150,6 +163,7 @@
           name="genre_id"
           id="genre_id"
           class="genre_id-in-add_event_form"
+          required
         >
           <option value="">--Please choose an option--</option>
         </select>
@@ -167,6 +181,7 @@
           name="category_id"
           id="category_id"
           class="category_id-in-add_event_form"
+          required
         >
           <option value="">--Please choose an option--</option>
         </select>
@@ -192,6 +207,7 @@
         rows="5"
         cols="33"
         class="event_description-in-add_event_form"
+        required
       ></textarea>
 
       <label for="featured">Featured flag: </label>
