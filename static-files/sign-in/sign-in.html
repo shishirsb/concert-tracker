@@ -44,11 +44,36 @@
         <!-- Area selector outer section -->
         <section class="select-area-outer-section">
           <!-- Map location icon  -->
-          <img
+          <!-- <img
             src="https://png.pngtree.com/png-vector/20190321/ourmid/pngtree-vector-location-icon-png-image_855078.jpg"
             alt=""
             class="map-location-icon"
-          />
+          /> -->
+          <svg
+            class="w-6 h-6 text-gray-800 dark:text-white"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
+            />
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z"
+            />
+          </svg>
+
           <!-- Area selector drop-down section  -->
           <section class="area-selector-section">
             <div class="area-selector-drop-down-section">
@@ -388,28 +413,27 @@
 
           <!-- A HTML block for showing Event details -->
           <section class="event-details-display-section hidden">
-            <section class="banner-image-in-event-details-section">
-              <!-- Icons section inside banner image display section  -->
-              <section class="icons-section-in-event-details-display-section">
-                <svg
-                  class="w-6 h-6 text-gray-800 dark:text-white back-icon-in-icons-section-in-event-details-display-section"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="m15 19-7-7 7-7"
-                  />
-                </svg>
-                <!-- Heart Icon  -->
-                <!-- <svg
+            <!-- Icons section inside banner image display section  -->
+            <section class="icons-section-in-event-details-display-section">
+              <svg
+                class="w-6 h-6 text-gray-800 dark:text-white back-icon-in-icons-section-in-event-details-display-section"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m15 19-7-7 7-7"
+                />
+              </svg>
+              <!-- Heart Icon  -->
+              <!-- <svg
                   class="w-6 h-6 text-gray-800 dark:text-white heart-icon-inside-icons-section-in-event-details-section"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
@@ -427,7 +451,7 @@
                   />
                 </svg> -->
 
-                <!-- <svg
+              <!-- <svg
                   class="w-6 h-6 text-gray-800 dark:text-white"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
@@ -443,7 +467,8 @@
                     d="M7.926 10.898 15 7.727m-7.074 5.39L15 16.29M8 12a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm12 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm0-11a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"
                   />
                 </svg> -->
-              </section>
+            </section>
+            <section class="banner-image-in-event-details-section">
               <section class="section-for-photo-button">
                 <!-- Gallery button  -->
                 <!-- <svg
@@ -720,13 +745,16 @@
                   </svg> -->
                 <!-- </section> -->
               </div>
-              <span class="event-title">
-                Sitar for mental health by Rishab Rikhiram Sharma
-              </span>
-              <span class="event-date-time">Tue, 04 March, 8:00 PM</span>
-              <span class="event-address"
-                >Mahalakshmi racecourse road, Mumbai</span
-              >
+              <section class="event-details-in-card-image-in-event-card">
+                <span class="event-title">
+                  Sitar for mental health by Rishab Rikhiram Sharma </span
+                ><br />
+                <span class="event-date-time">Tue, 04 March, 8:00 PM</span
+                ><br />
+                <span class="event-address"
+                  >Mahalakshmi racecourse road, Mumbai</span
+                >
+              </section>
             </article>
             <!-- ---------------- -->
 
@@ -1156,8 +1184,12 @@
           <section class="display-categories-big-section">
             <!-- Category card (Big) -->
             <div class="category-card-big">
-              <p class="category-name-inside-category-card-big">Ghazal Night</p>
-              <p class="number-of-events-in-category">10+ Events</p>
+              <section class="metrics-section-in-category-card-big">
+                <span class="category-name-inside-category-card-big">
+                  Ghazal Night </span
+                ><br />
+                <span class="number-of-events-in-category">10+ Events</span>
+              </section>
             </div>
             <!-- -------  -->
             <!-- Category card (Big) -->

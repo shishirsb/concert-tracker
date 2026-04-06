@@ -873,11 +873,11 @@ function populate_events(event_data) {
         );
       clone_event_card
         .querySelector(".card-image")
-        .style.setProperty("background-size", `contain`);
+        .style.setProperty("background-size", `cover`);
 
       clone_event_card
         .querySelector(".card-image")
-        .style.setProperty("background-position", `center`);
+        .style.setProperty("background-position", `top`);
 
       clone_event_card
         .querySelector(".card-image")
@@ -890,7 +890,7 @@ function populate_events(event_data) {
         `${element.event_date}, ${element.event_start_time}`;
 
       clone_event_card.querySelector(".event-address").innerText =
-        `${element.event_address}`;
+        `${element.event_venue}`;
 
       // Append this element to the featured event container
       if (element.featured === 1) {
@@ -1812,8 +1812,9 @@ function populate_music_genres(event_data) {
         });
 
         // Add a white border around the genre card
-        element.style.setProperty("border", `1px solid white`);
+        element.style.setProperty("border", `1px solid black`);
         element.style.setProperty("border-radius", `10px`);
+        element.style.setProperty("background-color", `rgb(171, 167, 160)`);
 
         // get the selected genre.
         const genre = element.querySelector(".category-name").innerText;

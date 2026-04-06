@@ -15,7 +15,7 @@ body {
   flex-direction: column;
   align-items: center;
   padding-bottom: 30px;
-  background: black;
+  /* background: black; */
   font-family: "Nunito Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
@@ -24,6 +24,8 @@ body {
   /* url("/static-files/sign-in/images/bg-image-4-portrait.png"); */
   /* background-size: cover; */
   /* background-position-y: center; */
+  background-color: rgb(238, 233, 224);
+  /* color: rgb(171, 167, 160); */
 }
 
 /* ================================================================ */
@@ -96,9 +98,11 @@ main {
 /* <!-- Page Header --> */
 header.page {
   width: 100%;
-  color: #ffffff;
+  /* color: #ffffff; */
+  color: #2c2b2b;
   display: flex;
   flex-direction: column;
+  padding-top: 20px;
 }
 /* <!-- Area selector outer section --> */
 .select-area-outer-section {
@@ -142,7 +146,8 @@ header.page {
   box-shadow: none;
   appearance: none;
   background-color: transparent;
-  color: white;
+  /* color: white; */
+  color: rgb(48, 46, 46);
   /* background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFtsZlXX4D2jCImf_qiTfwcQL7O7gZi6T0MQ&s");
   background-size: 16px;
   background-repeat: no-repeat;
@@ -217,6 +222,7 @@ header.page {
   /* width: 345px; */
   width: 95%;
   align-self: center;
+  border: 1px solid rgb(41, 40, 40);
 }
 
 .search-section-with-suggestions-drop-down {
@@ -262,7 +268,8 @@ header.page {
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
-    color: white;
+    /* color: white; */
+    color: rgb(42, 41, 41);
     width: 100%;
     /* padding: 15px; */
     /* margin-left: 10px; */
@@ -312,7 +319,8 @@ header.page {
   box-shadow: none;
   appearance: none;
   background-color: transparent;
-  color: white;
+  /* color: white; */
+  color: rgb(37, 37, 37);
   /* background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFtsZlXX4D2jCImf_qiTfwcQL7O7gZi6T0MQ&s"); */
   /* background-size: 16px;
   background-repeat: no-repeat;
@@ -439,11 +447,13 @@ header.page {
 .event-cards-section-featured-events {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: start;
   overflow-x: auto;
   overflow-y: auto;
   /* max-width: 95%; */
   max-width: 100%;
+  flex-grow: 0;
+  flex-shrink: 0;
   /* height: auto; */
   /* gap: 30px; */
   /* flex-wrap: wrap; */
@@ -473,12 +483,13 @@ header.page {
   /* background-image: url("https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvcHgxMTY5NTQwLWltYWdlLWpvYjYzMC1hLWwwZzA2OGd0LmpwZw.jpg"); */
   border-radius: 20px;
   margin-left: 15px;
-  background-color: black;
-  color: white;
+  background-color: rgb(234, 228, 228);
+  /* color: white; */
   /* padding: 5px; */
   display: flex;
   flex-direction: column;
   align-items: start;
+  border: 1px solid black;
 }
 
 /* <!-- Event card icons section  --> */
@@ -507,16 +518,34 @@ header.page {
 .card-image {
   /* border-radius: 20px; */
   border: none;
-  width: 90%;
-  height: 60%;
-  aspect-ratio: 1 / 1;
+  width: 100%;
+  min-height: 150px;
+  max-height: 200px;
+  /* height: 100%; */
+  /* aspect-ratio: 1 / 1; */
+  /* aspect-ratio: auto; */
   display: flex;
   flex-direction: column;
   justify-content: end;
   align-items: start;
-  background-color: black;
+  background-color: rgb(247, 244, 244);
   align-self: center;
+  border-radius: 20px 20px 0 0;
+  /* padding-top: 100px; */
   /* background-image: url("https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvcHgxMTY5NTQwLWltYWdlLWpvYjYzMC1hLWwwZzA2OGd0LmpwZw.jpg"); */
+}
+
+.event-details-in-card-image-in-event-card {
+  background-color: rgb(247, 244, 244);
+  /* opacity: 0.9; */
+  /* padding: 10px 10px; */
+  text-align: left;
+  color: rgb(41, 40, 40);
+  border-radius: 0px 0 20px 20px;
+  padding: 5px 10px;
+  width: 90%;
+  /* height: 100%; */
+  /* border: 1px solid black; */
 }
 
 .card-heart-icon {
@@ -530,22 +559,23 @@ header.page {
 
 .event-title {
   font-size: 15px;
-  width: 80%;
-  margin: 5px;
+  width: 100%;
+  font-weight: bold;
+  /* margin: 5px; */
 }
 
 .event-date-time {
   font-size: 12px;
-  width: 80%;
-  color: #999494;
-  margin: 5px;
+  width: 100%;
+  color: #1c1c1c;
+  /* margin: 5px; */
 }
 
 .event-address {
   font-size: 12px;
-  width: 80%;
-  color: #999494;
-  margin: 5px;
+  width: 100%;
+  color: #1f1f1f;
+  /* margin: 5px; */
 }
 
 /* ----------------------------------------------------- */
@@ -582,7 +612,9 @@ header.page {
   width: 100vw;
   height: 100vh;
   z-index: 9999;
-  background-color: black;
+  /* background-color: black; */
+  background-color: rgb(238, 233, 224);
+  color: #1c1c1c;
   overflow-y: auto;
   top: 0;
   left: 0;
@@ -591,7 +623,8 @@ header.page {
 .banner-image-in-event-details-section {
   width: 100vw;
   height: 50vh;
-  background-color: black;
+  /* background-color: black; */
+  background-color: rgb(238, 233, 224);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -603,6 +636,7 @@ header.page {
   flex-direction: row;
   align-items: center;
   gap: 7px;
+  color: rgb(26, 25, 25);
 }
 
 .full-schedule-timeline-in-event-schedule-link-card {
@@ -705,6 +739,7 @@ header.page {
   width: auto;
   border-radius: 20px;
   margin: 10px;
+  color: #cccccc;
 }
 
 .artist-name-title-section {
@@ -741,12 +776,13 @@ header.page {
 .artist-details-display-page {
   width: 100%;
   height: 100vh;
-  background-color: black;
+  background-color: rgb(244, 236, 219);
   position: fixed;
   top: 0;
   left: 0;
   z-index: 9999;
   overflow-y: auto;
+  color: rgb(20, 19, 19);
 }
 
 /* <!-- Banner image display section  --> */
@@ -778,10 +814,14 @@ header.page {
   padding: 15px;
 }
 
+#artist_name-in-artist-about-section-in-artist-details-page {
+  font-weight: bold;
+}
+
 .artist-description-in-about-section {
   height: 10vh;
   overflow-y: hidden;
-  color: rgb(184, 179, 179);
+  color: rgb(31, 30, 30);
   font-size: medium;
 }
 /* <!-- Heart Icon  -->  */
@@ -799,6 +839,7 @@ header.page {
   overflow-x: auto;
   gap: 10px;
   padding: 20px;
+  color: rgb(228, 220, 220);
   /* padding: 10px; */
 }
 
@@ -838,7 +879,7 @@ header.page {
 
 .time-in-event-card-in-artist-details-section {
   font-size: small;
-  color: grey;
+  color: rgb(183, 181, 181);
 }
 
 .title-in-event-card-in-artist-details-section {
@@ -847,12 +888,12 @@ header.page {
 
 .location-in-event-card-in-artist-details-section {
   font-size: small;
-  color: grey;
+  color: rgb(209, 206, 206);
 }
 
 .price-in-event-card-in-artist-details-section {
   font-size: small;
-  color: grey;
+  color: rgb(204, 202, 202);
 }
 
 .heart-icon-inside-event-card-in-event-details-section {
@@ -875,7 +916,7 @@ header.page {
 
 .event-url-in-event-schedule-link-card {
   margin-left: 5px;
-  color: white;
+  color: rgb(138, 82, 155);
 }
 
 /* ---------------------------------------- */
@@ -940,7 +981,8 @@ header.page {
   width: 60px;
   height: 75px;
   font-size: small;
-  color: #dfdada;
+  /* color: #dfdada; */
+  color: #292828;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -969,6 +1011,13 @@ header.page {
   width: 100%;
   /* width: 1000px; */
   /* flex-wrap: wrap; */
+}
+
+.metrics-section-in-category-card-big {
+  background-color: rgb(39, 39, 39);
+  color: rgb(230, 226, 226);
+  border-radius: 20px;
+  padding: 10px;
 }
 
 /* <!-- Showcase category cards (Big) section  --> */
@@ -1020,17 +1069,17 @@ header.page {
   display: flex;
   flex-direction: column;
   align-items: start;
-  justify-content: center;
+  justify-content: end;
 }
 
 .category-name-inside-category-card-big {
   font-size: small;
-  margin-left: 20px;
+  /* margin-left: 20px; */
 }
 
 .number-of-events-in-category {
   font-size: small;
-  margin-left: 20px;
+  /* margin-left: 20px; */
 }
 
 /* <!-- All events section  --> */
@@ -1090,7 +1139,7 @@ header.page {
 
 /* <!-- Filter Card  --> */
 .filter-card span {
-  border: 1px solid white;
+  border: 1px solid rgb(25, 24, 24);
   border-radius: 20px;
   font-size: small;
   /* min-width: 60px; */
@@ -1107,12 +1156,16 @@ header.page {
 /* <!-- All events display section  -->  */
 .all-events-display-section {
   display: grid;
-  grid-template-columns: 180px 180px 180px 180px;
-  grid-template-rows: 380px 380px;
+  /* grid-template-columns: 180px 180px 180px 180px; */
+  grid-template-columns: repeat(4, 200px);
+  /* grid-template-rows: 380px 380px; */
+  grid-auto-rows: auto;
   overflow-x: auto;
   /* margin: 20px 10px; */
   gap: 20px;
   overflow-y: auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
   /* margin-left: 15px; */
 }
 /* ----------------------------------------- */
@@ -1506,7 +1559,8 @@ button.cta-sign-up {
   width: 100vw;
   height: 100vh;
   z-index: 9999;
-  background-color: black;
+  background-color: rgb(238, 233, 224);
+  color: rgb(31, 30, 30);
   overflow-y: auto;
   top: 0;
   left: 0;
@@ -1590,7 +1644,10 @@ button.cta-sign-up {
 }
 
 #clear-all-hyperlink-in-filter-page {
-  color: white;
+  color: rgb(27, 27, 27);
+  border: 1px solid black;
+  border-radius: 30px;
+  padding: 10px;
 }
 
 #apply-button-in-filter-page {
@@ -1599,6 +1656,7 @@ button.cta-sign-up {
   border: none;
   border-radius: 30px;
   width: 100px;
+  border: 1px solid black;
 }
 
 /* -------  */
