@@ -284,10 +284,14 @@ header.page {
     align-items: flex-start;
     /* flex-direction: column; */
     width: 100%;
-    font:
+    /* font:
       1.2rem "Fira Sans",
-      serif;
-    color: white;
+      serif; */
+    font-family: "Nunito Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: rgb(34, 33, 33);
   }
 }
 
