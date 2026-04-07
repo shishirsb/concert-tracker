@@ -1807,8 +1807,9 @@ function populate_music_genres(event_data) {
       element.addEventListener("click", async (evt) => {
         // Remove existing borders
         document.querySelectorAll(".category-card").forEach((card_element) => {
-          // remove border
+          // remove borders and shades
           card_element.style.setProperty("border", `none`);
+          element.style.setProperty("background-color", `none`);
         });
 
         // Add a white border around the genre card
