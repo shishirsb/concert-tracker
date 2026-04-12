@@ -928,7 +928,7 @@ function populate_events(event_data) {
           );
           banner_image.style.setProperty("background-size", `contain`);
 
-          banner_image.style.setProperty("background-position", `center`);
+          banner_image.style.setProperty("background-position", `left`);
 
           banner_image.style.setProperty("background-repeat", `no-repeat`);
 
@@ -1148,7 +1148,7 @@ function populate_artists(event_data) {
             "background-image",
             `url("${event.event_image_url}")`,
           );
-          artist_banner_image.style.setProperty("background-size", `contain`);
+          artist_banner_image.style.setProperty("background-size", `cover`);
 
           artist_banner_image.style.setProperty(
             "background-position",
@@ -1194,7 +1194,7 @@ function populate_categories(event_data) {
   // Clear existing category cards
   document.querySelector(".display-categories-big-section").innerHTML = "";
 
-  // Loop through each artist in event_data
+  // Loop through each category in event_data
   event_data.categories.forEach((element) => {
     // Get a clone of category card
     let clone_category_card = category_card.cloneNode(true);
@@ -1212,7 +1212,7 @@ function populate_categories(event_data) {
       "background-image",
       `url("${element.category_image_url}")`,
     );
-    clone_category_card.style.setProperty("background-size", `contain`);
+    clone_category_card.style.setProperty("background-size", `cover`);
 
     clone_category_card.style.setProperty("background-position", `center`);
 
@@ -1388,7 +1388,7 @@ function populate_events_in_category_details_page(event_data, category_name) {
         );
       clone_event_card
         .querySelector(".card-image")
-        .style.setProperty("background-size", `contain`);
+        .style.setProperty("background-size", `cover`);
 
       clone_event_card
         .querySelector(".card-image")
