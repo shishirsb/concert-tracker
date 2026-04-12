@@ -24,7 +24,7 @@ body {
   /* url("/static-files/sign-in/images/bg-image-4-portrait.png"); */
   /* background-size: cover; */
   /* background-position-y: center; */
-  background-color: rgb(238, 233, 224);
+  background-color: rgb(255, 253, 249);
   /* color: rgb(171, 167, 160); */
 }
 
@@ -341,6 +341,9 @@ header.page {
   .display-event-categories-section {
     display: flex;
     flex-direction: row;
+    /* display: grid;
+    grid-template-columns: repeat(20, 100px);
+    grid-template-rows: repeat(2, 100px); */
     overflow-x: auto;
     gap: 5px;
     /* max-width: 350px; */
@@ -379,6 +382,7 @@ header.page {
   align-items: center;
   flex-shrink: 0;
   padding-top: 10px;
+  /* background-color: black; */
 }
 
 .category-card p {
@@ -391,6 +395,7 @@ header.page {
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   border: #cccccc;
+  background-color: rgb(126, 122, 122);
 }
 
 /* <!-- Category name --> */
@@ -611,18 +616,54 @@ header.page {
 
 /* ----------------------------------------------------------------- */
 /* <!-- A HTML block for showing Event details --> */
-.event-details-display-section {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  z-index: 9999;
-  /* background-color: black; */
-  background-color: rgb(238, 233, 224);
-  color: #1c1c1c;
-  overflow-y: auto;
-  top: 0;
-  left: 0;
+@media (width < 480px) {
+  .event-details-display-section {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    /* background-color: black; */
+    background-color: rgb(238, 233, 224);
+    color: #1c1c1c;
+    overflow-y: auto;
+    top: 0;
+    left: 0;
+  }
 }
+
+@media (width > 480px) {
+  .event-details-display-section {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    /* background-color: black; */
+    background-color: rgb(238, 233, 224);
+    color: #1c1c1c;
+    overflow-y: auto;
+    top: 0;
+    left: 0;
+    padding-left: 50px;
+  }
+}
+
+/* @media (width > 480px) {
+  .event-details-display-section {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    background-color: rgb(238, 233, 224);
+    color: #1c1c1c;
+    overflow-y: auto;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+  }
+} */
 
 .banner-image-in-event-details-section {
   width: 100vw;
@@ -640,6 +681,14 @@ header.page {
   flex-direction: row;
   align-items: center;
   gap: 7px;
+  color: rgb(26, 25, 25);
+  justify-content: start;
+  justify-self: start;
+}
+
+.back-icon-in-icons-section-in-event-details-display-section {
+  align-self: flex-start;
+  padding: 10px;
   color: rgb(26, 25, 25);
 }
 
@@ -692,14 +741,29 @@ header.page {
   padding-top: 10px;
 }
 
-.about-event-section-in-event-details-section {
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  font:
-    1.2rem "Fira Sans",
-    sans-serif;
+@media (width < 480px) {
+  .about-event-section-in-event-details-section {
+    padding: 10px 10px;
+    /* margin-top: 10px; */
+    display: flex;
+    flex-direction: column;
+    font:
+      1.2rem "Fira Sans",
+      sans-serif;
+  }
 }
+
+/* @media (width > 480px) {
+  .about-event-section-in-event-details-section {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    font:
+      1.2rem "Fira Sans",
+      sans-serif;
+    align-items: center;
+  }
+} */
 
 .event-title-in-about-event-section {
   font-size: larger;
@@ -739,11 +803,13 @@ header.page {
   align-items: center;
   background-color: rgb(43, 42, 42);
   gap: 5px;
-  padding: 15px 5px;
-  width: auto;
+  padding: 15px 15px;
   border-radius: 20px;
   margin: 10px;
   color: #cccccc;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 300px;
 }
 
 .artist-name-title-section {
@@ -780,7 +846,7 @@ header.page {
 .artist-details-display-page {
   width: 100%;
   height: 100vh;
-  background-color: rgb(244, 236, 219);
+  background-color: rgb(255, 255, 249);
   position: fixed;
   top: 0;
   left: 0;
@@ -793,7 +859,7 @@ header.page {
 .banner-image-display-section {
   width: 100%;
   height: 50vh;
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(255, 254, 249);
   /* padding-top: 40px; */
   /* padding-left: 20px; */
   /* padding-right: 20px; */
@@ -929,19 +995,15 @@ header.page {
 @media (width < 480px) {
   .artists-display {
     display: grid;
-    grid-template-rows: 150px 150px;
-    grid-template-columns: 100px 100px 100px 100px;
-    /* display: flex; */
-    /* flex-direction: row; */
-    /* align-items: center; */
+    grid-template-columns: repeat(30, 100px);
+    grid-auto-rows: 100px;
     overflow-x: auto;
     max-width: 95vw;
-    /* gap: 7px; */
     margin: 7px 7px;
     margin-left: 15px;
     padding-bottom: 25px;
-    row-gap: 30px;
     column-gap: 10px;
+    row-gap: 55px;
   }
 }
 
@@ -950,20 +1012,12 @@ header.page {
   .artists-display {
     display: flex;
     flex-direction: row;
-    /* grid-template-rows: 100px 100px; */
-    /* grid-template-columns: 100px 100px 100px 100px; */
-    /* display: flex; */
-    /* flex-direction: row; */
-    /* align-items: center; */
     overflow-x: auto;
     max-width: 95vw;
-    /* gap: 7px; */
     margin: 7px 7px;
     margin-left: 15px;
     padding-bottom: 25px;
     gap: 20px;
-    /* row-gap: 30px; */
-    /* column-gap: 10px; */
   }
 }
 
@@ -983,7 +1037,7 @@ header.page {
 /* <!-- Artist card --> */
 .artist-image-div {
   width: 100px;
-  height: 120px;
+  height: 110px;
   font-size: small;
   /* color: #dfdada; */
   color: #292828;
@@ -1002,6 +1056,7 @@ header.page {
   width: 90%;
   aspect-ratio: 1/1;
   border-radius: 50%;
+  background-color: rgb(119, 116, 116);
 }
 /* ----------------------------------------- */
 /* <!-- Header for the Browse by category section --> */
@@ -1163,7 +1218,8 @@ header.page {
 .all-events-display-section {
   display: grid;
   /* grid-template-columns: 180px 180px 180px 180px; */
-  grid-template-columns: repeat(4, 200px);
+  grid-template-columns: repeat(20, 200px);
+  /* grid-template-rows: repeat(1, 200px); */
   /* grid-template-rows: 380px 380px; */
   grid-auto-rows: auto;
   overflow-x: auto;
