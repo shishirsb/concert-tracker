@@ -1888,6 +1888,9 @@ function edit_event_card(event_card, event) {
     .style.setProperty("background-color", `black`);
 
   event_card.querySelector(".card-image").style.setProperty("border", `none`);
+  event_card
+    .querySelector(".card-image")
+    .style.setProperty("border-radius", `20px 20px 0 0`);
   event_card.querySelector(".card-image").style.setProperty("color", `black`);
 
   event_card
@@ -1896,7 +1899,7 @@ function edit_event_card(event_card, event) {
 
   event_card
     .querySelector(".card-image")
-    .style.setProperty("background-size", `contain`);
+    .style.setProperty("background-size", `cover`);
 
   event_card
     .querySelector(".card-image")
@@ -1905,6 +1908,8 @@ function edit_event_card(event_card, event) {
   event_card
     .querySelector(".card-image")
     .style.setProperty("background-repeat", `no-repeat`);
+
+  event_card.querySelector(".card-image").style.setProperty("width", `90%`);
 
   event_card.querySelector(".event-title").innerText = event.event_title;
 
