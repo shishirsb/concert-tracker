@@ -1,0 +1,8 @@
+To start the App, run `node server.mjs` in terminal.
+
+server.mjs is the starting point. It contains all the API end points.
+
+db.db is the database file. It can be accessed by opening it in DB Browser (SQLite) desktop application (https://sqlitebrowser.org/).
+
+Web scraper:
+To extract new music events from the web, run `node web-scraper/scrape_events_and_update_db.mjs` in terminal.

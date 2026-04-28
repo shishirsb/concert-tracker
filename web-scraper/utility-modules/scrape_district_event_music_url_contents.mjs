@@ -50,10 +50,10 @@ export async function scrape_district_event_music_url_contents(url) {
     let artist_details = await extract_artist_details(event_description);
 
     // Get genre image
-    let artist_image_url = await get_artist_image(
-      artist_details.main_artist_name,
-      browser,
-    );
+    // let artist_image_url = await get_artist_image(
+    //   artist_details.main_artist_name,
+    //   browser,
+    // );
 
     // Get genre's image url
     let genre_image_url = await get_genre_image(
@@ -78,7 +78,7 @@ export async function scrape_district_event_music_url_contents(url) {
       artist_name: artist_details.main_artist_name,
       sub_artists: artist_details.sub_artists,
       artist_position: artist_details.artist_role,
-      artist_image_url: artist_image_url,
+      artist_image_url: "",
       artist_description: artist_details.describe_artist,
       category_name: artist_details.category_of_event_in_one_word,
       category_description: artist_details.describe_category,
@@ -222,44 +222,48 @@ async function extract_artist_details(event_description) {
   return artist_details;
 }
 
-async function get_artist_image(artist_name, browser) {
-  // web_browser = await open_url(
-  //   `https://en.wikipedia.org/wiki/${artist_details.main_artist_name.replace(" ", "_")}`,
-  // );
-  // page = web_browser.page;
-  // https://images.google.com/
-  // <textarea title='Search'
-  // div#search img (src)
+// async function get_artist_image(artist_name, browser) {
+//   try {
+// web_browser = await open_url(
+//   `https://en.wikipedia.org/wiki/${artist_details.main_artist_name.replace(" ", "_")}`,
+// );
+// page = web_browser.page;
+// https://images.google.com/
+// <textarea title='Search'
+// div#search img (src)
 
-  artist_image_page = await browser.newPage();
-  // let url = `https://commons.wikimedia.org/w/index.php?search=${artist_name} artist&title=Special%3AMediaSearch&type=image`;
-  let url =
-    "https://www.google.com/search?q=random&sca_esv=4bcc69982abf93aa&sxsrf=ANbL-n54uIVMh-yq7wA2J-3zXkAnZUdlNQ:1775812801019&source=hp&biw=1440&bih=650&ei=wMDYaamjPPmOvr0Puvf6oA8&iflsig=AFdpzrgAAAAAadjO0f2yGUkU1NtSaIksA80dthOrqlgd&ved=0ahUKEwipg8OZ-uKTAxV5h68BHbq7HvQQ4dUDCBc&uact=5&oq=random&gs_lp=EgNpbWciBnJhbmRvbTIFEAAYgAQyCBAAGIAEGLEDMgsQABiABBixAxiDATIIEAAYgAQYsQMyCBAAGIAEGLEDMggQABiABBixAzIIEAAYgAQYsQMyCBAAGIAEGLEDMgUQABiABDIFEAAYgARIiAxQAFjQB3AAeACQAQCYAboBoAHQBqoBAzAuNrgBA8gBAPgBAYoCC2d3cy13aXotaW1nmAIGoALxBsICDhAAGIAEGLEDGIMBGIoFmAMAkgcDMC42oAfSHbIHAzAuNrgH8QbCBwUwLjMuM8gHFIAIAA&sclient=img&udm=2";
-  await artist_image_page.goto(url);
+// artist_image_page = await browser.newPage();
+// let url = `https://commons.wikimedia.org/w/index.php?search=${artist_name} artist&title=Special%3AMediaSearch&type=image`;
+// let url =
+//   "https://www.google.com/search?q=random&sca_esv=4bcc69982abf93aa&sxsrf=ANbL-n54uIVMh-yq7wA2J-3zXkAnZUdlNQ:1775812801019&source=hp&biw=1440&bih=650&ei=wMDYaamjPPmOvr0Puvf6oA8&iflsig=AFdpzrgAAAAAadjO0f2yGUkU1NtSaIksA80dthOrqlgd&ved=0ahUKEwipg8OZ-uKTAxV5h68BHbq7HvQQ4dUDCBc&uact=5&oq=random&gs_lp=EgNpbWciBnJhbmRvbTIFEAAYgAQyCBAAGIAEGLEDMgsQABiABBixAxiDATIIEAAYgAQYsQMyCBAAGIAEGLEDMggQABiABBixAzIIEAAYgAQYsQMyCBAAGIAEGLEDMgUQABiABDIFEAAYgARIiAxQAFjQB3AAeACQAQCYAboBoAHQBqoBAzAuNrgBA8gBAPgBAYoCC2d3cy13aXotaW1nmAIGoALxBsICDhAAGIAEGLEDGIMBGIoFmAMAkgcDMC42oAfSHbIHAzAuNrgH8QbCBwUwLjMuM8gHFIAIAA&sclient=img&udm=2";
+// await artist_image_page.goto(url);
 
-  // Locate the search box <textarea title='Search'
-  let search_boxes = await artist_image_page.locator(
-    `textarea[aria-label="Search"]`,
-  );
-  await search_boxes.waitFor({ state: "visible", timeout: 5000 });
-  let search_box = search_boxes.first();
+// Locate the search box <textarea title='Search'
+// let search_boxes = await artist_image_page.locator(
+//   `textarea[aria-label="Search"]`,
+// );
+// await search_boxes.waitFor({ state: "visible", timeout: 5000 });
+// let search_box = search_boxes.first();
 
-  // Type artist name with keyword 'artist' in the text area and hit enter
-  await search_box.fill(`${artist_name} artist`);
-  await search_box.press("Enter");
+// Type artist name with keyword 'artist' in the text area and hit enter
+// await search_box.fill(`${artist_name} artist`);
+// await search_box.press("Enter");
 
-  // Check if image exists
-  let images = await artist_image_page.locator("div#search img");
-  await images.waitFor({ state: "visible", timeout: 5000 });
-  let img_count = images.count();
-  if (img_count > 0) {
-    let first_image = images.first();
-    let image_url = first_image.getAttribute("src");
-    return image_url;
-  } else {
-    return "";
-  }
-}
+// Check if image exists
+// let images = await artist_image_page.locator("div#search img");
+// await images.waitFor({ state: "visible", timeout: 5000 });
+// let img_count = images.count();
+// if (img_count > 0) {
+//   let first_image = images.first();
+//   let image_url = first_image.getAttribute("src");
+//   return image_url;
+// } else {
+//   return "";
+// }
+//   } catch (err) {
+//     console.err(err);
+//   }
+// }
 
 async function get_genre_image(genre, browser) {
   // web_browser = await open_url(

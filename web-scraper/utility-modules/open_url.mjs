@@ -1,7 +1,7 @@
 // const { chromium, firefox, webkit } = require("playwright");
 import { chromium, firefox, webkit } from "playwright";
 
-const browser = await chromium.launch({ headless: false }); // Or 'firefox' or 'webkit'.
+const browser = await chromium.launch({ headless: true }); // Or 'firefox' or 'webkit'.
 
 export async function open_url(url) {
   try {

@@ -59,8 +59,10 @@ export async function scrape_district_music_events_URLs(location) {
         // console.log(await element.getAttribute("href"));
         district_music_event_urls.push(await element.getAttribute("href"));
       }
+
+      page.close();
     }
-    page.close();
+
     // await browser.close();
     return district_music_event_urls;
   } catch (error) {
